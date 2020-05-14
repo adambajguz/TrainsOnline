@@ -1,0 +1,507 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{1C3167B2-D42C-46D5-A76C-625B59D58231}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TrainsOnline.Desktop</RootNamespace>
+    <AssemblyName>TrainsOnline.Desktop</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <PackageCertificateKeyFile>TrainsOnline.Desktop_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro">
+      <Version>3.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.10</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.3.200213001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.ComponentModel.Composition">
+      <Version>4.7.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Composition.AttributedModel">
+      <Version>1.4.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en-us\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activation\ActivationHandler.cs" />
+    <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
+    <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Constants\SettingKeys.cs" />
+    <Compile Include="Converters\AbstractEnumToBooleanConverter.cs" />
+    <Compile Include="Converters\DateTimeFormatterConverter.cs" />
+    <Compile Include="Converters\DistanceFormatterConverter.cs" />
+    <Compile Include="Converters\CurrencyFormatterConverter.cs" />
+    <Compile Include="DependencyInjection.cs" />
+    <Compile Include="Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Helpers\NavHelper.cs" />
+    <Compile Include="Helpers\PdfRenderingHelper.cs" />
+    <Compile Include="Helpers\SettingsStorageExtensions.cs" />
+    <Compile Include="Services\ActivationService.cs" />
+    <Compile Include="Activation\DefaultActivationHandler.cs" />
+    <Compile Include="Services\ConnectedAnimationService.cs" />
+    <Compile Include="Services\File\FileSavingResults.cs" />
+    <Compile Include="Services\File\FileService.cs" />
+    <Compile Include="Services\FirstRunDisplayService.cs" />
+    <Compile Include="Interfaces\IConnectedAnimationService.cs" />
+    <Compile Include="Interfaces\IFileService.cs" />
+    <Compile Include="Interfaces\ISettingsStorageService.cs" />
+    <Compile Include="Services\LocationService.cs" />
+    <Compile Include="Services\SettingsStorageService.cs" />
+    <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="ViewModels\Example\ExampleBlankViewModel.cs" />
+    <Compile Include="ViewModels\Example\ExampleContentGridDetailViewModel.cs" />
+    <Compile Include="ViewModels\Example\ExampleContentGridViewModel.cs" />
+    <Compile Include="ViewModels\Example\ExampleDataGridViewModel.cs" />
+    <Compile Include="ViewModels\Example\ExampleMapViewModel.cs" />
+    <Compile Include="ViewModels\Example\ExampleMasterDetailDetailViewModel.cs" />
+    <Compile Include="ViewModels\Example\ExampleMasterDetailViewModel.cs" />
+    <Compile Include="ViewModels\General\GeneralMapViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="Helpers\GroupInfoCollection.cs" />
+    <Compile Include="Views\ISettingsViewModel.cs" />
+    <Compile Include="ViewModels\Route\RouteDataGridViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\Station\StationMasterDetailDetailViewModel.cs" />
+    <Compile Include="ViewModels\Station\StationMasterDetailViewModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketContentGridDetailViewModel.cs" />
+    <Compile Include="ViewModels\Ticket\TicketContentGridViewModel.cs" />
+    <Compile Include="ViewModels\User\UserDetailsViewModel.cs" />
+    <Compile Include="ViewModels\User\LoginRegisterViewModel.cs" />
+    <Compile Include="Views\Example\ExampleBlankPage.xaml.cs">
+      <DependentUpon>ExampleBlankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleContentGridDetailPage.xaml.cs">
+      <DependentUpon>ExampleContentGridDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleContentGridPage.xaml.cs">
+      <DependentUpon>ExampleContentGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleDataGridPage.xaml.cs">
+      <DependentUpon>ExampleDataGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleMapPage.xaml.cs">
+      <DependentUpon>ExampleMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleMasterDetailDetail\DetailsView.xaml.cs">
+      <DependentUpon>DetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleMasterDetailDetail\MasterView.xaml.cs">
+      <DependentUpon>MasterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\ExampleMasterDetailPage.xaml.cs">
+      <DependentUpon>ExampleMasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FirstRunDialog.xaml.cs">
+      <DependentUpon>FirstRunDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\General\GeneralMapPage.xaml.cs">
+      <DependentUpon>GeneralMapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\General\IGeneralMapViewEvents.cs" />
+    <Compile Include="Views\General\IGeneralMapView.cs" />
+    <Compile Include="Views\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Example\IExampleMapView.cs" />
+    <Compile Include="Views\IShellView.cs" />
+    <Compile Include="Views\Route\IRouteDataGridView.cs" />
+    <Compile Include="Views\Route\IRouteDataGridViewEvents.cs" />
+    <Compile Include="Views\Route\RouteDataGridPage.xaml.cs">
+      <DependentUpon>RouteDataGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShellPage.xaml.cs">
+      <DependentUpon>ShellPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Station\StationMasterDetailDetail\IStationMasterDetailDetailViewEvents.cs" />
+    <Compile Include="Views\Station\StationMasterDetailDetail\DetailsView.xaml.cs">
+      <DependentUpon>DetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Station\StationMasterDetailDetail\MasterView.xaml.cs">
+      <DependentUpon>MasterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Station\StationMasterDetailPage.xaml.cs">
+      <DependentUpon>StationMasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ticket\ITicketContentGridDetailView.cs" />
+    <Compile Include="Views\Ticket\ITicketContentGridDetailViewEvents.cs" />
+    <Compile Include="Views\User\ITicketContentGridDetailViewEvents1.cs" />
+    <Compile Include="Views\Ticket\ITicketContentGridViewEvents.cs" />
+    <Compile Include="Views\Ticket\TicketContentGridDetailPage.xaml.cs">
+      <DependentUpon>TicketContentGridDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ticket\TicketContentGridPage.xaml.cs">
+      <DependentUpon>TicketContentGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\ILoginRegisterGridViewEvents.cs" />
+    <Compile Include="Views\User\UserDetailsPage.xaml.cs">
+      <DependentUpon>UserDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\LoginRegisterPage.xaml.cs">
+      <DependentUpon>LoginRegisterPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Styles\Page.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\_Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\_FontSizes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\_Thickness.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Example\ExampleBlankPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleContentGridDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleContentGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleDataGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleMapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleMasterDetailDetail\DetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleMasterDetailDetail\MasterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Example\ExampleMasterDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FirstRunDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\General\GeneralMapPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Route\RouteDataGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ShellPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Station\StationMasterDetailDetail\DetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Station\StationMasterDetailDetail\MasterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Station\StationMasterDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Ticket\TicketContentGridDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Ticket\TicketContentGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\UserDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\User\LoginRegisterPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\ResourceExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\app-header.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-100.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-125.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-150.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-200.png" />
+    <Content Include="Assets\Logo\LargeTile.scale-400.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-100.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-125.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-150.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-200.png" />
+    <Content Include="Assets\Logo\SmallTile.scale-400.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-100.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-125.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Logo\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Logo\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-100.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-125.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-150.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-200.png" />
+    <Content Include="Assets\Logo\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\Logo\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\map.png" />
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
+    <None Include="TrainsOnline.Desktop_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrainsOnline.Desktop.Application\TrainsOnline.Desktop.Application.csproj">
+      <Project>{2f315d25-584e-435d-b048-2c30dbef3cf4}</Project>
+      <Name>TrainsOnline.Desktop.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrainsOnline.Desktop.Common\TrainsOnline.Desktop.Common.csproj">
+      <Project>{d160a1dd-a1b5-4b9f-8cae-c081cbe005e0}</Project>
+      <Name>TrainsOnline.Desktop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrainsOnline.Desktop.Domain\TrainsOnline.Desktop.Domain.csproj">
+      <Project>{AF87D74C-1648-4846-9D22-1ADC5E0337D4}</Project>
+      <Name>TrainsOnline.Desktop.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrainsOnline.Desktop.Infrastructure\TrainsOnline.Desktop.Infrastructure.csproj">
+      <Project>{17fa2d04-03bd-4f12-8616-3407b62b7d33}</Project>
+      <Name>TrainsOnline.Desktop.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

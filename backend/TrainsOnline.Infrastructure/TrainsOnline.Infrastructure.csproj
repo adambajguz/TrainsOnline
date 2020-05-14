@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<LangVersion>latest</LangVersion>
+    <ProjectGuid>{CE1DF849-F9E1-45E4-854B-9FE17737D85E}</ProjectGuid>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="F23.StringSimilarity" Version="3.1.0" />
+    <PackageReference Include="GemBox.Document" Version="31.0.1175" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.1" />
+    <PackageReference Include="QRCoder" Version="1.3.9" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0-preview.3.20214.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TrainsOnline.Application\TrainsOnline.Application.csproj" />
+    <ProjectReference Include="..\TrainsOnline.Common\TrainsOnline.Common.csproj" />
+  </ItemGroup>
+
+</Project>

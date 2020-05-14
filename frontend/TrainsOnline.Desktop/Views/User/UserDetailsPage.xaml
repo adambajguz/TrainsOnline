@@ -1,0 +1,164 @@
+﻿<Page
+    x:Class="TrainsOnline.Desktop.Views.User.UserDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Column="0"
+                Margin="{StaticResource MediumLeftTopRightBottomMargin}"
+                Orientation="Vertical">
+                <TextBlock
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Foreground="OrangeRed"
+                    Text="{Binding Path=EditErrors}"
+                    TextWrapping="Wrap" />
+
+                <TextBox
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Header="e-mail:"
+                    InputScope="EmailSmtpAddress"
+                    Text="{Binding Item.Email, Mode=TwoWay}" />
+                <TextBox
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Header="name:"
+                    InputScope="PersonalFullName"
+                    Text="{Binding Item.Name, Mode=TwoWay}" />
+
+                <!--<StackPanel Margin="{StaticResource SmallTopMargin}">
+                    <TextBlock Style="{StaticResource DetailSubTitleStyle}" Text="Name" />
+                    <TextBox InputScope="PersonalFullName" Text="{Binding Item.Name, Mode=TwoWay}" />
+                </StackPanel>-->
+
+                <TextBox
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Header="surname:"
+                    InputScope="PersonalFullName"
+                    Text="{Binding Item.Surname, Mode=TwoWay}" />
+                <TextBox
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Header="phone number:"
+                    InputScope="TelephoneNumber"
+                    Text="{Binding Item.PhoneNumber, Mode=TwoWay}" />
+                <TextBox
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Header="address:"
+                    InputScope="Default"
+                    Text="{Binding Item.Address, Mode=TwoWay}" />
+
+                <StackPanel
+                    Margin="{StaticResource SmallTopMargin}"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="8,0,0,0"
+                        micro:Message.Attach="[Event Click]=[UpdateDetails()]"
+                        ToolTipService.ToolTip="Update current user">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe MDL2 Assets"
+                                Text="&#xE74E;" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="Save changes" />
+                        </StackPanel>
+                    </Button>
+                    <ProgressRing Margin="8,12,0,0" IsActive="{Binding Path=EditInProgress, Mode=OneWay}" />
+                </StackPanel>
+
+                <Button
+                    Margin="{StaticResource MediumTopMargin}"
+                    micro:Message.Attach="[Event Click]=[Logout()]"
+                    ToolTipService.ToolTip="Logout current user">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontFamily="Segoe MDL2 Assets"
+                            Text="&#xE748;" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="Logout" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                Margin="{StaticResource MediumLeftTopRightBottomMargin}"
+                Orientation="Vertical">
+                <TextBlock
+                    Margin="{StaticResource XSmallTopMargin}"
+                    Foreground="OrangeRed"
+                    Text="{Binding Path=PasswordChangeErrors, Mode=TwoWay}"
+                    TextWrapping="Wrap" />
+
+                <StackPanel Margin="{StaticResource SmallTopMargin}">
+                    <PasswordBox
+                        Margin="{StaticResource XSmallTopMargin}"
+                        Header="current password:"
+                        InputScope="Password"
+                        IsPasswordRevealButtonEnabled="False"
+                        Password="{Binding Path=CurrentPassword, Mode=TwoWay}"
+                        PasswordRevealMode="Peek"
+                        PlaceholderText="current password" />
+                </StackPanel>
+
+                <StackPanel Margin="{StaticResource SmallTopMargin}">
+                    <PasswordBox
+                        Margin="{StaticResource XSmallTopMargin}"
+                        Header="new password:"
+                        InputScope="Password"
+                        IsPasswordRevealButtonEnabled="False"
+                        Password="{Binding Path=NewPassword, Mode=TwoWay}"
+                        PasswordRevealMode="Peek"
+                        PlaceholderText="new password" />
+                </StackPanel>
+
+                <StackPanel
+                    Margin="{StaticResource SmallTopMargin}"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="8,0,0,0"
+                        micro:Message.Attach="[Event Click]=[UpdatePassword()]"
+                        ToolTipService.ToolTip="Update current user password">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                FontFamily="Segoe MDL2 Assets"
+                                Text="&#xE74E;" />
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Text="Update password" />
+                        </StackPanel>
+                    </Button>
+                    <ProgressRing Margin="8,12,0,0" IsActive="{Binding Path=PasswordChangeInProgress, Mode=OneWay}" />
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

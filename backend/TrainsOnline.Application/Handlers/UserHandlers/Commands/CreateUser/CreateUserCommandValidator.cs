@@ -1,0 +1,25 @@
+﻿namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.CreateUser
+{
+    using Application.Constants;
+    using FluentValidation;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
+
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserRequest>
+    {
+        public CreateUserCommandValidator(IPKPAppDbUnitOfWork uow)
+        {
+            RuleFor(x => x.Email).NotEmpty()
+                                 .WithMessage(ValidationMessages.Email.IsEmpty);
+            RuleFor(x => x.Email).EmailAddress()
+                                 .WithMessage(ValidationMessages.Email.HasWrongFormat);
+
+            RuleFor(x => x.Email).MustAsync(async (request, val, token) =>
+            {
+                bool checkInUse = await uow.UsersRepository.IsEmailInUseAsync(val);
+
+                return !checkInUse;
+
+            }).WithMessage(ValidationMessages.Email.IsInUse);
+        }
+    }
+}

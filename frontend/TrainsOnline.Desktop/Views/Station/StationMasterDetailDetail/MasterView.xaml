@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="TrainsOnline.Desktop.Views.Station.StationMasterDetailDetail.MasterView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    mc:Ignorable="d">
+
+    <Grid Height="60">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <FontIcon
+            Grid.Column="0"
+            VerticalAlignment="Center"
+            FontSize="32"
+            Glyph="&#xE7C0;" />
+        <StackPanel
+            Grid.Column="1"
+            Margin="{StaticResource SmallLeftMargin}"
+            VerticalAlignment="Center">
+            <TextBlock Style="{ThemeResource ListTitleStyle}" Text="{x:Bind ViewModel.Item.Name}" />
+            <!--<TextBlock Style="{StaticResource ListSubTitleStyle}" Text="{x:Bind ViewModel.Item.Id}" />-->
+        </StackPanel>
+    </Grid>
+</UserControl>

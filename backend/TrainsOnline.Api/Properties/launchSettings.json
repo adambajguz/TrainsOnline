@@ -1,0 +1,55 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:52355",
+      "sslPort": 44343
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "TrainsOnline.Api": {
+      "commandName": "Project",
+      "commandLineArgs": "--h",
+      "launchBrowser": true,
+      "launchUrl": "api",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:2138;http://localhost:2137"
+    },
+    "TrainsOnline.Api --ef-migrate": {
+      "commandName": "Project",
+      "commandLineArgs": "--ef-migrate",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "TrainsOnline.Api --ef-migrate-check": {
+      "commandName": "Project",
+      "commandLineArgs": "--ef-migrate-check",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "TrainsOnline.Api --run": {
+      "commandName": "Project",
+      "commandLineArgs": "--run",
+      "launchBrowser": true,
+      "launchUrl": "api",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:2138;http://localhost:2137"
+    }
+  }
+}

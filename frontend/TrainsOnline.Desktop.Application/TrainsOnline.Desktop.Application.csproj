@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>TrainsOnline.Desktop.Application</RootNamespace>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+
+   <ItemGroup>
+     <PackageReference Include="AutoMapper" Version="9.0.0" />
+     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
+     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\TrainsOnline.Desktop.Common\TrainsOnline.Desktop.Common.csproj" />
+     <ProjectReference Include="..\TrainsOnline.Desktop.Domain\TrainsOnline.Desktop.Domain.csproj" />
+   </ItemGroup>
+</Project>

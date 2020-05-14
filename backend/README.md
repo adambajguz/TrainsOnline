@@ -37,10 +37,8 @@ Follow these steps to get your development environment set up:
 
 This project is licensed under the MIT License
 
-System rezerwacji biletów kolejowych
-Wymagania funkcjonalne:
-1. Baza tras (Miasto od , Miasto do, dzień, godzina)
-2. Wyszukiwanie lotów
-3. Kupno biletu, 
-4. Odbiór potwierdzenia kupna w formacie PDF
-5. Sprawdzenie rezerwacji na podstawie podanego numeru
+## JWT Key Generation
+
+```
+node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
+```

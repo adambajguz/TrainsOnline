@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<LangVersion>latest</LangVersion>
+    <ProjectGuid>{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}</ProjectGuid>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrainsOnline.Common\TrainsOnline.Common.csproj" />
+    <ProjectReference Include="..\TrainsOnline.Domain.Abstractions\TrainsOnline.Domain.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

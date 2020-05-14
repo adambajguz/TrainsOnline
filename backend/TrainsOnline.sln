@@ -1,0 +1,132 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Common", "TrainsOnline.Common\TrainsOnline.Common.csproj", "{C1390FFD-22CF-42E7-B5DB-F627181631CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5E87A342-37A8-4458-AD8D-F9511E771A17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{BF383146-B70C-49AE-8524-7DCB948ED1CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EEEEF0AB-4CB8-4767-9204-E6AB71481FFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{50ECBFBC-DE20-44C5-8F9A-78BE60BD73D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{5A568ABF-C3B9-4EAD-8E09-3BC04B05353F}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+		global.json = global.json
+		TrainsOnline.sln.licenseheader = TrainsOnline.sln.licenseheader
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{0E5E4D60-EAAB-4F62-9BD0-A886013648F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A6D2925B-CE1C-45F7-81C2-1AF6A306BAF4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Application", "TrainsOnline.Application\TrainsOnline.Application.csproj", "{9AAF2D8F-7037-41C9-9239-37086C7C4021}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Domain", "TrainsOnline.Domain\TrainsOnline.Domain.csproj", "{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{5FF5201F-A69F-43D0-B902-D99D1E8406E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{952CEA84-CAA9-41EF-A657-F2E04B983D8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Infrastructure", "TrainsOnline.Infrastructure\TrainsOnline.Infrastructure.csproj", "{CE1DF849-F9E1-45E4-854B-9FE17737D85E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Persistence", "TrainsOnline.Persistence\TrainsOnline.Persistence.csproj", "{512348C8-A95B-4D7F-BD35-525A09192E25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Api", "TrainsOnline.Api\TrainsOnline.Api.csproj", "{D46991C6-E716-4F36-B3CD-3096828C1CD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Domain.Abstractions", "TrainsOnline.Domain.Abstractions\TrainsOnline.Domain.Abstractions.csproj", "{5AD9FF81-2602-49EE-8721-6674C8DB73F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Debug|x64.ActiveCfg = Debug|x64
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Debug|x64.Build.0 = Debug|x64
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Debug|x86.ActiveCfg = Debug|x86
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Debug|x86.Build.0 = Debug|x86
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Release|x64.ActiveCfg = Release|x64
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Release|x64.Build.0 = Release|x64
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Release|x86.ActiveCfg = Release|x86
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE}.Release|x86.Build.0 = Release|x86
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Debug|x64.ActiveCfg = Debug|x64
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Debug|x64.Build.0 = Debug|x64
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Debug|x86.ActiveCfg = Debug|x86
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Debug|x86.Build.0 = Debug|x86
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Release|x64.ActiveCfg = Release|x64
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Release|x64.Build.0 = Release|x64
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Release|x86.ActiveCfg = Release|x86
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021}.Release|x86.Build.0 = Release|x86
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Debug|x64.ActiveCfg = Debug|x64
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Debug|x64.Build.0 = Debug|x64
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Debug|x86.ActiveCfg = Debug|x86
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Debug|x86.Build.0 = Debug|x86
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Release|x64.ActiveCfg = Release|x64
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Release|x64.Build.0 = Release|x64
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Release|x86.ActiveCfg = Release|x86
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17}.Release|x86.Build.0 = Release|x86
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Debug|x64.ActiveCfg = Debug|x64
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Debug|x64.Build.0 = Debug|x64
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Debug|x86.ActiveCfg = Debug|x86
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Debug|x86.Build.0 = Debug|x86
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Release|x64.ActiveCfg = Release|x64
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Release|x64.Build.0 = Release|x64
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Release|x86.ActiveCfg = Release|x86
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E}.Release|x86.Build.0 = Release|x86
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Debug|x64.ActiveCfg = Debug|x64
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Debug|x64.Build.0 = Debug|x64
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Debug|x86.ActiveCfg = Debug|x86
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Debug|x86.Build.0 = Debug|x86
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Release|x64.ActiveCfg = Release|x64
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Release|x64.Build.0 = Release|x64
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Release|x86.ActiveCfg = Release|x86
+		{512348C8-A95B-4D7F-BD35-525A09192E25}.Release|x86.Build.0 = Release|x86
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Debug|x64.ActiveCfg = Debug|x64
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Debug|x64.Build.0 = Debug|x64
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Debug|x86.ActiveCfg = Debug|x86
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Debug|x86.Build.0 = Debug|x86
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Release|x64.ActiveCfg = Release|x64
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Release|x64.Build.0 = Release|x64
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Release|x86.ActiveCfg = Release|x86
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8}.Release|x86.Build.0 = Release|x86
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Debug|x64.ActiveCfg = Debug|x64
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Debug|x64.Build.0 = Debug|x64
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Debug|x86.ActiveCfg = Debug|x86
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Debug|x86.Build.0 = Debug|x86
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Release|x64.ActiveCfg = Release|x64
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Release|x64.Build.0 = Release|x64
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Release|x86.ActiveCfg = Release|x86
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1390FFD-22CF-42E7-B5DB-F627181631CE} = {5E87A342-37A8-4458-AD8D-F9511E771A17}
+		{5E87A342-37A8-4458-AD8D-F9511E771A17} = {0E5E4D60-EAAB-4F62-9BD0-A886013648F1}
+		{BF383146-B70C-49AE-8524-7DCB948ED1CA} = {0E5E4D60-EAAB-4F62-9BD0-A886013648F1}
+		{EEEEF0AB-4CB8-4767-9204-E6AB71481FFF} = {BF383146-B70C-49AE-8524-7DCB948ED1CA}
+		{50ECBFBC-DE20-44C5-8F9A-78BE60BD73D4} = {0E5E4D60-EAAB-4F62-9BD0-A886013648F1}
+		{9AAF2D8F-7037-41C9-9239-37086C7C4021} = {5FF5201F-A69F-43D0-B902-D99D1E8406E9}
+		{1595EE0A-3011-40B8-A992-7D6CCB7ABE17} = {952CEA84-CAA9-41EF-A657-F2E04B983D8B}
+		{5FF5201F-A69F-43D0-B902-D99D1E8406E9} = {BF383146-B70C-49AE-8524-7DCB948ED1CA}
+		{952CEA84-CAA9-41EF-A657-F2E04B983D8B} = {BF383146-B70C-49AE-8524-7DCB948ED1CA}
+		{CE1DF849-F9E1-45E4-854B-9FE17737D85E} = {EEEEF0AB-4CB8-4767-9204-E6AB71481FFF}
+		{512348C8-A95B-4D7F-BD35-525A09192E25} = {EEEEF0AB-4CB8-4767-9204-E6AB71481FFF}
+		{D46991C6-E716-4F36-B3CD-3096828C1CD8} = {50ECBFBC-DE20-44C5-8F9A-78BE60BD73D4}
+		{5AD9FF81-2602-49EE-8721-6674C8DB73F3} = {952CEA84-CAA9-41EF-A657-F2E04B983D8B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FEE34079-159B-49A1-87E6-C94969EE6487}
+	EndGlobalSection
+EndGlobal

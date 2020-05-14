@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="TrainsOnline.Desktop.Views.General.GeneralMapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:TrainsOnline.Desktop.Behaviors"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:micro="using:Caliburn.Micro"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+
+    <Grid>
+
+        <maps:MapControl
+            x:Name="Map"
+            Center="{x:Bind ViewModel.Center, Mode=TwoWay}"
+            MapServiceToken="{x:Bind ViewModel.MapServiceToken, Mode=OneWay}"
+            ZoomLevel="{x:Bind ViewModel.ZoomLevel, Mode=TwoWay}" />
+        <CommandBar
+            DefaultLabelPosition="Right"
+            IsOpen="False"
+            IsSticky="False"
+            Opacity="0.8">
+            <AppBarButton
+                micro:Message.Attach="[Event Click]=[ResetView()]"
+                Icon="MapPin"
+                Label="Reset view"
+                ToolTipService.ToolTip="Reset view" />
+            <AppBarButton
+                micro:Message.Attach="[Event Click]=[ZoomOut()]"
+                Icon="ZoomOut"
+                Label=""
+                ToolTipService.ToolTip="Zoom out" />
+            <AppBarButton
+                micro:Message.Attach="[Event Click]=[ResetZoom()]"
+                Icon="Zoom"
+                Label=""
+                ToolTipService.ToolTip="Reset zoom" />
+            <AppBarButton
+                micro:Message.Attach="[Event Click]=[ZoomIn()]"
+                Icon="ZoomIn"
+                Label=""
+                ToolTipService.ToolTip="Zoom in" />
+        </CommandBar>
+    </Grid>
+</Page>

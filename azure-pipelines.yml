@@ -1,0 +1,44 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    timeoutInMinutes: 4
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    variables:
+      buildConfiguration: 'Release'
+    continueOnError: false
+    steps:
+    - task: DotNetCoreInstaller@0
+      displayName: Install .NET Core SDK 3.1.201
+      name: install_dotnetcore_sdk
+      enabled: "true"
+      inputs:
+        packageType: 'sdk'
+        version: 3.1.201
+
+    - script: dotnet build --configuration $(buildConfiguration)
+      workingDirectory: $(Build.SourcesDirectory)/backend/
+      displayName: 'dotnet build'
+
+    - script: dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)
+      workingDirectory: $(Build.SourcesDirectory)/backend/
+      displayName: 'dotnet publish'
+
+    # - script: dotnet test ./GenericApi.Test/GenericApi.Test.csproj /p:Exclude="[xunit*]*"
+    #   displayName: 'Run unit tests'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'GenericAPIDeployArtifact'
+        publishLocation: 'Container'
+
