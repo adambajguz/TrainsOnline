@@ -4,10 +4,12 @@
     using MongoDB.Driver;
     using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Domain.Entities;
+    using TrainsOnline.Persistence.Extensions;
 
     public class TrainsOnlineDbContext : ITrainsOnlineDbContext
     {
         private MongoClient MongoDbClient { get; }
+        private IMongoDatabase Db { get; }
 
         public TrainsOnlineDbContext(IOptions<DatabaseSettings> options)
         {
@@ -22,15 +24,12 @@
                 throw new System.ArgumentNullException(nameof(options));
 
             MongoDbClient = new MongoClient(connectionString);
-
-            var collectionName = "Users";
-            var database = MongoDbClient.GetDatabase(databaseName);
-            Users = database.GetCollection<User>(collectionName);
+            Db = MongoDbClient.GetDatabase(databaseName);
         }
 
-        public IMongoCollection<Route> Routes { get; set; } = default!;
-        public IMongoCollection<Station> Stations { get; set; } = default!;
-        public IMongoCollection<Ticket> Tickets { get; set; } = default!;
-        public IMongoCollection<User> Users { get; set; } = default!;
+        public IMongoCollection<Route> Routes => Db.GetCollection<Route>();
+        public IMongoCollection<Station> Stations => Db.GetCollection<Station>();
+        public IMongoCollection<Ticket> Tickets => Db.GetCollection<Ticket>();
+        public IMongoCollection<User> Users => Db.GetCollection<User>();
     }
 }

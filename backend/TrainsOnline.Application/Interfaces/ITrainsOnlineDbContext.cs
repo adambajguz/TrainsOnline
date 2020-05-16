@@ -5,9 +5,9 @@
 
     public interface ITrainsOnlineDbContext : IGenericDatabaseContext
     {
-        IMongoCollection<Route> Routes { get; set; }
-        IMongoCollection<Station> Stations { get; set; }
-        IMongoCollection<Ticket> Tickets { get; set; }
-        IMongoCollection<User> Users { get; set; }
+        IMongoCollection<Route> Routes { get; }
+        IMongoCollection<Station> Stations { get; }
+        IMongoCollection<Ticket> Tickets { get; }
+        IMongoCollection<User> Users { get; }
     }
 }
