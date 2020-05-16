@@ -137,17 +137,17 @@
             return await GetQueryable(filter).AnyAsync();
         }
 
-        public virtual List<T> ProjectTo<T>(Expression<Func<TEntity, bool>>? filter = null,
-                                                             CancellationToken cancellationToken = default)
+        public virtual async Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null,
+                                                       CancellationToken cancellationToken = default)
         {
-            return GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList();
+            return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList());
         }
 
         public virtual async Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
                                                                                     Expression<Func<TEntity, bool>>? filter = null,
                                                                                     CancellationToken cancellationToken = default)
         {
-            return GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList();
+            return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList());
 
             //return await GetQueryable(filter).Include(relatedSelector0)
             //                                 .ProjectTo<T>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
@@ -158,7 +158,7 @@
                                                                                                 Expression<Func<TEntity, bool>>? filter = null,
                                                                                                 CancellationToken cancellationToken = default)
         {
-            return GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList();
+            return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList());
 
             //return await GetQueryable(filter).Include(relatedSelector0)
             //                                          .Include(relatedSelector1)
@@ -171,7 +171,7 @@
                                                                                                 CancellationToken cancellationToken = default,
                                                                                                 params Expression<Func<TEntity, object>>[] relatedSelectors)
         {
-            return GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList();
+            return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList());
 
             //IMongoQueryable<TEntity> expr = GetQueryable(filter).Include(relatedSelector0)
             //                                                    .Include(relatedSelector1);

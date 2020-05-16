@@ -38,7 +38,7 @@
         {
             if (!IsDisposed && disposing)
             {
-                Context.Dispose();
+                //Context.Dispose();
                 Repositories.Clear();
             }
 
@@ -90,12 +90,12 @@
 
         public virtual int SaveChanges()
         {
-            return Context.SaveChanges();
+            return 1; //Context.SaveChanges();
         }
 
         public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            return await Context.SaveChangesAsync(cancellationToken);
+            return await Task.Run(() => 1); // await Context.SaveChangesAsync(cancellationToken);
         }
     }
 }

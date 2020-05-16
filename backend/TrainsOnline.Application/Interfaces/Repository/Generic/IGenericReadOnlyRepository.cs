@@ -44,8 +44,8 @@
 
         Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        List<T> ProjectTo<T>(Expression<Func<TEntity, bool>>? filter = null,
-                             CancellationToken cancellationToken = default);
+        Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null,
+                                        CancellationToken cancellationToken = default);
         Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
                                                                Expression<Func<TEntity, bool>>? filter = null,
                                                                CancellationToken cancellationToken = default);

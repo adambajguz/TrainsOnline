@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.CreateStati
                 await new CreateStationCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 Station entity = _mapper.Map<Station>(data);
-                _uow.StationsRepository.Add(entity);
+                await _uow.StationsRepository.AddAsync(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
