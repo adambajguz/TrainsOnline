@@ -18,9 +18,6 @@
             if (GlobalAppConfig.DEV_MODE)
                 app.AddSpecialPage<RegisteredServicesPage>(environment, services);
 
-            app.AddSpecialPage<SoapEndpointsPage>(environment, services);
-
-            // Register Development and Production pages
             // Register Development and Production pages
 
             return app;

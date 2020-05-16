@@ -24,7 +24,6 @@
             public static string SwaggerRoute { get; } = "api";
             public static string SwaggerStartupUrl { get; } = $"/{SwaggerRoute}/{SwaggerDocumentName}/swagger.json";
             public static string RestApiUrl { get; } = $"/{SwaggerRoute}";
-            public static string SoapApiUrl { get; } = "/soap-api";
             public static string SwaggerUrl { get; } = $"/{SwaggerRoute}/index.html";
             public static string ReDocRoute { get; } = $"{SwaggerRoute}/redoc";
             public static string ReDocUrl { get; } = $"/{ReDocRoute}/index.html";
@@ -39,7 +38,6 @@
                                                            @$"ReDoc can be accessed through {ReDocUrl}\n" +
                                                            "\n" +
                                                            @$"REST API base url is {RestApiUrl}\n" +
-                                                           @$"SOAP API base url and docs is {SoapApiUrl}\n" +
                                                            "\n" +
                                                            @$"App health can be checked under {HealthUrl}\n";
 
@@ -53,7 +51,6 @@
                                                                @$"ReDoc can be accessed through <a href=""{ReDocUrl}"">{ReDocUrl}</a><br>" +
                                                                @$"<br>" +
                                                                @$"REST API base url is <a href=""{RestApiUrl}"">{RestApiUrl}</a><br>" +
-                                                               @$"SOAP API base url and docs <a href=""{SoapApiUrl}"">{SoapApiUrl}</a><br>" +
                                                                @$"<br>" +
                                                                @$"App health can be checked under <a href=""{HealthUrl}"">{HealthUrl}</a><br>" +
                                                                "</p>";

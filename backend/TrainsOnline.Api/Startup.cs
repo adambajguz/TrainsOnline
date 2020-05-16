@@ -16,7 +16,6 @@ namespace TrainsOnline.Api
     using Serilog;
     using TrainsOnline.Api.Configuration;
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
-    using TrainsOnline.Api.SoapEndpoints.Core;
     using TrainsOnline.Api.SpecialPages.Core;
     using TrainsOnline.Common;
     using TrainsOnline.Persistence.DbContext;
@@ -54,8 +53,7 @@ namespace TrainsOnline.Api
             services.AddInfrastructureContent(Configuration)
                     .AddPersistenceContent(Configuration)
                     .AddApplicationContent()
-                    .AddRestApi()
-                    .AddSoapApiServices();
+                    .AddRestApi();
 
             services.AddHealthChecks()
                     .AddDbContextCheck<PKPAppDbContext>();
@@ -81,7 +79,6 @@ namespace TrainsOnline.Api
             {
                 //endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
-                endpoints.MapSoapServices();
             });
 
             if (GlobalAppConfig.DEV_MODE)
