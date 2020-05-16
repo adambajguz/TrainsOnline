@@ -19,20 +19,6 @@
             set => Set(ref _elementTheme, value);
         }
 
-        private WebApiTypes _webApiType = WebApiTypes.SOAP;
-        public WebApiTypes WebApiType
-        {
-            get => _webApiType;
-            set => Set(ref _webApiType, value);
-        }
-
-        private bool _useRestApi;
-        public bool UseRestApi
-        {
-            get => _useRestApi;
-            set => Set(ref _useRestApi, value);
-        }
-
         private bool _useLocalApi;
         public bool UseLocalApi
         {
@@ -65,16 +51,9 @@
 
             VersionDescription = GetVersionDescription();
 
-            string apiType = await SettingsStorage.LoadFromSettingsAsync(SettingKeys.ApiUseRestSettingKey);
             string apiUrltype = await SettingsStorage.LoadFromSettingsAsync(SettingKeys.ApiUseLocalSettingKey);
-
-            bool.TryParse(apiType, out bool useRestApi);
             bool.TryParse(apiUrltype, out bool useLocalApi);
-
-            _useRestApi = useRestApi;
             _useLocalApi = useLocalApi;
-
-            RemoteDataProvider.ApiType = useRestApi ? WebApiTypes.REST : WebApiTypes.SOAP;
             RemoteDataProvider.UseLocalUrl = useLocalApi;
 
             Refresh();
@@ -98,24 +77,6 @@
                 return;
 
             await ThemeSelectorService.SetThemeAsync(theme);
-        }
-
-        public void SwitchApiVersion(WebApiTypes apiType)
-        {
-            if (DontFireEvents)
-                return;
-
-            RemoteDataProvider.ApiType = apiType;
-        }
-
-        public async void SwitchApi()
-        {
-            if (DontFireEvents)
-                return;
-
-            bool value = UseRestApi;
-            RemoteDataProvider.ApiType = value ? WebApiTypes.REST : WebApiTypes.SOAP;
-            await SettingsStorage.SaveInSettingsAsync(SettingKeys.ApiUseRestSettingKey, value.ToString());
         }
 
         public async void SwitchApiUrl()

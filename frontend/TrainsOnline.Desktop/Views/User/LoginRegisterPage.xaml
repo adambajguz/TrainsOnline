@@ -35,7 +35,6 @@
                             Margin="{StaticResource XSmallTopMargin}"
                             Header="password:"
                             InputScope="Password"
-                            IsPasswordRevealButtonEnabled="False"
                             Password="{Binding Path=LoginPassword, Mode=TwoWay}"
                             PasswordRevealMode="Peek"
                             PlaceholderText="password" />
@@ -68,7 +67,6 @@
                             Margin="{StaticResource XSmallTopMargin}"
                             Header="password:"
                             InputScope="Password"
-                            IsPasswordRevealButtonEnabled="False"
                             Password="{Binding Path=RegisterPassword, Mode=TwoWay}"
                             PasswordRevealMode="Peek"
                             PlaceholderText="password" />

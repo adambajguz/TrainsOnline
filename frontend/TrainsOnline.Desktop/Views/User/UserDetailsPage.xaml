@@ -117,7 +117,6 @@
                         Margin="{StaticResource XSmallTopMargin}"
                         Header="current password:"
                         InputScope="Password"
-                        IsPasswordRevealButtonEnabled="False"
                         Password="{Binding Path=CurrentPassword, Mode=TwoWay}"
                         PasswordRevealMode="Peek"
                         PlaceholderText="current password" />
@@ -128,7 +127,6 @@
                         Margin="{StaticResource XSmallTopMargin}"
                         Header="new password:"
                         InputScope="Password"
-                        IsPasswordRevealButtonEnabled="False"
                         Password="{Binding Path=NewPassword, Mode=TwoWay}"
                         PasswordRevealMode="Peek"
                         PlaceholderText="new password" />

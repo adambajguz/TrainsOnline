@@ -20,14 +20,12 @@
 
         private IMapper Mapper { get; set; }
 
-        public WebApiTypes ApiType { get; set; }
         public bool UseLocalUrl
         {
             get => useLocalUrl;
             set
             {
                 useLocalUrl = value;
-                SoapProvider.UseLocalUrl = value;
                 RestProvider.UseLocalUrl = value;
             }
         }
@@ -38,23 +36,20 @@
             get => token; private set
             {
                 token = value;
-                SoapProvider.SetToken(value);
                 RestProvider.SetToken(value);
             }
         }
 
         private JwtTokenHelper JwtHelper { get; }
-        private SoapDataProvider SoapProvider { get; }
         private RestDataProvider RestProvider { get; }
 
-        private IDataProvider DataProvider => (ApiType == WebApiTypes.SOAP ? (IDataProvider)SoapProvider : RestProvider);
+        private IDataProvider DataProvider => RestProvider;
 
         public RemoteDataProviderService(IMapper mapper)
         {
             Mapper = mapper;
 
             JwtHelper = new JwtTokenHelper();
-            SoapProvider = new SoapDataProvider();
             RestProvider = new RestDataProvider();
         }
 

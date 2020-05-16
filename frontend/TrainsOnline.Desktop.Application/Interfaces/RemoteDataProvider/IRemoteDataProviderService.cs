@@ -5,7 +5,6 @@
 
     public interface IRemoteDataProviderService : IUserData, IStationData, IRouteData, ITicketData
     {
-        WebApiTypes ApiType { get; set; }
         bool UseLocalUrl { get; set; }
 
         #region User
