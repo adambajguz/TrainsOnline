@@ -38,7 +38,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.UpdateStati
                 await new UpdateStationCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, station);
-                _uow.StationsRepository.Update(station);
+                await _uow.StationsRepository.UpdateAsync(station);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

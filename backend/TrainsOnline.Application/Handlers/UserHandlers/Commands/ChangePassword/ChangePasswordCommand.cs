@@ -42,7 +42,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.ChangePassword
 
                 await _userManager.SetPassword(user, data.NewPassword, cancellationToken);
 
-                _uow.UsersRepository.Update(user);
+                await _uow.UsersRepository.UpdateAsync(user);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

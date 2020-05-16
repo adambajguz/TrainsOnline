@@ -39,7 +39,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
                 await new EntityRequestByIdValidator<Ticket>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
                 await _drs.ValidateUserId(ticket, x => x.UserId);
 
-                _uow.TicketsRepository.Remove(ticket);
+                await _uow.TicketsRepository.RemoveAsync(ticket);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

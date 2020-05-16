@@ -35,7 +35,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.DeleteStati
                 EntityRequestByIdValidator<Station>.Model validationModel = new EntityRequestByIdValidator<Station>.Model(data, station);
                 await new EntityRequestByIdValidator<Station>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
-                _uow.StationsRepository.Remove(station);
+                await _uow.StationsRepository.RemoveAsync(station);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

@@ -42,7 +42,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.UpdateTicket
                 await _drs.ValidateUserId(ticket, x => x.UserId);
 
                 _mapper.Map(data, ticket);
-                _uow.TicketsRepository.Update(ticket);
+                await _uow.TicketsRepository.UpdateAsync(ticket);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

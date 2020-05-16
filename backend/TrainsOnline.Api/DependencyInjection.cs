@@ -1,7 +1,6 @@
 ﻿namespace TrainsOnline.Api
 {
     using System.IO.Compression;
-    using System.Text.Json;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.ResponseCompression;

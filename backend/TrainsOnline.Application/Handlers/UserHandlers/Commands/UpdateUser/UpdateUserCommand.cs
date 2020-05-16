@@ -45,7 +45,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
                 await new UpdateUserCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, user);
-                _uow.UsersRepository.Update(user);
+                await _uow.UsersRepository.UpdateAsync(user);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

@@ -1,7 +1,5 @@
 ﻿namespace TrainsOnline.Common
 {
-    using System.Runtime.InteropServices;
-
     public static partial class GlobalAppConfig
     {
         public const bool DEV_MODE_SW = true;

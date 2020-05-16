@@ -38,7 +38,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute
                 await new UpdateRouteCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, route);
-                _uow.RoutesRepository.Update(route);
+                await _uow.RoutesRepository.UpdateAsync(route);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

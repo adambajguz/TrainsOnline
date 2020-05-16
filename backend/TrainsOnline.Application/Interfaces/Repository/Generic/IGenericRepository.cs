@@ -7,12 +7,9 @@
     public interface IGenericRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
-        TEntity Add(TEntity entity);
-
-        void Update(TEntity entity);
-
-        Task Remove(Guid id);
-
-        void Remove(TEntity entity);
+        Task<TEntity> AddAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task RemoveAsync(Guid id);
+        Task RemoveAsync(TEntity entity);
     }
 }

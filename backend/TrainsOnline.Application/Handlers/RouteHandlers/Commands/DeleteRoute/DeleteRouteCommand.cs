@@ -35,7 +35,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
                 EntityRequestByIdValidator<Route>.Model validationModel = new EntityRequestByIdValidator<Route>.Model(data, route);
                 await new EntityRequestByIdValidator<Route>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
-                _uow.RoutesRepository.Remove(route);
+                await _uow.RoutesRepository.RemoveAsync(route);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

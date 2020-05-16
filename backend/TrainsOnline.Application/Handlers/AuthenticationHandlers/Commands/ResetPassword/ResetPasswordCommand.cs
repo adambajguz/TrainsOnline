@@ -47,7 +47,7 @@
                 await new ResetPasswordCommandValidator().ValidateAndThrowAsync(validationData, cancellationToken: cancellationToken);
                 await _userManager.SetPassword(user, data.Password, cancellationToken);
 
-                _uow.UsersRepository.Update(user);
+                await _uow.UsersRepository.UpdateAsync(user);
                 await _uow.SaveChangesAsync();
 
                 return Unit.Value;
