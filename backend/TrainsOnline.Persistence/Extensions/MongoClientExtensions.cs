@@ -8,7 +8,7 @@
         public static IMongoCollection<T> GetCollection<T>(this IMongoDatabase mongoDatabase, MongoCollectionSettings? mongoCollectionSettings = null)
            where T : class
         {
-            string collectionName = nameof(T).Pluralize();
+            string collectionName = typeof(T).Name.Pluralize();
 
             return mongoDatabase.GetCollection<T>(collectionName, mongoCollectionSettings);
         }

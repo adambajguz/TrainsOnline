@@ -24,6 +24,6 @@
 
         public bool IsAdmin { get; set; }
 
-        public ICollection<Ticket> Tickets { get; set; } = default!;
+        public List<Ticket> Tickets { get; set; } = default!;
     }
 }
