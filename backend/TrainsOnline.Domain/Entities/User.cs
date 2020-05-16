@@ -2,10 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class User : IBaseEntity, IEntityInfo, IAuditableEntitiy
+    public class User : IBaseEntity, IEntityInfo
     {
         public Guid Id { get; set; }
 
@@ -16,7 +15,6 @@
 
         public string Email { get; set; } = default!;
 
-        [AuditIgnore]
         public string Password { get; set; } = default!;
 
         public string Name { get; set; } = default!;

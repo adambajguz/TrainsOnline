@@ -18,7 +18,7 @@ namespace TrainsOnline.Api
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
     using TrainsOnline.Api.SpecialPages.Core;
     using TrainsOnline.Common;
-    using TrainsOnline.Persistence.DbContext;
+    using TrainsOnline.Infrastructure.CrossCutting;
 
     //TODO add api key
     public class Startup
@@ -50,13 +50,14 @@ namespace TrainsOnline.Api
             //    typeof(Application.Content.DependencyInjection).GetTypeInfo().Assembly
             //    });
 
-            services.AddInfrastructureContent(Configuration)
-                    .AddPersistenceContent(Configuration)
-                    .AddApplicationContent()
+            services.AddInfrastructureCrossCuttingLayer()
+                    .AddInfrastructureLayer(Configuration)
+                    .AddPersistenceLayer()
+                    .AddApplicationLayer()
                     .AddRestApi();
 
-            services.AddHealthChecks()
-                    .AddDbContextCheck<PKPAppDbContext>();
+            services.AddHealthChecks();
+            //.AddMongoDb();
 
             _services = services;
         }

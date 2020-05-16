@@ -10,7 +10,6 @@
     using Application.Interfaces.Repository.Generic;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using Microsoft.EntityFrameworkCore;
     using TrainsOnline.Domain.Abstractions.Base;
 
     public class GenericReadOnlyRepository<TEntity> : IGenericReadOnlyRepository<TEntity>

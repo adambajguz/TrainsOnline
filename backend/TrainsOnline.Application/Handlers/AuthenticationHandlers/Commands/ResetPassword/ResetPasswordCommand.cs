@@ -8,7 +8,7 @@
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class ResetPasswordCommand : IRequest
@@ -22,11 +22,11 @@
 
         public class Handler : IRequestHandler<ResetPasswordCommand>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IJwtService _jwt;
             private readonly IUserManagerService _userManager;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IJwtService jwt, IUserManagerService userManager)
+            public Handler(ITrainsOnlineUnitOfWork uow, IJwtService jwt, IUserManagerService userManager)
             {
                 _uow = uow;
                 _jwt = jwt;

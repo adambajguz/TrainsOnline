@@ -35,7 +35,6 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
-    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Sentry.Serilog" Version="2.1.1" />
     <PackageReference Include="Serilog.Enrichers.Process" Version="2.0.1" />
@@ -55,6 +54,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TrainsOnline.Application\TrainsOnline.Application.csproj" />
     <ProjectReference Include="..\TrainsOnline.Common\TrainsOnline.Common.csproj" />
+    <ProjectReference Include="..\TrainsOnline.Infrastructure.CrossCutting\TrainsOnline.Infrastructure.CrossCutting.csproj" />
     <ProjectReference Include="..\TrainsOnline.Infrastructure\TrainsOnline.Infrastructure.csproj" />
     <ProjectReference Include="..\TrainsOnline.Persistence\TrainsOnline.Persistence.csproj" />
   </ItemGroup>

@@ -3,7 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class GetTicketsListQuery : IRequest<GetTicketsListResponse>
     {
@@ -14,9 +14,9 @@
 
         public class Handler : IRequestHandler<GetTicketsListQuery, GetTicketsListResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
 
-            public Handler(IPKPAppDbUnitOfWork uow)
+            public Handler(ITrainsOnlineUnitOfWork uow)
             {
                 _uow = uow;
             }

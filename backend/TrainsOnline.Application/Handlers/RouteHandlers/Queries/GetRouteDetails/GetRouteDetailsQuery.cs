@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetail
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class GetRouteDetailsQuery : IRequest<GetRouteDetailsResponse>
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetail
 
         public class Handler : IRequestHandler<GetRouteDetailsQuery, GetRouteDetailsResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;

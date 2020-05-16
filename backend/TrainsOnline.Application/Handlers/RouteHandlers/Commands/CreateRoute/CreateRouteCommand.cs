@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class CreateRouteCommand : IRequest<IdResponse>
     {
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute
 
         public class Handler : IRequestHandler<CreateRouteCommand, IdResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;

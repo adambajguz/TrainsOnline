@@ -10,7 +10,7 @@
     using Microsoft.IdentityModel.Tokens;
     using Serilog;
     using TrainsOnline.Application.Interfaces.Documents;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Infrastructure.CurrentUser;
     using TrainsOnline.Infrastructure.Documents;
     using TrainsOnline.Infrastructure.Jwt;
@@ -22,7 +22,7 @@
 
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructureContent(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IJwtService, JwtService>();
             services.AddSingleton<IEmailService, EmailService>();
@@ -32,7 +32,7 @@
             services.AddSingleton<IStringSimilarityComparerService, StringSimilarityComparerService>();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IPKPAppDbUnitOfWork, PKPAppDbUnitOfWork>();
+            services.AddScoped<ITrainsOnlineUnitOfWork, TrainsOnlineUnitOfWork>();
             services.AddScoped<IDataRightsService, DataRightsService>();
 
             // Set license key to use GemBox.Document in Free mode.

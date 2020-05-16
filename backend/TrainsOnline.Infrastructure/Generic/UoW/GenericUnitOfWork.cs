@@ -6,9 +6,9 @@
     using System.Threading.Tasks;
     using Application.Interfaces;
     using Application.Interfaces.Repository.Generic;
-    using Application.Interfaces.UoW;
     using AutoMapper;
     using Infrastructure.Repository;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Abstractions.Base;
 
     public abstract class GenericUnitOfWork : IGenericUnitOfWork, IDisposable

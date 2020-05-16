@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.CreateUser
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class CreateUserCommand : IRequest<IdResponse>
@@ -21,12 +21,12 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.CreateUser
 
         public class Handler : IRequestHandler<CreateUserCommand, IdResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IUserManagerService _userManager;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IUserManagerService userManager, IDataRightsService drs)
+            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IUserManagerService userManager, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

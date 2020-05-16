@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Application.Interfaces.UoW
+﻿namespace TrainsOnline.Application.Interfaces.UoW.Generic
 {
     using System.Threading;
     using System.Threading.Tasks;

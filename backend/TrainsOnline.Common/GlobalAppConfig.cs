@@ -40,8 +40,6 @@
             }
         }
 
-        public static string PKPAPP_DB_CONNECTION_STRING_NAME => "PKPAppDb";
-
         public static bool IsWindows { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         public static int MIN_PASSWORD_LENGTH => 8;

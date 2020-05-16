@@ -7,7 +7,7 @@
 
     public static class DependencyInjection
     {
-        public static IServiceCollection AddApplicationContent(this IServiceCollection services)
+        public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
         {
             services.AddAutoMapper(new Assembly[] { typeof(DependencyInjection).GetTypeInfo().Assembly }, serviceLifetime: ServiceLifetime.Singleton);
             services.AddMediatR(Assembly.GetExecutingAssembly());

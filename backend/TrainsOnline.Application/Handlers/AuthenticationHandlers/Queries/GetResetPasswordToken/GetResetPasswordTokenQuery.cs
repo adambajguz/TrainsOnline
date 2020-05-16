@@ -9,7 +9,7 @@
     using Microsoft.AspNetCore.Http;
     using TrainsOnline.Application.Extensions;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Common;
     using TrainsOnline.Domain.Entities;
 
@@ -24,12 +24,12 @@
 
         public class Handler : IRequestHandler<GetResetPasswordTokenQuery, string>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IHttpContextAccessor _context;
             private readonly IJwtService _jwt;
             private readonly IEmailService _email;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IHttpContextAccessor context, IJwtService jwt, IEmailService email)
+            public Handler(ITrainsOnlineUnitOfWork uow, IHttpContextAccessor context, IJwtService jwt, IEmailService email)
             {
                 _uow = uow;
                 _context = context;

@@ -6,7 +6,6 @@
     using FluentValidation;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Serilog;
     using TrainsOnline.Api.Configuration;

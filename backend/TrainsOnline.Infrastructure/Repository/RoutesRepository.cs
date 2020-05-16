@@ -8,7 +8,7 @@
     public class RoutesRepository : GenericRepository<Route>, IRoutesRepository
     {
         public RoutesRepository(ICurrentUserService currentUserService,
-                                IPKPAppDbContext context,
+                                ITrainsOnlineDbContext context,
                                 IMapper mapper) : base(currentUserService, context, mapper)
         {
 

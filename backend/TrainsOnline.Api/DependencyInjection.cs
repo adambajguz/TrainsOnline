@@ -41,16 +41,6 @@
                 });
             }
 
-            if (FeaturesSettings.UseHateoas)
-            {
-                //Hateoas patch
-                JsonSerializerOptions jsonSettings = new JsonSerializerOptions();
-                jsonSettings.Converters.Add(new JsonTimeSpanConverter());
-                services.AddSingleton(jsonSettings);
-
-                services.AddCustomHateoas();
-            }
-
             services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;

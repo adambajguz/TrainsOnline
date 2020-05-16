@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Infrastructure.MachineDateTime
+﻿namespace TrainsOnline.Infrastructure.CrossCutting.MachineDateTime
 {
     using System;
     using TrainsOnline.Common.Interfaces;

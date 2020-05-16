@@ -2,10 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class Station : IBaseEntity, IEntityInfo, IAuditableEntitiy
+    public class Station : IBaseEntity, IEntityInfo
     {
         public Guid Id { get; set; }
 

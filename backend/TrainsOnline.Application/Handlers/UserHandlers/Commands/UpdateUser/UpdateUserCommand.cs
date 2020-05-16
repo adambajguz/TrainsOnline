@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
     using AutoMapper;
     using FluentValidation;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class UpdateUserCommand : IRequest
@@ -20,11 +20,11 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

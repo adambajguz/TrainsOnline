@@ -2,11 +2,11 @@
 {
     using FluentValidation;
     using TrainsOnline.Application.Constants;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class CreateStationCommandValidator : AbstractValidator<CreateStationRequest>
     {
-        public CreateStationCommandValidator(IPKPAppDbUnitOfWork uow)
+        public CreateStationCommandValidator(ITrainsOnlineUnitOfWork uow)
         {
             RuleFor(x => x.Name).NotEmpty()
                                 .WithMessage(ValidationMessages.General.IsNullOrEmpty);

@@ -8,7 +8,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class CreateTicketCommand : IRequest<IdResponse>
     {
@@ -21,11 +21,11 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket
 
         public class Handler : IRequestHandler<CreateTicketCommand, IdResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

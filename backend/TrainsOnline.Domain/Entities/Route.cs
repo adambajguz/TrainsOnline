@@ -1,10 +1,9 @@
 ﻿namespace TrainsOnline.Domain.Entities
 {
     using System;
-    using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class Route : IBaseEntity, IEntityInfo, IAuditableEntitiy
+    public class Route : IBaseEntity, IEntityInfo
     {
         public Guid Id { get; set; }
 

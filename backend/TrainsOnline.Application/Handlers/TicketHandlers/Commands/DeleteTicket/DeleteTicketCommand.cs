@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class DeleteTicketCommand : IRequest
     {
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
 
         public class Handler : IRequestHandler<DeleteTicketCommand, Unit>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineUnitOfWork _uow;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IDataRightsService drs)
+            public Handler(ITrainsOnlineUnitOfWork uow, IDataRightsService drs)
             {
                 _uow = uow;
                 _drs = drs;

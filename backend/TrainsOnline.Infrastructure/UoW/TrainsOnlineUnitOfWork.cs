@@ -3,10 +3,10 @@
     using Application.Interfaces;
     using AutoMapper;
     using TrainsOnline.Application.Interfaces.Repository;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Infrastructure.Repository;
 
-    public class PKPAppDbUnitOfWork : GenericAuditableUnitOfWork, IPKPAppDbUnitOfWork
+    public class TrainsOnlineUnitOfWork : GenericUnitOfWork, ITrainsOnlineUnitOfWork
     {
         private IRoutesRepository? _routesRepository;
         public IRoutesRepository RoutesRepository => _routesRepository ?? (_routesRepository = GetSpecificRepository<IRoutesRepository, RoutesRepository>());
@@ -20,7 +20,7 @@
         private IUsersRepository? _usersRepository;
         public IUsersRepository UsersRepository => _usersRepository ?? (_usersRepository = GetSpecificRepository<IUsersRepository, UsersRepository>());
 
-        public PKPAppDbUnitOfWork(ICurrentUserService currentUserService, IPKPAppDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
+        public TrainsOnlineUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
 
         }
