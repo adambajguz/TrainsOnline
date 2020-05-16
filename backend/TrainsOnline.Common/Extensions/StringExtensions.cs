@@ -4,7 +4,7 @@
 
     public static class StringExtensions
     {
-        public static string RemoveWhitespaces(this string input)
+        public static string RemoveAllWhitespaces(this string input)
         {
             return new string(input.ToCharArray()
                 .Where(c => !char.IsWhiteSpace(c))

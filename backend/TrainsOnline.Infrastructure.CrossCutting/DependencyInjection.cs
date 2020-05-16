@@ -8,7 +8,7 @@
     {
         public static IServiceCollection AddInfrastructureCrossCuttingLayer(this IServiceCollection services)
         {
-            services.AddSingleton<IMachineDateTimeService, MachineDateTimeService>();
+            services.AddSingleton<IMachineInfoService, MachineInfoService>();
 
             return services;
         }
