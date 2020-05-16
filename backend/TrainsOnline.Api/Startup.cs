@@ -52,7 +52,7 @@ namespace TrainsOnline.Api
 
             services.AddInfrastructureCrossCuttingLayer()
                     .AddInfrastructureLayer(Configuration)
-                    .AddPersistenceLayer()
+                    .AddPersistenceLayer(Configuration)
                     .AddApplicationLayer()
                     .AddRestApi();
 
