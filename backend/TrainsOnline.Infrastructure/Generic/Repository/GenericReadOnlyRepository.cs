@@ -10,19 +10,20 @@
     using Application.Interfaces.Repository.Generic;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using MongoDB.Driver;
     using TrainsOnline.Domain.Abstractions.Base;
 
     public class GenericReadOnlyRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
         protected readonly IGenericDatabaseContext _context;
-        protected readonly DbSet<TEntity> _dbSet;
+        protected readonly IMongoCollection<TEntity> _dbSet;
         protected readonly IMapper _mapper;
 
         public GenericReadOnlyRepository(IGenericDatabaseContext context, IMapper mapper)
         {
             _context = context;
-            _dbSet = context.Set<TEntity>();
+            _dbSet = context.GetCollection<TEntity>();
             _mapper = mapper;
         }
 
@@ -30,7 +31,7 @@
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null)
         {
-            IQueryable<TEntity> query = _dbSet;
+            IQueryable<TEntity> query = _dbSet.AsQueryable<TEntity>();
 
             if (filter != null)
                 query = query.Where(filter);
@@ -53,7 +54,6 @@
         {
             return await GetQueryable(filter, orderBy).ToListAsync();
         }
-
 
         public virtual async Task<TEntity> GetOneAsync(
             Expression<Func<TEntity, bool>>? filter = null)

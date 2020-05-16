@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Application.Interfaces
+namespace TrainsOnline.Application.Interfaces
 {
     using Domain.Entities;
     using MongoDB.Driver;

@@ -8,8 +8,8 @@
 
     public class TrainsOnlineDbContext : ITrainsOnlineDbContext
     {
-        private MongoClient MongoDbClient { get; }
-        private IMongoDatabase Db { get; }
+        public MongoClient DbClient { get; }
+        public IMongoDatabase Db { get; }
 
         public TrainsOnlineDbContext(IOptions<DatabaseSettings> options)
         {
@@ -23,13 +23,19 @@
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new System.ArgumentNullException(nameof(options));
 
-            MongoDbClient = new MongoClient(connectionString);
-            Db = MongoDbClient.GetDatabase(databaseName);
+            DbClient = new MongoClient(connectionString);
+            Db = DbClient.GetDatabase(databaseName);
         }
 
         public IMongoCollection<Route> Routes => Db.GetCollection<Route>();
         public IMongoCollection<Station> Stations => Db.GetCollection<Station>();
         public IMongoCollection<Ticket> Tickets => Db.GetCollection<Ticket>();
         public IMongoCollection<User> Users => Db.GetCollection<User>();
+
+        public IMongoCollection<T> GetCollection<T>()
+            where T : class
+        {
+            return Db.GetCollection<T>();
+        }
     }
 }
