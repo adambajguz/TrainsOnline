@@ -15,11 +15,11 @@
         {
             DatabaseSettings databaseSettings = options.Value;
 
-            string? connectionString = databaseSettings.ConnectionString;
+            string? connectionString = databaseSettings.MongoConnectionString;
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new System.ArgumentNullException(nameof(options));
 
-            string? databaseName = databaseSettings.DatabaseName;
+            string? databaseName = databaseSettings.MongoDatabaseName;
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new System.ArgumentNullException(nameof(options));
 
