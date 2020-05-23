@@ -16,6 +16,7 @@
     using TrainsOnline.Application.Handlers.UserHandlers.Queries.GetUsersList;
     using TrainsOnline.Domain.Jwt;
 
+    [Route("api/user")]
     [SwaggerTag("Create, update, and get user")]
     public class UserController : BaseController
     {
@@ -27,7 +28,7 @@
         public const string ChangePassword = nameof(ChangeUserPassword);
         public const string GetAll = nameof(GetUsersList);
 
-        [HttpPost("/api/user/create")]
+        [HttpPost("create")]
         [SwaggerOperation(
             Summary = "Create (register) a new user",
             Description = "Creates a new user (requires [Admin] role to create admin account)")]
@@ -40,7 +41,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/user/get-current")]
+        [HttpGet("get-current")]
         [SwaggerOperation(
             Summary = "Get authenticated user details [" + Roles.User + "]",
             Description = "Gets authenticated user details based on token")]
@@ -54,7 +55,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/user/get/{id:guid}")]
+        [HttpGet("get/{id:guid}")]
         [SwaggerOperation(
             Summary = "Get user details [" + Roles.User + "]",
             Description = "Gets user details")]
@@ -67,7 +68,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpPut("/api/user/update")]
+        [HttpPut("update")]
         [SwaggerOperation(
             Summary = "Updated user details [" + Roles.User + "]",
             Description = "Updates user details (requires [Admin] role to create admin account)")]
@@ -80,7 +81,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/user/delete/{id:guid}")]
+        [HttpGet("delete/{id:guid}")]
         [SwaggerOperation(
             Summary = "Delete user [" + Roles.User + "]",
             Description = "Deletes user")]
@@ -93,7 +94,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpPatch("/api/user/change-password")]
+        [HttpPatch("change-password")]
         [SwaggerOperation(
             Summary = "Change user password [" + Roles.User + "]",
             Description = "Changes password of an user")]
@@ -106,7 +107,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpGet("/api/user/get-all")]
+        [HttpGet("get-all")]
         [SwaggerOperation(
             Summary = "Get all users [" + Roles.Admin + "]",
             Description = "Gets a list of all users")]

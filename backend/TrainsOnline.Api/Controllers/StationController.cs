@@ -15,6 +15,7 @@
     using TrainsOnline.Application.Handlers.StationHandlers.Queries.GetStationsList;
     using TrainsOnline.Domain.Jwt;
 
+    [Route("api/station")]
     [SwaggerTag("Create, update, and get station")]
     public class StationController : BaseController
     {
@@ -30,7 +31,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpPost("/api/station/create", Name = Create)]
+        [HttpPost("create", Name = Create)]
         [SwaggerOperation(
             Summary = "Create new station [" + Roles.Admin + "]",
             Description = "Creates a new station")]
@@ -42,7 +43,7 @@
             return Ok(await Mediator.Send(new CreateStationCommand(station)));
         }
 
-        [HttpGet("/api/station/get/{id:guid}", Name = GetDetails)]
+        [HttpGet("get/{id:guid}", Name = GetDetails)]
         [SwaggerOperation(
             Summary = "Get station details",
             Description = "Gets station details")]
@@ -54,7 +55,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpPut("/api/station/update", Name = Update)]
+        [HttpPut("update", Name = Update)]
         [SwaggerOperation(
             Summary = "Updated station details [" + Roles.Admin + "]",
             Description = "Updates station details")]
@@ -67,7 +68,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpDelete("/api/station/delete/{id:guid}", Name = Delete)]
+        [HttpDelete("delete/{id:guid}", Name = Delete)]
         [SwaggerOperation(
             Summary = "Delete station [" + Roles.Admin + "]",
             Description = "Deletes station")]
@@ -79,7 +80,7 @@
             return Ok(await Mediator.Send(new DeleteStationCommand(new IdRequest(id))));
         }
 
-        [HttpGet("/api/station/get-all", Name = GetAll)]
+        [HttpGet("get-all", Name = GetAll)]
         [SwaggerOperation(
             Summary = "Get all stations",
             Description = "Gets a list of all stations")]

@@ -19,6 +19,7 @@
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.ValidateDocument;
     using TrainsOnline.Domain.Jwt;
 
+    [Route("api/ticket")]
     [SwaggerTag("Create, update, and get ticket")]
     public class TicketController : BaseController
     {
@@ -33,7 +34,7 @@
         public const string GetAll = nameof(GetTicketsList);
 
         [Authorize(Roles = Roles.User)]
-        [HttpPost("/api/ticket/create")]
+        [HttpPost("create")]
         [SwaggerOperation(
             Summary = "Create new ticket [User]",
             Description = "Creates a new ticket")]
@@ -46,7 +47,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/ticket/get/{id:guid}")]
+        [HttpGet("get/{id:guid}")]
         [SwaggerOperation(
             Summary = "Get ticket details [User]",
             Description = "Gets ticket details")]
@@ -59,7 +60,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/ticket/get-document/{id:guid}")]
+        [HttpGet("get-document/{id:guid}")]
         [SwaggerOperation(
             Summary = "Get ticket document [User]",
             Description = "Gets ticket document")]
@@ -87,7 +88,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpPut("/api/ticket/update")]
+        [HttpPut("update")]
         [SwaggerOperation(
             Summary = "Updated ticket details [" + Roles.Admin + "]",
             Description = "Updates ticket details")]
@@ -100,7 +101,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpDelete("/api/ticket/delete/{id:guid}")]
+        [HttpDelete("delete/{id:guid}")]
         [SwaggerOperation(
             Summary = "Delete ticket [" + Roles.Admin + "]",
             Description = "Deletes ticket")]
@@ -113,7 +114,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/ticket/get-all-current-user")]
+        [HttpGet("get-all-current-user")]
         [SwaggerOperation(
             Summary = "Get all current user tickets [" + Roles.User + "]",
             Description = "Gets a list of all current user tickets")]
@@ -127,7 +128,7 @@
         }
 
         [Authorize(Roles = Roles.User)]
-        [HttpGet("/api/ticket/get-all-user/{id:guid}")]
+        [HttpGet("get-all-user/{id:guid}")]
         [SwaggerOperation(
             Summary = "Get all user tickets [" + Roles.User + "]",
             Description = "Gets a list of all user tickets")]
@@ -139,7 +140,7 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpGet("/api/ticket/get-all")]
+        [HttpGet("get-all")]
         [SwaggerOperation(
             Summary = "Get all tickets [" + Roles.Admin + "]",
             Description = "Gets a list of all tickets")]

@@ -9,6 +9,7 @@
     using TrainsOnline.Application.Handlers.AuthenticationHandlers.Queries.GetResetPasswordToken;
     using TrainsOnline.Application.Handlers.AuthenticationHandlers.Queries.GetValidToken;
 
+    [Route("api/user")]
     [SwaggerTag("User authentication and password reset")]
     public class AuthenticationController : BaseController
     {
@@ -16,7 +17,7 @@
         public const string ResetPasswordStep1 = nameof(ResetPasswordStep1);
         public const string ResetPasswordStep2 = nameof(ResetPasswordStep2);
 
-        [HttpPost("/api/user/login")]
+        [HttpPost("login")]
         [SwaggerOperation(
             Summary = "Login a user",
             Description = "Authenticates a user")]
@@ -27,7 +28,7 @@
             return Ok(await Mediator.Send(new GetValidTokenQuery(model)));
         }
 
-        [HttpPost("/api/user/reset-password")]
+        [HttpPost("reset-password")]
         [SwaggerOperation(
             Summary = "Send password reset link (Reset password step 1)",
             Description = "Sends e-mail with password reset link")]
@@ -38,7 +39,7 @@
             return Ok(await Mediator.Send(new GetResetPasswordTokenQuery(request)));
         }
 
-        [HttpPost("/api/user/reset-password/change")]
+        [HttpPost("reset-password/change")]
         [SwaggerOperation(
             Summary = "Reset user password (Reset password step 2)",
             Description = "Resets user's password using password reset token")]
