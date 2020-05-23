@@ -20,7 +20,7 @@
                 IConfigurationBuilder configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory());
                 configuration.AddJsonFile(GlobalAppConfig.AppSettingsFileName);
 
-                loggerSettigns = configuration.Build().GetSection("LoggerSettings").Get<LoggerSettings>();
+                loggerSettigns = configuration.Build().GetSection(nameof(LoggerSettings)).Get<LoggerSettings>();
             }
 
             LoggerConfiguration loggerConfiguration = new LoggerConfiguration()

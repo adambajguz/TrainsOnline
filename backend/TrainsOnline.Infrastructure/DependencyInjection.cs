@@ -12,6 +12,7 @@
     using TrainsOnline.Application.Interfaces.Documents;
     using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Common.Extensions;
     using TrainsOnline.Infrastructure.CurrentUser;
     using TrainsOnline.Infrastructure.Documents;
     using TrainsOnline.Infrastructure.Jwt;
@@ -42,14 +43,11 @@
             GemBox.Document.ComponentInfo.FreeLimitReached += ComponentInfo_FreeLimitReached;
 
             //email configruation
-            {
-                IConfigurationSection emailSettings = configuration.GetSection("EmailSettings");
-                services.Configure<EmailSettings>(emailSettings);
-            }
+            services.AddConfiguration<EmailSettings>(configuration);
 
             //jwt authentication configuration
             {
-                IConfigurationSection jwtSettingsSection = configuration.GetSection("JwtSettings");
+                IConfigurationSection jwtSettingsSection = configuration.GetSection(nameof(JwtSettings));
                 services.Configure<JwtSettings>(jwtSettingsSection);
 
                 JwtSettings jwtSettings = jwtSettingsSection.Get<JwtSettings>();
