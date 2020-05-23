@@ -1,5 +1,6 @@
 ﻿namespace TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetFilteredRoutesList
 {
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -33,24 +34,24 @@
             {
                 GetFilteredRoutesListRequest data = request.Data;
 
-                GetRoutesListResponse routes = new GetRoutesListResponse
-                {
-                    Routes = await _uow.RoutesRepository.ProjectToWithRelatedAsync<GetRoutesListResponse.RouteLookupModel, Station, Station>(relatedSelector0: x => x.From,
+                List<GetRoutesListResponse.RouteLookupModel> list = await _uow.RoutesRepository.ProjectToWithRelatedAsync<GetRoutesListResponse.RouteLookupModel, Station, Station>(relatedSelector0: x => x.From,
                                                                                                                                              relatedSelector1: x => x.To,
                                                                                                                                              //filter: (x) => data.MaximumTicketPrice == null || x.TicketPrice <= data.MaximumTicketPrice,
-                                                                                                                                             cancellationToken: cancellationToken)
-                };
+                                                                                                                                             cancellationToken: cancellationToken);
 
                 if (data.MaximumTicketPrice is double max)
-                    routes.Routes.RemoveAll(x => x.TicketPrice > max);
+                    list.RemoveAll(x => x.TicketPrice > max);
 
                 if (data.FromPattern is string from)
-                    routes.Routes.RemoveAll(x => _strComparer.AreNotSimilar(x.From.Name, from));
+                    list.RemoveAll(x => _strComparer.AreNotSimilar(x.From.Name, from));
 
                 if (data.ToPattern is string to)
-                    routes.Routes.RemoveAll(x => _strComparer.AreNotSimilar(x.To.Name, to));
+                    list.RemoveAll(x => _strComparer.AreNotSimilar(x.To.Name, to));
 
-                return routes;
+                return new GetRoutesListResponse
+                {
+                    Routes = list
+                };
             }
         }
     }
