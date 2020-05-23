@@ -7,7 +7,7 @@
     using TrainsOnline.Domain.Entities;
     using TrainsOnline.Persistence.Extensions;
 
-    public class TrainsOnlineMongoDbContext : ITrainsOnlineDbContext
+    public class TrainsOnlineMongoDbContext : ITrainsOnlineMongoDbContext
     {
         public MongoClient DbClient { get; }
         public IMongoDatabase Db { get; }

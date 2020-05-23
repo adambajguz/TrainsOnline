@@ -27,7 +27,7 @@
 
                 if (options.EfMigrateCheck)
                 {
-                    bool validateResult = webHost.ValidateMigrations<ITrainsOnlineDbContext>();
+                    bool validateResult = webHost.ValidateMigrations<ITrainsOnlineMongoDbContext>();
 
                     if (!validateResult)
                         Environment.Exit(3);
@@ -38,7 +38,7 @@
 
                 if (options.EfMigrate)
                 {
-                    webHost.MigrateDatabase<ITrainsOnlineDbContext>();
+                    webHost.MigrateDatabase<ITrainsOnlineMongoDbContext>();
 
                     if (!options.Run)
                         Environment.Exit(0);

@@ -2,6 +2,7 @@
 {
     using Application.Interfaces;
     using AutoMapper;
+    using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Infrastructure.Repository;

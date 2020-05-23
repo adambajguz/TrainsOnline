@@ -11,7 +11,7 @@
         private IRouteLogsRepository? _routeLogsRepository;
         public IRouteLogsRepository RouteLogsRepository => _routeLogsRepository ?? (_routeLogsRepository = GetSpecificRepository<IRouteLogsRepository, RouteLogsRepository>());
 
-        public TrainsOnlineUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
+        public TrainsOnlineUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineMongoDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
 
         }

@@ -4,6 +4,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using TrainsOnline.Application.Interfaces;
+    using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Persistence.DbContext;
 
     public static class DependencyInjection
@@ -20,7 +21,7 @@
                     .AddScoped<IPKPAppDbContext>(c => c.GetRequiredService<PKPAppDbContext>());
 
 
-            services.AddSingleton<ITrainsOnlineDbContext, TrainsOnlineMongoDbContext>();
+            services.AddSingleton<ITrainsOnlineMongoDbContext, TrainsOnlineMongoDbContext>();
 
             return services;
         }

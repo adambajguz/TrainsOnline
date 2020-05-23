@@ -35,7 +35,7 @@
             {
                 mvcBuilder.AddJsonOptions(options =>
                 {
-                    //JSON serializer convedrters
+                    //JSON serializer converters
                     options.JsonSerializerOptions.Converters.Add(new JsonTimeSpanConverter());
                 });
             }

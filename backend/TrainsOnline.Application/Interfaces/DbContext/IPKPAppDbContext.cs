@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Application.Interfaces
+﻿namespace TrainsOnline.Application.Interfaces.DbContext
 {
     using Domain.Entities;
     using Domain.Entities.Audit;

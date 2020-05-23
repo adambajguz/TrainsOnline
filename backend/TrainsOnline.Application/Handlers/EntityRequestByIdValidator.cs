@@ -3,8 +3,10 @@
     using Application.Constants;
     using FluentValidation;
     using TrainsOnline.Application.DTO;
+    using TrainsOnline.Domain.Abstractions.Base;
 
     public class EntityRequestByIdValidator<TEntity> : AbstractValidator<EntityRequestByIdValidator<TEntity>.Model>
+        where TEntity : IBaseEntity
     {
         public EntityRequestByIdValidator()
         {

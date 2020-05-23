@@ -5,6 +5,7 @@
     using Application.Interfaces;
     using AutoMapper;
     using Microsoft.EntityFrameworkCore;
+    using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
