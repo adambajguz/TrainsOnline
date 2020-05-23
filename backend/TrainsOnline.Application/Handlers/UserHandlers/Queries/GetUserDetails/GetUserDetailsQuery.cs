@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Queries.GetUserDetails
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Entities;
 
     public class GetUserDetailsQuery : IRequest<GetUserDetailsResponse>
@@ -21,11 +21,11 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Queries.GetUserDetails
 
         public class Handler : IRequestHandler<GetUserDetailsQuery, GetUserDetailsResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

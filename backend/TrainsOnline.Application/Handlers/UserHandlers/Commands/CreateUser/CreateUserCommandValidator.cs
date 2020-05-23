@@ -2,11 +2,11 @@
 {
     using Application.Constants;
     using FluentValidation;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class CreateUserCommandValidator : AbstractValidator<CreateUserRequest>
     {
-        public CreateUserCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
+        public CreateUserCommandValidator(IPKPAppDbUnitOfWork uow)
         {
             RuleFor(x => x.Email).NotEmpty()
                                  .WithMessage(ValidationMessages.Email.IsEmpty);

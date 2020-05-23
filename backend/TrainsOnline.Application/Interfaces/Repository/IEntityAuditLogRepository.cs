@@ -1,9 +1,9 @@
 ﻿namespace TrainsOnline.Application.Interfaces.Repository
 {
     using Application.Interfaces.Repository.Generic;
-    using Domain.Entities;
+    using Domain.Entities.Audit;
 
-    public interface ITicketsRepository : IGenericRepository<Ticket>
+    public interface IEntityAuditLogRepository : IGenericRepository<EntityAuditLog>
     {
 
     }

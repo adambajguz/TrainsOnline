@@ -14,7 +14,7 @@
     using TrainsOnline.Application.Extensions;
     using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Application.Interfaces.Documents;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Entities;
 
     public class GetTicketDocumentQuery : IRequest<GetTicketDocumentResponse>
@@ -28,14 +28,14 @@
 
         public class Handler : IRequestHandler<GetTicketDocumentQuery, GetTicketDocumentResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
             private readonly IDocumentsService _documents;
             private readonly IQRCodeService _qr;
             private readonly IHttpContextAccessor _context;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs, IDocumentsService documents, IQRCodeService qr, IHttpContextAccessor context)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs, IDocumentsService documents, IQRCodeService qr, IHttpContextAccessor context)
             {
                 _uow = uow;
                 _mapper = mapper;

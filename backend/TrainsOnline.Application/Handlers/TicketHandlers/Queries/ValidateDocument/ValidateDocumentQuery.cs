@@ -4,7 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Entities;
 
     public class ValidateDocumentQuery : IRequest<bool>
@@ -22,9 +22,9 @@
 
         public class Handler : IRequestHandler<ValidateDocumentQuery, bool>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow)
+            public Handler(IPKPAppDbUnitOfWork uow)
             {
                 _uow = uow;
             }

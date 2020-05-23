@@ -3,7 +3,7 @@
     using Application.Interfaces.Repository.Generic;
     using Domain.Entities;
 
-    public interface IRoutesRepository : IGenericMongoRepository<Route>
+    public interface IRoutesRepository : IGenericRepository<Route>
     {
 
     }

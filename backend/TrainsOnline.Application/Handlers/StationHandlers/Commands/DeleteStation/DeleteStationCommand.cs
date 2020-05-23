@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.DeleteStati
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class DeleteStationCommand : IRequest
     {
@@ -19,9 +19,9 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.DeleteStati
 
         public class Handler : IRequestHandler<DeleteStationCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow)
+            public Handler(IPKPAppDbUnitOfWork uow)
             {
                 _uow = uow;
             }
@@ -35,7 +35,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.DeleteStati
                 EntityRequestByIdValidator<Station>.Model validationModel = new EntityRequestByIdValidator<Station>.Model(data, station);
                 await new EntityRequestByIdValidator<Station>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
-                await _uow.StationsRepository.RemoveAsync(station);
+                _uow.StationsRepository.Remove(station);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

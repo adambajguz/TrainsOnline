@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.UpdateTicket
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class UpdateTicketCommand : IRequest
     {
@@ -20,11 +20,11 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.UpdateTicket
 
         public class Handler : IRequestHandler<UpdateTicketCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -42,7 +42,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.UpdateTicket
                 await _drs.ValidateUserId(ticket, x => x.UserId);
 
                 _mapper.Map(data, ticket);
-                await _uow.TicketsRepository.UpdateAsync(ticket);
+                _uow.TicketsRepository.Update(ticket);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

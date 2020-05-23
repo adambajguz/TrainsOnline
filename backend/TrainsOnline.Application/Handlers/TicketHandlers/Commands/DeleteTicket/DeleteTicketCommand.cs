@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class DeleteTicketCommand : IRequest
     {
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
 
         public class Handler : IRequestHandler<DeleteTicketCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IDataRightsService drs)
+            public Handler(IPKPAppDbUnitOfWork uow, IDataRightsService drs)
             {
                 _uow = uow;
                 _drs = drs;
@@ -39,7 +39,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
                 await new EntityRequestByIdValidator<Ticket>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
                 await _drs.ValidateUserId(ticket, x => x.UserId);
 
-                await _uow.TicketsRepository.RemoveAsync(ticket);
+                _uow.TicketsRepository.Remove(ticket);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

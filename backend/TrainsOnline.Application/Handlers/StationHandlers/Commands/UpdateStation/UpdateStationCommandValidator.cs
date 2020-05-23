@@ -3,11 +3,11 @@
     using Domain.Entities;
     using FluentValidation;
     using TrainsOnline.Application.Constants;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class UpdateStationCommandValidator : AbstractValidator<UpdateStationCommandValidator.Model>
     {
-        public UpdateStationCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
+        public UpdateStationCommandValidator(IPKPAppDbUnitOfWork uow)
         {
             RuleFor(x => x.Data.Id).NotEmpty().Must((request, val, token) =>
             {

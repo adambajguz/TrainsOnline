@@ -4,7 +4,7 @@
     using Application.Interfaces.Repository.Generic;
     using TrainsOnline.Domain.Entities;
 
-    public interface IUsersRepository : IGenericMongoRepository<User>
+    public interface IUsersRepository : IGenericRepository<User>
     {
         Task<bool> IsEmailInUseAsync(string? email);
     }

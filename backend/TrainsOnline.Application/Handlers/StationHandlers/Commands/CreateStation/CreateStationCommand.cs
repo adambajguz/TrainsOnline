@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.CreateStati
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class CreateStationCommand : IRequest<IdResponse>
     {
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.CreateStati
 
         public class Handler : IRequestHandler<CreateStationCommand, IdResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.CreateStati
                 await new CreateStationCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 Station entity = _mapper.Map<Station>(data);
-                await _uow.StationsRepository.AddAsync(entity);
+                _uow.StationsRepository.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

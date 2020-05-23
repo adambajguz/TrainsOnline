@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
     using AutoMapper;
     using FluentValidation;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Entities;
 
     public class UpdateUserCommand : IRequest
@@ -20,11 +20,11 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -45,7 +45,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
                 await new UpdateUserCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, user);
-                await _uow.UsersRepository.UpdateAsync(user);
+                _uow.UsersRepository.Update(user);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

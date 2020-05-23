@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class CreateRouteCommand : IRequest<IdResponse>
     {
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute
 
         public class Handler : IRequestHandler<CreateRouteCommand, IdResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute
                 await new CreateRouteCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 Route entity = _mapper.Map<Route>(data);
-                await _uow.RoutesRepository.AddAsync(entity);
+                _uow.RoutesRepository.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

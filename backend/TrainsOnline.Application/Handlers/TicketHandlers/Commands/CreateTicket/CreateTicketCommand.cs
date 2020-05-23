@@ -8,7 +8,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class CreateTicketCommand : IRequest<IdResponse>
     {
@@ -21,11 +21,11 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket
 
         public class Handler : IRequestHandler<CreateTicketCommand, IdResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -40,7 +40,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket
                 await new CreateTicketCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 Ticket entity = _mapper.Map<Ticket>(data);
-                await _uow.TicketsRepository.AddAsync(entity);
+                _uow.TicketsRepository.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

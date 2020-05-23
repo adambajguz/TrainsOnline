@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class DeleteRouteCommand : IRequest
     {
@@ -19,9 +19,9 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
 
         public class Handler : IRequestHandler<DeleteRouteCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow)
+            public Handler(IPKPAppDbUnitOfWork uow)
             {
                 _uow = uow;
             }
@@ -35,7 +35,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
                 EntityRequestByIdValidator<Route>.Model validationModel = new EntityRequestByIdValidator<Route>.Model(data, route);
                 await new EntityRequestByIdValidator<Route>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
-                await _uow.RoutesRepository.RemoveAsync(route);
+                _uow.RoutesRepository.Remove(route);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

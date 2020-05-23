@@ -2,11 +2,11 @@
 {
     using FluentValidation;
     using TrainsOnline.Application.Constants;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class CreateRouteCommandValidator : AbstractValidator<CreateRouteRequest>
     {
-        public CreateRouteCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
+        public CreateRouteCommandValidator(IPKPAppDbUnitOfWork uow)
         {
             RuleFor(x => x.FromId).NotEmpty().MustAsync(async (request, val, token) =>
             {

@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute
     using Domain.Entities;
     using FluentValidation;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class UpdateRouteCommand : IRequest
     {
@@ -19,10 +19,10 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute
 
         public class Handler : IRequestHandler<UpdateRouteCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly IPKPAppDbUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper)
+            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -38,7 +38,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute
                 await new UpdateRouteCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, route);
-                await _uow.RoutesRepository.UpdateAsync(route);
+                _uow.RoutesRepository.Update(route);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
