@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Hosting;
     using Serilog;
     using TrainsOnline.Api.Configuration;
-    using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Common;
 

@@ -8,7 +8,6 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLog
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Handlers;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Entities;
 
     public class GetRouteLogDetailsQuery : IRequest<GetRouteLogDetailsResponse>

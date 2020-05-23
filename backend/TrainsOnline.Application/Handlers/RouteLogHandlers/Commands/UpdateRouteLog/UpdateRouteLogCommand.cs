@@ -7,7 +7,6 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.UpdateRout
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class UpdateRouteLogCommand : IRequest
     {

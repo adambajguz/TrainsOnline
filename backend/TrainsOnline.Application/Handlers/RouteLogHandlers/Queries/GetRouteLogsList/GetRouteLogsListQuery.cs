@@ -4,8 +4,6 @@
     using System.Threading.Tasks;
     using MediatR;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
-    using TrainsOnline.Domain.Entities;
 
     public class GetRouteLogsListQuery : IRequest<GetRouteLogsListResponse>
     {

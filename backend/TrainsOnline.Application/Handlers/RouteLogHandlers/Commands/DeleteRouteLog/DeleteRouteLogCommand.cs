@@ -8,7 +8,6 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRout
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Handlers;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class DeleteRouteLogCommand : IRequest
     {

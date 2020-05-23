@@ -8,7 +8,6 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.CreateRout
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class CreateRouteLogCommand : IRequest<IdResponse>
     {

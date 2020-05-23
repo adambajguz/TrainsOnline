@@ -75,7 +75,7 @@
                 o.ReportAssemblies = true;
                 o.Environment = GlobalAppConfig.DEV_MODE ? "Development" : "Production";
             });
-        }   
+        }
 
         private static Action<LoggerConfiguration> WriteToConsole(LoggerSettings loggerSettigns)
         {

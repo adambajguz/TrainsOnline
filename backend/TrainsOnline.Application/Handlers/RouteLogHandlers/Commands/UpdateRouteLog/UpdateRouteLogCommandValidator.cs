@@ -4,7 +4,6 @@
     using FluentValidation;
     using TrainsOnline.Application.Constants;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
     public class UpdateRouteLogCommandValidator : AbstractValidator<UpdateRouteLogCommandValidator.Model>
     {
