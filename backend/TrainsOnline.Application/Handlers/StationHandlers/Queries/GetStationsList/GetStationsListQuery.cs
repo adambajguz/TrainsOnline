@@ -14,9 +14,9 @@
 
         public class Handler : IRequestHandler<GetStationsListQuery, GetStationsListResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineUnitOfWork uow)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow)
             {
                 _uow = uow;
             }

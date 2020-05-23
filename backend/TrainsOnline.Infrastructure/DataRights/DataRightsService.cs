@@ -20,9 +20,9 @@
 
         private readonly IHttpContextAccessor _context;
         private readonly ICurrentUserService _currentUser;
-        private readonly ITrainsOnlineUnitOfWork _uow;
+        private readonly ITrainsOnlineMongoUnitOfWork _uow;
 
-        public DataRightsService(IHttpContextAccessor context, ICurrentUserService currentUserService, ITrainsOnlineUnitOfWork uow)
+        public DataRightsService(IHttpContextAccessor context, ICurrentUserService currentUserService, ITrainsOnlineMongoUnitOfWork uow)
         {
             _context = context;
             _currentUser = currentUserService;

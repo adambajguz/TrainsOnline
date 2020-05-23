@@ -15,7 +15,7 @@
                 services.Configure<DatabaseSettings>(emailSettings);
             }
 
-            services.AddSingleton<ITrainsOnlineDbContext, TrainsOnlineDbContext>();
+            services.AddSingleton<ITrainsOnlineDbContext, TrainsOnlineMongoDbContext>();
 
             return services;
         }

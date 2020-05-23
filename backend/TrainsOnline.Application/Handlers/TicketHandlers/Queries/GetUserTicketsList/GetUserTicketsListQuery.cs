@@ -21,10 +21,10 @@
 
         public class Handler : IRequestHandler<GetUserTicketsListQuery, GetUserTicketsListResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IDataRightsService drs)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IDataRightsService drs)
             {
                 _uow = uow;
                 _drs = drs;

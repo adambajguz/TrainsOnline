@@ -8,12 +8,12 @@
     using MongoDB.Driver;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class GenericRepository<TEntity> : GenericReadOnlyRepository<TEntity>, IGenericRepository<TEntity>
+    public class GenericMonogRepository<TEntity> : GenericMongoReadOnlyRepository<TEntity>, IGenericMongoRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
         private ICurrentUserService CurrentUser { get; }
 
-        public GenericRepository(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(context, mapper)
+        public GenericMonogRepository(ICurrentUserService currentUserService, IGenericMongoDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
             CurrentUser = currentUserService;
         }

@@ -6,7 +6,7 @@
 
     public class CreateUserCommandValidator : AbstractValidator<CreateUserRequest>
     {
-        public CreateUserCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public CreateUserCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.Email).NotEmpty()
                                  .WithMessage(ValidationMessages.Email.IsEmpty);

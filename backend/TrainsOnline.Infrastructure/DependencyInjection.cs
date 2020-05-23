@@ -32,7 +32,7 @@
             services.AddSingleton<IStringSimilarityComparerService, StringSimilarityComparerService>();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<ITrainsOnlineUnitOfWork, TrainsOnlineUnitOfWork>();
+            services.AddScoped<ITrainsOnlineMongoUnitOfWork, TrainsOnlineUnitOfWork>();
             services.AddScoped<IDataRightsService, DataRightsService>();
 
             // Set license key to use GemBox.Document in Free mode.

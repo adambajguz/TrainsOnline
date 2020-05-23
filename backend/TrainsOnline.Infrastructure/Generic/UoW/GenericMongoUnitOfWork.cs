@@ -11,17 +11,17 @@
     using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public abstract class GenericUnitOfWork : IGenericUnitOfWork, IDisposable
+    public abstract class GenericMongoUnitOfWork : IGenericMongoUnitOfWork, IDisposable
     {
         protected ICurrentUserService CurrentUser { get; private set; }
-        protected IGenericDatabaseContext Context { get; private set; }
+        protected IGenericMongoDatabaseContext Context { get; private set; }
         protected IMapper Mapper { get; private set; }
 
         public bool IsDisposed { get; private set; }
 
-        private Dictionary<Type, IGenericReadOnlyRepository> Repositories { get; } = new Dictionary<Type, IGenericReadOnlyRepository>();
+        private Dictionary<Type, IGenericMongoReadOnlyRepository> Repositories { get; } = new Dictionary<Type, IGenericMongoReadOnlyRepository>();
 
-        public GenericUnitOfWork(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper)
+        public GenericMongoUnitOfWork(ICurrentUserService currentUserService, IGenericMongoDatabaseContext context, IMapper mapper)
         {
             CurrentUser = currentUserService;
             Context = context;
@@ -45,16 +45,16 @@
             IsDisposed = true;
         }
 
-        public IGenericRepository<TEntity> GetRepository<TEntity>()
+        public IGenericMongoRepository<TEntity> GetRepository<TEntity>()
             where TEntity : class, IBaseEntity
         {
-            Type type = typeof(IGenericRepository<TEntity>);
-            if (Repositories.TryGetValue(type, out IGenericReadOnlyRepository? value))
+            Type type = typeof(IGenericMongoRepository<TEntity>);
+            if (Repositories.TryGetValue(type, out IGenericMongoReadOnlyRepository? value))
             {
-                return (value as IGenericRepository<TEntity>)!;
+                return (value as IGenericMongoRepository<TEntity>)!;
             }
 
-            IGenericRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericRepository<TEntity>)!;
+            IGenericMongoRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericMonogRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericMongoRepository<TEntity>)!;
             Repositories.Add(type, repository);
             return repository;
         }
@@ -63,19 +63,19 @@
             where TEntity : class, IBaseEntity
         {
             Type type = typeof(IGenericReadOnlyRepository<TEntity>);
-            if (Repositories.TryGetValue(type, out IGenericReadOnlyRepository? value))
+            if (Repositories.TryGetValue(type, out IGenericMongoReadOnlyRepository? value))
             {
                 return (value as IGenericReadOnlyRepository<TEntity>)!;
             }
 
-            IGenericReadOnlyRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericReadOnlyRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericReadOnlyRepository<TEntity>)!;
+            IGenericReadOnlyRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericMongoReadOnlyRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericReadOnlyRepository<TEntity>)!;
             Repositories.Add(type, repository);
             return repository;
         }
 
         protected TSpecificRepositoryInterface GetSpecificRepository<TSpecificRepositoryInterface, TSpecificRepository>()
-            where TSpecificRepositoryInterface : IGenericReadOnlyRepository
-            where TSpecificRepository : class, IGenericReadOnlyRepository
+            where TSpecificRepositoryInterface : IGenericMongoReadOnlyRepository
+            where TSpecificRepository : class, IGenericMongoReadOnlyRepository
         {
             Type type = typeof(TSpecificRepositoryInterface);
             if (Repositories.ContainsKey(type))

@@ -5,9 +5,9 @@
     using Application.Interfaces.Repository.Generic;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public interface IGenericUnitOfWork
+    public interface IGenericMongoUnitOfWork
     {
-        IGenericRepository<TEntity> GetRepository<TEntity>()
+        IGenericMongoRepository<TEntity> GetRepository<TEntity>()
             where TEntity : class, IBaseEntity;
 
         IGenericReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()

@@ -5,7 +5,7 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class TicketsRepository : GenericRepository<Ticket>, ITicketsRepository
+    public class TicketsRepository : GenericMonogRepository<Ticket>, ITicketsRepository
     {
         public TicketsRepository(ICurrentUserService currentUserService,
                                  ITrainsOnlineDbContext context,

@@ -21,11 +21,11 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketDeta
 
         public class Handler : IRequestHandler<GetTicketDetailsQuery, GetTicketDetailsResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

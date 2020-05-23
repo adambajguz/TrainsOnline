@@ -6,7 +6,7 @@
 
     public class CreateRouteCommandValidator : AbstractValidator<CreateRouteRequest>
     {
-        public CreateRouteCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public CreateRouteCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.FromId).NotEmpty().MustAsync(async (request, val, token) =>
             {

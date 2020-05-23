@@ -7,7 +7,7 @@
 
     public class UpdateRouteCommandValidator : AbstractValidator<UpdateRouteCommandValidator.Model>
     {
-        public UpdateRouteCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public UpdateRouteCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.Data.Id).NotEmpty().Must((request, val, token) =>
             {

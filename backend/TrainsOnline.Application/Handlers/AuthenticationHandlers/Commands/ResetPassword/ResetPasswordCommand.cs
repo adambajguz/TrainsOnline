@@ -22,11 +22,11 @@
 
         public class Handler : IRequestHandler<ResetPasswordCommand>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IJwtService _jwt;
             private readonly IUserManagerService _userManager;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IJwtService jwt, IUserManagerService userManager)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IJwtService jwt, IUserManagerService userManager)
             {
                 _uow = uow;
                 _jwt = jwt;

@@ -6,7 +6,7 @@
 
     public class CreateTicketCommandValidator : AbstractValidator<CreateTicketRequest>
     {
-        public CreateTicketCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public CreateTicketCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {

@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
 
         public class Handler : IRequestHandler<DeleteTicketCommand, Unit>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IDataRightsService drs)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IDataRightsService drs)
             {
                 _uow = uow;
                 _drs = drs;

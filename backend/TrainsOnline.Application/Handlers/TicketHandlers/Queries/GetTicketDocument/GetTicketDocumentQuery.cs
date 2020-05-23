@@ -28,14 +28,14 @@
 
         public class Handler : IRequestHandler<GetTicketDocumentQuery, GetTicketDocumentResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
             private readonly IDocumentsService _documents;
             private readonly IQRCodeService _qr;
             private readonly IHttpContextAccessor _context;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IDataRightsService drs, IDocumentsService documents, IQRCodeService qr, IHttpContextAccessor context)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs, IDocumentsService documents, IQRCodeService qr, IHttpContextAccessor context)
             {
                 _uow = uow;
                 _mapper = mapper;

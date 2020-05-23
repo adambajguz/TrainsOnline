@@ -19,10 +19,10 @@
 
         public class Handler : IRequestHandler<GetFilteredRoutesListQuery, GetRoutesListResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IStringSimilarityComparerService _strComparer;
 
-            public Handler(ITrainsOnlineUnitOfWork uow,
+            public Handler(ITrainsOnlineMongoUnitOfWork uow,
                            IStringSimilarityComparerService strComparer)
             {
                 _uow = uow;

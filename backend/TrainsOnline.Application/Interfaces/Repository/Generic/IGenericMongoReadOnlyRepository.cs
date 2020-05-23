@@ -7,12 +7,12 @@
     using System.Threading.Tasks;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public interface IGenericReadOnlyRepository
+    public interface IGenericMongoReadOnlyRepository
     {
 
     }
 
-    public interface IGenericReadOnlyRepository<TEntity> : IGenericReadOnlyRepository
+    public interface IGenericReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
         where TEntity : class, IBaseEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();

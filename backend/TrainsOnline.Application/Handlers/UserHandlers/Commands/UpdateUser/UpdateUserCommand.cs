@@ -20,11 +20,11 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

@@ -44,12 +44,12 @@
                           .UseUrls("http://*:2137", "http://*:2138");
         }
 
-        public static void MigrateDatabase<TDbContext>(this IWebHost _) where TDbContext : IGenericDatabaseContext
+        public static void MigrateDatabase<TDbContext>(this IWebHost _) where TDbContext : IGenericMongoDatabaseContext
         {
             Console.WriteLine("This is app is not using Entity Framework Core. All done, closing app");
         }
 
-        public static bool ValidateMigrations<TDbContext>(this IWebHost _) where TDbContext : IGenericDatabaseContext
+        public static bool ValidateMigrations<TDbContext>(this IWebHost _) where TDbContext : IGenericMongoDatabaseContext
         {
             Console.WriteLine("This is app is not using Entity Framework Core. All done, closing app");
 

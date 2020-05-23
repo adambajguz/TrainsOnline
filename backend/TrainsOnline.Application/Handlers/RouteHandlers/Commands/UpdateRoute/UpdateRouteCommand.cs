@@ -19,10 +19,10 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute
 
         public class Handler : IRequestHandler<UpdateRouteCommand, Unit>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;

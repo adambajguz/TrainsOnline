@@ -7,7 +7,7 @@
 
     public class UpdateTicketCommandValidator : AbstractValidator<UpdateTicketCommandValidator.Model>
     {
-        public UpdateTicketCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public UpdateTicketCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.Data.Id).NotEmpty().Must((request, val, token) =>
             {

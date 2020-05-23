@@ -6,7 +6,7 @@
 
     public class CreateStationCommandValidator : AbstractValidator<CreateStationRequest>
     {
-        public CreateStationCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public CreateStationCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.Name).NotEmpty()
                                 .WithMessage(ValidationMessages.General.IsNullOrEmpty);

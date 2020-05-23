@@ -15,9 +15,9 @@
 
         public class Handler : IRequestHandler<GetRoutesListQuery, GetRoutesListResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineUnitOfWork uow)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow)
             {
                 _uow = uow;
             }

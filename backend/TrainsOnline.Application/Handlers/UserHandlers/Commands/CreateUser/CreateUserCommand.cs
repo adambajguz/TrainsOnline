@@ -21,12 +21,12 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.CreateUser
 
         public class Handler : IRequestHandler<CreateUserCommand, IdResponse>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IUserManagerService _userManager;
             private readonly IDataRightsService _drs;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IMapper mapper, IUserManagerService userManager, IDataRightsService drs)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper, IUserManagerService userManager, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

@@ -9,7 +9,7 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class UsersRepository : GenericRepository<User>, IUsersRepository
+    public class UsersRepository : GenericMonogRepository<User>, IUsersRepository
     {
         public UsersRepository(ICurrentUserService currentUserService,
                                ITrainsOnlineDbContext context,

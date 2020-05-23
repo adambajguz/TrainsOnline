@@ -6,12 +6,12 @@
     using TrainsOnline.Domain.Entities;
     using TrainsOnline.Persistence.Extensions;
 
-    public class TrainsOnlineDbContext : ITrainsOnlineDbContext
+    public class TrainsOnlineMongoDbContext : ITrainsOnlineDbContext
     {
         public MongoClient DbClient { get; }
         public IMongoDatabase Db { get; }
 
-        public TrainsOnlineDbContext(IOptions<DatabaseSettings> options)
+        public TrainsOnlineMongoDbContext(IOptions<DatabaseSettings> options)
         {
             DatabaseSettings databaseSettings = options.Value;
 

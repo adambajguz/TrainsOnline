@@ -6,7 +6,7 @@
     using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Infrastructure.Repository;
 
-    public class TrainsOnlineUnitOfWork : GenericUnitOfWork, ITrainsOnlineUnitOfWork
+    public class TrainsOnlineUnitOfWork : GenericMongoUnitOfWork, ITrainsOnlineMongoUnitOfWork
     {
         private IRoutesRepository? _routesRepository;
         public IRoutesRepository RoutesRepository => _routesRepository ?? (_routesRepository = GetSpecificRepository<IRoutesRepository, RoutesRepository>());

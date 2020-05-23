@@ -7,7 +7,7 @@
 
     public class UpdateStationCommandValidator : AbstractValidator<UpdateStationCommandValidator.Model>
     {
-        public UpdateStationCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public UpdateStationCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.Data.Id).NotEmpty().Must((request, val, token) =>
             {

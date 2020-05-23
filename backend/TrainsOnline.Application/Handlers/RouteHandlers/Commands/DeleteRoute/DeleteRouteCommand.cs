@@ -19,9 +19,9 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
 
         public class Handler : IRequestHandler<DeleteRouteCommand, Unit>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineUnitOfWork uow)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow)
             {
                 _uow = uow;
             }

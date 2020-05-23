@@ -2,7 +2,7 @@
 {
     using MongoDB.Driver;
 
-    public interface IGenericDatabaseContext
+    public interface IGenericMongoDatabaseContext
     {
         MongoClient DbClient { get; }
         IMongoDatabase Db { get; }

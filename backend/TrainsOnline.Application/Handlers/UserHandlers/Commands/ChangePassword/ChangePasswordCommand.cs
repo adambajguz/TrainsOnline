@@ -19,11 +19,11 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.ChangePassword
 
         public class Handler : IRequestHandler<ChangePasswordCommand, Unit>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IDataRightsService _drs;
             private readonly IUserManagerService _userManager;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IDataRightsService drs, IUserManagerService userManager)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IDataRightsService drs, IUserManagerService userManager)
             {
                 _uow = uow;
                 _drs = drs;

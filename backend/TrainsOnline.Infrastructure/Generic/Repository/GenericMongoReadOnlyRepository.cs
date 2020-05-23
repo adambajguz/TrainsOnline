@@ -14,14 +14,14 @@
     using MongoDB.Driver.Linq;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class GenericReadOnlyRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
+    public class GenericMongoReadOnlyRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
-        protected readonly IGenericDatabaseContext _context;
+        protected readonly IGenericMongoDatabaseContext _context;
         protected readonly IMongoCollection<TEntity> _dbSet;
         protected readonly IMapper _mapper;
 
-        public GenericReadOnlyRepository(IGenericDatabaseContext context, IMapper mapper)
+        public GenericMongoReadOnlyRepository(IGenericMongoDatabaseContext context, IMapper mapper)
         {
             _context = context;
             _dbSet = context.GetCollection<TEntity>();

@@ -22,9 +22,9 @@
 
         public class Handler : IRequestHandler<ValidateDocumentQuery, bool>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineUnitOfWork uow)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow)
             {
                 _uow = uow;
             }

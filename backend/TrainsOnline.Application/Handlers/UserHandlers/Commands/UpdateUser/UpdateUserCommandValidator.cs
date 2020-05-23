@@ -7,7 +7,7 @@
 
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommandValidator.Model>
     {
-        public UpdateUserCommandValidator(ITrainsOnlineUnitOfWork uow)
+        public UpdateUserCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
             RuleFor(x => x.Data.Email).NotEmpty()
                                       .WithMessage(ValidationMessages.Email.IsEmpty);

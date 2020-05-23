@@ -24,12 +24,12 @@
 
         public class Handler : IRequestHandler<GetResetPasswordTokenQuery, string>
         {
-            private readonly ITrainsOnlineUnitOfWork _uow;
+            private readonly ITrainsOnlineMongoUnitOfWork _uow;
             private readonly IHttpContextAccessor _context;
             private readonly IJwtService _jwt;
             private readonly IEmailService _email;
 
-            public Handler(ITrainsOnlineUnitOfWork uow, IHttpContextAccessor context, IJwtService jwt, IEmailService email)
+            public Handler(ITrainsOnlineMongoUnitOfWork uow, IHttpContextAccessor context, IJwtService jwt, IEmailService email)
             {
                 _uow = uow;
                 _context = context;
