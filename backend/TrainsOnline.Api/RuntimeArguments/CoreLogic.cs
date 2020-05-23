@@ -7,6 +7,7 @@
     using Serilog;
     using TrainsOnline.Api.Configuration;
     using TrainsOnline.Application.Interfaces;
+    using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Common;
 
     internal static class CoreLogic
@@ -27,7 +28,7 @@
 
                 if (options.EfMigrateCheck)
                 {
-                    bool validateResult = webHost.ValidateMigrations<ITrainsOnlineMongoDbContext>();
+                    bool validateResult = webHost.ValidateMigrations<IPKPAppDbContext>();
 
                     if (!validateResult)
                         Environment.Exit(3);
@@ -38,7 +39,7 @@
 
                 if (options.EfMigrate)
                 {
-                    webHost.MigrateDatabase<ITrainsOnlineMongoDbContext>();
+                    webHost.MigrateDatabase<IPKPAppDbContext>();
 
                     if (!options.Run)
                         Environment.Exit(0);
