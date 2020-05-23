@@ -25,7 +25,7 @@
             {
                 return new GetRouteLogsListResponse
                 {
-                    RouteLogs = await _uow.RouteLogsRepository.ProjectToAsync<GetRouteLogsListResponse.RouteLookupModel>(cancellationToken: cancellationToken)
+                    RouteLogs = await _uow.RouteLogsRepository.ProjectToAsync<GetRouteLogsListResponse.RouteLogLookupModel>(cancellationToken: cancellationToken)
                 };
             }
         }

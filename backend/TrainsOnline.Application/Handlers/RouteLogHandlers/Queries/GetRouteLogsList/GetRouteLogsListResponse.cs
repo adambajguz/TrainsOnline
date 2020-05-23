@@ -9,9 +9,9 @@
 
     public class GetRouteLogsListResponse : IDataTransferObject
     {
-        public List<RouteLookupModel> RouteLogs { get; set; } = default!;
+        public List<RouteLogLookupModel> RouteLogs { get; set; } = default!;
 
-        public class RouteLookupModel : IDataTransferObject, ICustomMapping
+        public class RouteLogLookupModel : IDataTransferObject, ICustomMapping
         {
             public Guid Id { get; set; }
 
@@ -20,7 +20,7 @@
 
             void ICustomMapping.CreateMappings(Profile configuration)
             {
-                configuration.CreateMap<RouteLog, RouteLookupModel>();
+                configuration.CreateMap<RouteLog, RouteLogLookupModel>();
             }
         }
     }
