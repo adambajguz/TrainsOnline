@@ -10,7 +10,7 @@
 
     public class GetRoutesListResponse : IDataTransferObject
     {
-        public List<RouteLookupModel> Routes { get; set; } = default!;
+        public IList<RouteLookupModel> Routes { get; set; } = default!;
 
         public class RouteLookupModel : IDataTransferObject, ICustomMapping
         {

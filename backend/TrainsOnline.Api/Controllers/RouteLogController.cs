@@ -8,11 +8,7 @@
     using Swashbuckle.AspNetCore.Annotations;
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute;
-    using TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute;
-    using TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute;
     using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetails;
-    using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRoutesList;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.CreateRouteLog;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRouteLog;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.UpdateRouteLog;

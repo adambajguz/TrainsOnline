@@ -9,7 +9,7 @@
 
     public class GetStationsListResponse : IDataTransferObject
     {
-        public List<StationLookupModel> Stations { get; set; } = default!;
+        public IList<StationLookupModel> Stations { get; set; } = default!;
 
         public class StationLookupModel : IDataTransferObject, ICustomMapping
         {

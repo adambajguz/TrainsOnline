@@ -9,7 +9,7 @@
 
     public class GetUsersListResponse : IDataTransferObject
     {
-        public List<UserLookupModel> Users { get; set; } = default!;
+        public IList<UserLookupModel> Users { get; set; } = default!;
 
         public class UserLookupModel : IDataTransferObject, ICustomMapping
         {

@@ -9,7 +9,7 @@
 
     public class GetRouteLogsListResponse : IDataTransferObject
     {
-        public List<RouteLogLookupModel> RouteLogs { get; set; } = default!;
+        public IList<RouteLogLookupModel> RouteLogs { get; set; } = default!;
 
         public class RouteLogLookupModel : IDataTransferObject, ICustomMapping
         {

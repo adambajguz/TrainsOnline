@@ -21,7 +21,7 @@
         public double Latitude { get; set; } = default!;
         public double Longitude { get; set; } = default!;
 
-        public List<RouteDeparturesLookupModel> Departures { get; set; } = default!;
+        public IList<RouteDeparturesLookupModel> Departures { get; set; } = default!;
 
         void ICustomMapping.CreateMappings(Profile configuration)
         {
