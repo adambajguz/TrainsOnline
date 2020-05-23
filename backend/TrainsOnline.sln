@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Api", "TrainsO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Domain.Abstractions", "TrainsOnline.Domain.Abstractions\TrainsOnline.Domain.Abstractions.csproj", "{5AD9FF81-2602-49EE-8721-6674C8DB73F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainsOnline.Infrastructure.CrossCutting", "TrainsOnline.Infrastructure.CrossCutting\TrainsOnline.Infrastructure.CrossCutting.csproj", "{B275D2C2-2616-4819-9E78-E2C83AB12949}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainsOnline.Infrastructure.CrossCutting", "TrainsOnline.Infrastructure.CrossCutting\TrainsOnline.Infrastructure.CrossCutting.csproj", "{B275D2C2-2616-4819-9E78-E2C83AB12949}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
