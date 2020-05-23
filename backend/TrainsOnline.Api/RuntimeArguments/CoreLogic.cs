@@ -28,10 +28,7 @@
 
                 if (options.EfMigrateCheck)
                 {
-                    bool validateResult = webHost.ValidateMigrations<IPKPAppDbContext>();
-
-                    if (!validateResult)
-                        Environment.Exit(3);
+                    webHost.ValidateMigrations<IPKPAppDbContext>();
 
                     if (!options.Run)
                         Environment.Exit(0);
