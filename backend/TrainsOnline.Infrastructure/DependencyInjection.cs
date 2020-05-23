@@ -34,7 +34,7 @@
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IPKPAppDbUnitOfWork, PKPAppDbUnitOfWork>();
-            services.AddScoped<ITrainsOnlineMongoUnitOfWork, TrainsOnlineUnitOfWork>();
+            services.AddScoped<ITrainsOnlineMongoUnitOfWork, TrainsOnlineMongoUnitOfWork>();
             services.AddScoped<IDataRightsService, DataRightsService>();
 
             // Set license key to use GemBox.Document in Free mode.

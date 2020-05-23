@@ -19,7 +19,7 @@
             {
 #pragma warning disable CS0162 // Unreachable code detected
                 {
-                    string mode = GlobalAppConfig.DEV_MODE ? "DEVelopment" : "PRODuction";
+                    string mode = GlobalAppConfig.DEV_MODE ? "Development" : "Production";
 
                     Log.Warning("Server START: {Mode} mode enabled. --ef-migrate={EfMigrate} --ef-migrate-check={EfMigrateCheck} --run={Run}", mode, options.EfMigrate, options.EfMigrateCheck, options.Run);
                 }
