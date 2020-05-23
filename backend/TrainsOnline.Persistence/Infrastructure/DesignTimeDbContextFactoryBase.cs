@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
     using TrainsOnline.Common;
+    using TrainsOnline.Persistence.DbContext;
 
     public abstract class DesignTimeDbContextFactoryBase<TContext> : IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {
@@ -31,7 +32,7 @@
                 .Build();
 
             //TODO refactor
-            string connectionString = configurationRoot.GetConnectionString(GlobalAppConfig.PKPAPP_DB_CONNECTION_STRING_NAME);
+            string connectionString = configurationRoot.GetConnectionString(ConnectionStringsNames.SQLDatabase);
 
             return Create(connectionString);
         }
@@ -39,7 +40,7 @@
         private TContext Create(string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
-                throw new ArgumentException($"Connection string '{GlobalAppConfig.PKPAPP_DB_CONNECTION_STRING_NAME}' is null or empty.", nameof(connectionString));
+                throw new ArgumentException($"Connection string '{ConnectionStringsNames.SQLDatabase}' is null or empty.", nameof(connectionString));
 
             Console.WriteLine($"DesignTimeDbContextFactoryBase.Create(string): Connection string: '{connectionString}'.");
 

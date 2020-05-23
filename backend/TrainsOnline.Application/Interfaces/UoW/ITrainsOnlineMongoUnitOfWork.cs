@@ -5,9 +5,6 @@
 
     public interface ITrainsOnlineMongoUnitOfWork : IGenericMongoUnitOfWork
     {
-        IRoutesRepository RoutesRepository { get; }
-        IStationsRepository StationsRepository { get; }
-        ITicketsRepository TicketsRepository { get; }
-        IUsersRepository UsersRepository { get; }
+        IRouteLogsRepository RouteLogsRepository { get; }
     }
 }

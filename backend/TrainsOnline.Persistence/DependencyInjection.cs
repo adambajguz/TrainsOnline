@@ -1,5 +1,6 @@
 ﻿namespace TrainsOnline.Persistence
 {
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using TrainsOnline.Application.Interfaces;
@@ -11,9 +12,13 @@
         {
             //database configruation
             {
-                IConfigurationSection emailSettings = configuration.GetSection("DatabaseSettings");
-                services.Configure<DatabaseSettings>(emailSettings);
+                IConfigurationSection databaseSettingsSection = configuration.GetSection("DatabaseSettings");
+                services.Configure<DatabaseSettings>(databaseSettingsSection);
             }
+
+            services.AddDbContext<PKPAppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(ConnectionStringsNames.SQLDatabase)))
+                    .AddScoped<IPKPAppDbContext>(c => c.GetRequiredService<PKPAppDbContext>());
+
 
             services.AddSingleton<ITrainsOnlineDbContext, TrainsOnlineMongoDbContext>();
 

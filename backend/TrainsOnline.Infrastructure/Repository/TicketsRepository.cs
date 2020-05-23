@@ -5,10 +5,10 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class TicketsRepository : GenericMonogRepository<Ticket>, ITicketsRepository
+    public class TicketsRepository : GenericRepository<Ticket>, ITicketsRepository
     {
         public TicketsRepository(ICurrentUserService currentUserService,
-                                 ITrainsOnlineDbContext context,
+                                 IPKPAppDbContext context,
                                  IMapper mapper) : base(currentUserService, context, mapper)
         {
 

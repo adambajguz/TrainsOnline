@@ -4,15 +4,14 @@
     using System.Threading.Tasks;
     using Application.Interfaces;
     using AutoMapper;
-    using MongoDB.Driver;
-    using MongoDB.Driver.Linq;
+    using Microsoft.EntityFrameworkCore;
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class StationsRepository : GenericMonogRepository<Station>, IStationsRepository
+    public class StationsRepository : GenericRepository<Station>, IStationsRepository
     {
         public StationsRepository(ICurrentUserService currentUserService,
-                                  ITrainsOnlineDbContext context,
+                                  IPKPAppDbContext context,
                                   IMapper mapper) : base(currentUserService, context, mapper)
         {
 
@@ -20,12 +19,9 @@
 
         public async Task<Station> GetStationFullDetails(Guid id)
         {
-#warning TODO fix
-            //return await _dbSet.Include(x => x.Departures)
-            //                   .ThenInclude(x => x.To)
-            //                   .FirstOrDefaultAsync(x => x.Id.Equals(id));   
-
-            return await _dbSet.AsQueryable<Station>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            return await _dbSet.Include(x => x.Departures)
+                               .ThenInclude(x => x.To)
+                               .FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
     }
 }

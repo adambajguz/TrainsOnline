@@ -19,6 +19,7 @@ namespace TrainsOnline.Api
     using TrainsOnline.Api.SpecialPages.Core;
     using TrainsOnline.Common;
     using TrainsOnline.Infrastructure.CrossCutting;
+    using TrainsOnline.Persistence.DbContext;
 
     //TODO add api key
     public class Startup
@@ -56,7 +57,8 @@ namespace TrainsOnline.Api
                     .AddApplicationLayer()
                     .AddRestApi();
 
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                    .AddDbContextCheck<PKPAppDbContext>();
             //.AddMongoDb();
 
             _services = services;

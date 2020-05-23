@@ -5,20 +5,21 @@
     using Application.Interfaces;
     using Application.Interfaces.Repository.Generic;
     using AutoMapper;
-    using MongoDB.Driver;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.ChangeTracking;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class GenericMongoRepository<TEntity> : GenericMongoReadOnlyRepository<TEntity>, IGenericMongoRepository<TEntity>
+    public class GenericRepository<TEntity> : GenericReadOnlyRepository<TEntity>, IGenericRepository<TEntity>
         where TEntity : class, IBaseEntity
     {
         private ICurrentUserService CurrentUser { get; }
 
-        public GenericMongoRepository(ICurrentUserService currentUserService, IGenericMongoDatabaseContext context, IMapper mapper) : base(context, mapper)
+        public GenericRepository(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
             CurrentUser = currentUserService;
         }
 
-        public virtual async Task<TEntity> AddAsync(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             DateTime time = DateTime.UtcNow;
             Guid? userGuid = CurrentUser.UserId;
@@ -35,36 +36,34 @@
                 entityModification.LastSavedBy = userGuid;
             }
 
-            await _dbSet.InsertOneAsync(entity);
+            EntityEntry<TEntity> createdEntity = _dbSet.Add(entity);
 
-            return entity;
+            return createdEntity.Entity;
         }
 
-        public virtual async Task UpdateAsync(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
             if (entity is IEntityLastSaved entityModification)
             {
                 entityModification.LastSavedOn = DateTime.UtcNow;
                 entityModification.LastSavedBy = CurrentUser.UserId;
             }
-
-            FilterDefinition<TEntity> idFilter = Builders<TEntity>.Filter.Eq(x => x.Id, entity.Id);
-
-            await _dbSet.ReplaceOneAsync(idFilter, entity);
+            _dbSet.Attach(entity);
+            //_context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual async Task RemoveAsync(Guid id)
+        public virtual async Task Remove(Guid id)
         {
-            FilterDefinition<TEntity> idFilter = Builders<TEntity>.Filter.Eq(x => x.Id, id);
-
-            await _dbSet.DeleteOneAsync(idFilter);
+            TEntity entity = await _dbSet.FindAsync(id);
+            Remove(entity);
         }
 
-        public virtual async Task RemoveAsync(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
-            FilterDefinition<TEntity> idFilter = Builders<TEntity>.Filter.Eq(x => x.Id, entity.Id);
+            if (_context.Entry(entity).State == EntityState.Detached)
+                _dbSet.Attach(entity);
 
-            await _dbSet.DeleteOneAsync(idFilter);
+            _dbSet.Remove(entity);
         }
     }
 }

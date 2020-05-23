@@ -10,7 +10,7 @@
         IGenericMongoRepository<TEntity> GetRepository<TEntity>()
             where TEntity : class, IBaseEntity;
 
-        IGenericReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()
+        IGenericMongoReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()
            where TEntity : class, IBaseEntity;
 
         int SaveChanges();

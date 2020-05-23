@@ -5,9 +5,6 @@ namespace TrainsOnline.Application.Interfaces
 
     public interface ITrainsOnlineDbContext : IGenericMongoDatabaseContext
     {
-        IMongoCollection<Route> Routes { get; }
-        IMongoCollection<Station> Stations { get; }
-        IMongoCollection<Ticket> Tickets { get; }
-        IMongoCollection<User> Users { get; }
+        IMongoCollection<RouteLog> RouteLogs { get; }
     }
 }

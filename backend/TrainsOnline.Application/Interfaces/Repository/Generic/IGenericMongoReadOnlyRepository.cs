@@ -12,7 +12,7 @@
 
     }
 
-    public interface IGenericReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
+    public interface IGenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
         where TEntity : class, IBaseEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
@@ -25,20 +25,8 @@
 
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
-        Task<TEntity> NoTrackigFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-        Task<TEntity> NoTrackigFirstOrDefaultAsync(CancellationToken cancellationToken = default);
 
         Task<TEntity> GetByIdAsync(Guid id);
-
-        Task<TEntity> GetByIdWithRelatedAsync<TProperty0>(Guid id, Expression<Func<TEntity, TProperty0>> relatedSelector0);
-        Task<TEntity> GetByIdWithRelatedAsync<TProperty0, TProperty1>(Guid id,
-                                                                      Expression<Func<TEntity, TProperty0>> relatedSelector0,
-                                                                      Expression<Func<TEntity, TProperty1>> relatedSelector1);
-        Task<TEntity> GetByIdWithRelatedAsync<TProperty0, TProperty1>(Guid id,
-                                                                      Expression<Func<TEntity, TProperty0>> relatedSelector0,
-                                                                      Expression<Func<TEntity, TProperty1>> relatedSelector1,
-                                                                      params Expression<Func<TEntity, object>>[] relatedSelectors);
-        Task<TEntity> NoTrackigGetByIdAsync(Guid id);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
 
@@ -46,17 +34,5 @@
 
         Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null,
                                         CancellationToken cancellationToken = default);
-        Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
-                                                               Expression<Func<TEntity, bool>>? filter = null,
-                                                               CancellationToken cancellationToken = default);
-        Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0, TProperty1>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
-                                                                           Expression<Func<TEntity, TProperty1>> relatedSelector1,
-                                                                           Expression<Func<TEntity, bool>>? filter = null,
-                                                                           CancellationToken cancellationToken = default);
-        Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0, TProperty1>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
-                                                                           Expression<Func<TEntity, TProperty1>> relatedSelector1,
-                                                                           Expression<Func<TEntity, bool>>? filter = null,
-                                                                           CancellationToken cancellationToken = default,
-                                                                           params Expression<Func<TEntity, object>>[] relatedSelectors);
     }
 }

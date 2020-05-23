@@ -8,17 +8,8 @@
 
     public class TrainsOnlineUnitOfWork : GenericMongoUnitOfWork, ITrainsOnlineMongoUnitOfWork
     {
-        private IRoutesRepository? _routesRepository;
-        public IRoutesRepository RoutesRepository => _routesRepository ?? (_routesRepository = GetSpecificRepository<IRoutesRepository, RoutesRepository>());
-
-        private IStationsRepository? _stationsRepository;
-        public IStationsRepository StationsRepository => _stationsRepository ?? (_stationsRepository = GetSpecificRepository<IStationsRepository, StationsRepository>());
-
-        private ITicketsRepository? _ticketsRepository;
-        public ITicketsRepository TicketsRepository => _ticketsRepository ?? (_ticketsRepository = GetSpecificRepository<ITicketsRepository, TicketsRepository>());
-
-        private IUsersRepository? _usersRepository;
-        public IUsersRepository UsersRepository => _usersRepository ?? (_usersRepository = GetSpecificRepository<IUsersRepository, UsersRepository>());
+        private IRouteLogsRepository? _routeLogsRepository;
+        public IRouteLogsRepository RouteLogsRepository => _routeLogsRepository ?? (_routeLogsRepository = GetSpecificRepository<IRouteLogsRepository, RouteLogsRepository>());
 
         public TrainsOnlineUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {

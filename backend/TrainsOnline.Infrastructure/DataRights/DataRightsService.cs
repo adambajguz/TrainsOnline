@@ -8,7 +8,7 @@
     using Application.Exceptions;
     using Application.Interfaces;
     using Microsoft.AspNetCore.Http;
-    using TrainsOnline.Application.Interfaces.UoW;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Entities;
     using TrainsOnline.Domain.Jwt;
 
@@ -20,9 +20,9 @@
 
         private readonly IHttpContextAccessor _context;
         private readonly ICurrentUserService _currentUser;
-        private readonly ITrainsOnlineMongoUnitOfWork _uow;
+        private readonly IPKPAppDbUnitOfWork _uow;
 
-        public DataRightsService(IHttpContextAccessor context, ICurrentUserService currentUserService, ITrainsOnlineMongoUnitOfWork uow)
+        public DataRightsService(IHttpContextAccessor context, ICurrentUserService currentUserService, IPKPAppDbUnitOfWork uow)
         {
             _context = context;
             _currentUser = currentUserService;
