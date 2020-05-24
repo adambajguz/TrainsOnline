@@ -26,7 +26,7 @@
             {
                 return new GetEntityAuditLogsListResponse
                 {
-                    EntityAuditLogs = await _uow.EntityAuditLogsRepository.ProjectToAsync<GetEntityAuditLogsListResponse.EntityAuditLogLookupModel>(orderBy: (x)=>x.OrderByDescending(x=>x.CreatedOn), 
+                    EntityAuditLogs = await _uow.EntityAuditLogsRepository.ProjectToAsync<GetEntityAuditLogsListResponse.EntityAuditLogLookupModel>(orderBy: (x) => x.OrderByDescending(x => x.CreatedOn),
                                                                                                                                                     cancellationToken: cancellationToken)
                 };
             }

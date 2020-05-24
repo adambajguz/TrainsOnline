@@ -2,10 +2,8 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLogHandlers.Commands.Clea
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Entities;
     using FluentValidation;
     using MediatR;
-    using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.UoW;
 
     public class CleanupEntityAuditLogCommand : IRequest

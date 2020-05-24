@@ -8,7 +8,6 @@
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.Repository.Generic;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Domain.Entities;
     using ResponseListItem = GetEntityAuditLogsForEntityListResponse.EntityAuditLogForEntityLookupModel;
 
     public class GetEntityAuditLogsForEntityListQuery : IRequest<GetEntityAuditLogsForEntityListResponse>

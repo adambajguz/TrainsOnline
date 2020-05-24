@@ -14,7 +14,6 @@
     using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Common.Extensions;
     using TrainsOnline.Domain.Abstractions.Base;
-    using TrainsOnline.Infrastructure.Extensions;
 
     public abstract class GenericRelationalUnitOfWork : IGenericRelationalUnitOfWork, IDisposable
     {

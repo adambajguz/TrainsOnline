@@ -13,7 +13,7 @@
         public static Assembly[] GetAssemblies(params string[] assemblyFilters)
         {
             List<Assembly> assemblies = new List<Assembly>();
-            foreach (var assemblyFilter in assemblyFilters)
+            foreach (string assemblyFilter in assemblyFilters)
                 assemblies.AddRange(AppDomain.CurrentDomain.GetAssemblies()
                                                            .Where(assembly => IsWildcardMatch(assembly?.GetName()?.Name ?? string.Empty, assemblyFilter))
                                                            .ToArray());

@@ -5,8 +5,8 @@
     using TrainsOnline.Domain.Abstractions.Base;
 
     public interface IGenericRelationalRepository : IGenericRelationalReadOnlyRepository
-    { 
-    
+    {
+
     }
 
     public interface IGenericRelationalRepository<TEntity> : IGenericRelationalRepository, IGenericRelationalReadOnlyRepository<TEntity>
