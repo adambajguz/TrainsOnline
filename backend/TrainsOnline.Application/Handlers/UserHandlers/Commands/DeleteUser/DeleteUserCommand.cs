@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.DeleteUser
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class DeleteUserCommand : IRequest
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.DeleteUser
 
         public class Handler : IRequestHandler<DeleteUserCommand, Unit>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IDataRightsService drs)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IDataRightsService drs)
             {
                 _uow = uow;
                 _drs = drs;

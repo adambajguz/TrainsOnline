@@ -1,7 +1,6 @@
 ﻿namespace TrainsOnline.Infrastructure.Repository
 {
     using Application.Interfaces;
-    using Application.Interfaces.Repository;
     using AutoMapper;
     using TrainsOnline.Domain.Entities.Audit;
 

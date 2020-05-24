@@ -2,11 +2,11 @@
 {
     using FluentValidation;
     using TrainsOnline.Application.Constants;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class CreateTicketCommandValidator : AbstractValidator<CreateTicketRequest>
     {
-        public CreateTicketCommandValidator(IPKPAppDbUnitOfWork uow)
+        public CreateTicketCommandValidator(ITrainsOnlineSQLUnitOfWork uow)
         {
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {

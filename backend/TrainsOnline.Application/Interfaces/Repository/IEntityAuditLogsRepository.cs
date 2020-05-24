@@ -3,7 +3,7 @@
     using Application.Interfaces.Repository.Generic;
     using Domain.Entities.Audit;
 
-    public interface IEntityAuditLogRepository : IGenericRepository<EntityAuditLog>
+    public interface IEntityAuditLogsRepository : IGenericRepository<EntityAuditLog>
     {
 
     }

@@ -5,7 +5,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.ChangePassword
     using Application.Interfaces;
     using FluentValidation;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class ChangePasswordCommand : IRequest
@@ -19,11 +19,11 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.ChangePassword
 
         public class Handler : IRequestHandler<ChangePasswordCommand, Unit>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IDataRightsService _drs;
             private readonly IUserManagerService _userManager;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IDataRightsService drs, IUserManagerService userManager)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IDataRightsService drs, IUserManagerService userManager)
             {
                 _uow = uow;
                 _drs = drs;

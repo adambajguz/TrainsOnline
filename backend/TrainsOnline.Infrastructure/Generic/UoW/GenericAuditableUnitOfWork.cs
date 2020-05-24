@@ -6,22 +6,22 @@
     using System.Threading.Tasks;
     using Application.Interfaces;
     using Application.Interfaces.Repository;
-    using Application.Interfaces.UoW;
     using AutoMapper;
     using Infrastructure.Repository;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata;
     using Newtonsoft.Json;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Enums;
     using TrainsOnline.Domain.Entities.Audit;
 
     public abstract class GenericAuditableUnitOfWork : GenericUnitOfWork, IGenericAuditableUnitOfWork
     {
-        private IEntityAuditLogRepository? _entityAuditLogRepository;
+        private IEntityAuditLogsRepository? _entityAuditLogsRepository;
 
-        public IEntityAuditLogRepository EntityAuditLogRepository => _entityAuditLogRepository ?? (_entityAuditLogRepository = GetSpecificRepository<IEntityAuditLogRepository, EntityAuditLogRepository>());
+        public IEntityAuditLogsRepository EntityAuditLogsRepository => _entityAuditLogsRepository ?? (_entityAuditLogsRepository = GetSpecificRepository<IEntityAuditLogsRepository, EntityAuditLogRepository>());
 
 
         public GenericAuditableUnitOfWork(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(currentUserService, context, mapper)
@@ -63,7 +63,7 @@
 
             foreach (EntityAuditLog log in auditLogsToAdd)
             {
-                EntityAuditLogRepository.Add(log);
+                EntityAuditLogsRepository.Add(log);
             }
 
             static List<EntityAuditLog> ProcessChanges(IEnumerable<EntityEntry> entries)
@@ -72,7 +72,8 @@
 
                 foreach (EntityEntry entry in entries)
                 {
-                    if (entry.Entity is IAuditableEntitiy == false || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
+                    object entity = entry.Entity;
+                    if (entity is IAuditableEntitiy == false || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged || entity is IAuditLog)
                         continue;
 
                     AuditEntry auditEntry = new AuditEntry(entry)
@@ -117,7 +118,6 @@
                     if (property.IsModified || entry.State == EntityState.Added)
                     {
                         object[] x = metadata.PropertyInfo.GetCustomAttributes(typeof(AuditIgnoreAttribute), false);
-
                         if (x.Length == 0)
                             auditEntry.NewValues[metadata.Name] = property.CurrentValue;
                     }

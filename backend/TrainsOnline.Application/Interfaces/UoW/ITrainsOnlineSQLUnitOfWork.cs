@@ -1,9 +1,9 @@
-﻿namespace TrainsOnline.Application.Interfaces.UoW.Generic
+﻿namespace TrainsOnline.Application.Interfaces.UoW
 {
-    using Application.Interfaces.UoW;
     using TrainsOnline.Application.Interfaces.Repository;
+    using TrainsOnline.Application.Interfaces.UoW.Generic;
 
-    public interface IPKPAppDbUnitOfWork : IGenericUnitOfWork
+    public interface ITrainsOnlineSQLUnitOfWork : IGenericAuditableUnitOfWork
     {
         IRoutesRepository RoutesRepository { get; }
         IStationsRepository StationsRepository { get; }

@@ -11,7 +11,6 @@
     using Serilog;
     using TrainsOnline.Application.Interfaces.Documents;
     using TrainsOnline.Application.Interfaces.UoW;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Common.Extensions;
     using TrainsOnline.Infrastructure.CurrentUser;
     using TrainsOnline.Infrastructure.Documents;
@@ -34,7 +33,7 @@
             services.AddSingleton<IStringSimilarityComparerService, StringSimilarityComparerService>();
 
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IPKPAppDbUnitOfWork, PKPAppDbUnitOfWork>();
+            services.AddScoped<ITrainsOnlineSQLUnitOfWork, TrainsOnlineSQLUnitOfWork>();
             services.AddScoped<ITrainsOnlineMongoUnitOfWork, TrainsOnlineMongoUnitOfWork>();
             services.AddScoped<IDataRightsService, DataRightsService>();
 

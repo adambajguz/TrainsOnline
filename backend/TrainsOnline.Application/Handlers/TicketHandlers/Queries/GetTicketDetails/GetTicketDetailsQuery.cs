@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketDeta
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class GetTicketDetailsQuery : IRequest<GetTicketDetailsResponse>
@@ -21,11 +21,11 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketDeta
 
         public class Handler : IRequestHandler<GetTicketDetailsQuery, GetTicketDetailsResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper, IDataRightsService drs)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IMapper mapper, IDataRightsService drs)
             {
                 _uow = uow;
                 _mapper = mapper;

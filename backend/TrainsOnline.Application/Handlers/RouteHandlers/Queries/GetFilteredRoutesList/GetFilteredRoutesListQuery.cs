@@ -6,7 +6,7 @@
     using MediatR;
     using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRoutesList;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class GetFilteredRoutesListQuery : IRequest<GetRoutesListResponse>
@@ -20,10 +20,10 @@
 
         public class Handler : IRequestHandler<GetFilteredRoutesListQuery, GetRoutesListResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IStringSimilarityComparerService _strComparer;
 
-            public Handler(IPKPAppDbUnitOfWork uow,
+            public Handler(ITrainsOnlineSQLUnitOfWork uow,
                            IStringSimilarityComparerService strComparer)
             {
                 _uow = uow;

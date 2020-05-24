@@ -7,7 +7,7 @@
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketsList;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class GetUserTicketsListQuery : IRequest<GetUserTicketsListResponse>
@@ -21,10 +21,10 @@
 
         public class Handler : IRequestHandler<GetUserTicketsListQuery, GetUserTicketsListResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IDataRightsService _drs;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IDataRightsService drs)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IDataRightsService drs)
             {
                 _uow = uow;
                 _drs = drs;

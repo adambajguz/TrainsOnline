@@ -3,7 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class GetUsersListQuery : IRequest<GetUsersListResponse>
     {
@@ -14,9 +14,9 @@
 
         public class Handler : IRequestHandler<GetUsersListQuery, GetUsersListResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
 
-            public Handler(IPKPAppDbUnitOfWork uow)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow)
             {
                 _uow = uow;
             }

@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class DeleteRouteCommand : IRequest
     {
@@ -19,9 +19,9 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
 
         public class Handler : IRequestHandler<DeleteRouteCommand, Unit>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
 
-            public Handler(IPKPAppDbUnitOfWork uow)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow)
             {
                 _uow = uow;
             }

@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Queries.GetStationDe
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class GetStationDetailsQuery : IRequest<GetStationDetailsResponse>
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Queries.GetStationDe
 
         public class Handler : IRequestHandler<GetStationDetailsQuery, GetStationDetailsResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;

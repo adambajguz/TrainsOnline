@@ -6,7 +6,7 @@
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.Interfaces;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
 
     public class GetValidTokenQuery : IRequest<JwtTokenModel>
@@ -20,11 +20,11 @@
 
         public class Handler : IRequestHandler<GetValidTokenQuery, JwtTokenModel>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IJwtService _jwt;
             private readonly IUserManagerService _userManager;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IJwtService jwt, IUserManagerService userManager)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IJwtService jwt, IUserManagerService userManager)
             {
                 _uow = uow;
                 _jwt = jwt;

@@ -7,7 +7,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.CreateStati
     using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class CreateStationCommand : IRequest<IdResponse>
     {
@@ -20,10 +20,10 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.CreateStati
 
         public class Handler : IRequestHandler<CreateStationCommand, IdResponse>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;

@@ -6,7 +6,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.UpdateStati
     using Domain.Entities;
     using FluentValidation;
     using MediatR;
-    using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Application.Interfaces.UoW;
 
     public class UpdateStationCommand : IRequest
     {
@@ -19,10 +19,10 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.UpdateStati
 
         public class Handler : IRequestHandler<UpdateStationCommand, Unit>
         {
-            private readonly IPKPAppDbUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IPKPAppDbUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;

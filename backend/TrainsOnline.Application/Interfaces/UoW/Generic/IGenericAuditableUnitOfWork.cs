@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Application.Interfaces.UoW
+﻿namespace TrainsOnline.Application.Interfaces.UoW.Generic
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -6,7 +6,7 @@
 
     public interface IGenericAuditableUnitOfWork : IGenericUnitOfWork
     {
-        IEntityAuditLogRepository EntityAuditLogRepository { get; }
+        IEntityAuditLogsRepository EntityAuditLogsRepository { get; }
 
         int SaveChangesWithoutAudit();
         Task<int> SaveChangesWithoutAuditAsync(CancellationToken cancellationToken = default);
