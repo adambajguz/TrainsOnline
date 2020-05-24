@@ -10,7 +10,6 @@
     using AutoMapper;
     using Infrastructure.Repository;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata;
     using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Common.Extensions;
     using TrainsOnline.Domain.Abstractions.Base;

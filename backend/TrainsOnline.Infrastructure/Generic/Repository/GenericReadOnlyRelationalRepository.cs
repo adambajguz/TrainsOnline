@@ -31,7 +31,7 @@
             Expression<Func<TEntity, bool>>? filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null)
         {
-            IQueryable<TEntity> query = _dbSet;
+            IQueryable<TEntity> query = _dbSet.AsQueryable();
 
             if (filter != null)
                 query = query.Where(filter);
@@ -42,6 +42,7 @@
             return query;
         }
 
+        #region IGenericRelationalReadOnlyRepository<TEntity>
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null)
         {
@@ -95,6 +96,11 @@
             //return _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
+        public virtual async Task<TEntity> NoTrackigGetByIdAsync(Guid id)
+        {
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }                
+
         public virtual async Task<TEntity> GetByIdWithRelatedAsync<TProperty0>(Guid id, Expression<Func<TEntity, TProperty0>> relatedSelector0)
         {
             return await _dbSet.Include(relatedSelector0)
@@ -124,12 +130,6 @@
             }
 
             return await expr.FirstOrDefaultAsync(x => x.Id.Equals(id));
-        }
-
-        public virtual async Task<TEntity> NoTrackigGetByIdAsync(Guid id)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
-            //return _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
         public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null)
@@ -190,5 +190,36 @@
             return await expr.ProjectTo<T>(_mapper.ConfigurationProvider)
                              .ToListAsync(cancellationToken);
         }
+        #endregion
+
+        #region IGenericRelationalReadOnlyRepository
+        public Type GetEntityType()
+        {
+            return typeof(TEntity);
+        }
+
+        public async Task<IEnumerable<IBaseRelationalEntity>> GetAll()
+        {
+            return await _dbSet.AsQueryable().ToListAsync();
+        }
+   
+        async Task<IBaseRelationalEntity> IGenericRelationalReadOnlyRepository.GetByIdAsync(Guid id)
+        {
+            return await _dbSet.FindAsync(id);
+            //return _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        async Task<IBaseRelationalEntity> IGenericRelationalReadOnlyRepository.NoTrackigGetByIdAsync(Guid id)
+        {
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            IQueryable<TEntity> query = _dbSet.AsQueryable();
+
+            return await query.CountAsync();
+        }
+        #endregion
     }
 }

@@ -19,6 +19,7 @@
             CurrentUser = currentUserService;
         }
 
+        #region IGenericRelationalRepository<TEntity>
         public virtual TEntity Add(TEntity entity)
         {
             DateTime time = DateTime.UtcNow;
@@ -65,7 +66,9 @@
 
             _dbSet.Remove(entity);
         }
+        #endregion
 
+        #region IGenericRelationalRepository
         public IBaseRelationalEntity Add(IBaseRelationalEntity entity)
         {
             if (entity is TEntity e)
@@ -89,5 +92,6 @@
             else
                 throw new ArgumentException($"Entity is not of type {typeof(TEntity).Name}", nameof(entity));
         }
+        #endregion
     }
 }

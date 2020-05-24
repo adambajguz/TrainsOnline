@@ -10,7 +10,14 @@
 
     public interface IGenericRelationalReadOnlyRepository
     {
+        Type GetEntityType();
 
+        Task<IEnumerable<IBaseRelationalEntity>> GetAll();
+
+        Task<IBaseRelationalEntity> GetByIdAsync(Guid id);
+        Task<IBaseRelationalEntity> NoTrackigGetByIdAsync(Guid id);
+
+        Task<int> GetCountAsync();
     }
 
     public interface IGenericRelationalReadOnlyRepository<TEntity> : IGenericRelationalReadOnlyRepository
@@ -35,7 +42,8 @@
         Task<TEntity> NoTrackigFirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
         Task<TEntity> NoTrackigFirstOrDefaultAsync(CancellationToken cancellationToken = default);
 
-        Task<TEntity> GetByIdAsync(Guid id);
+        new Task<TEntity> GetByIdAsync(Guid id);
+        new Task<TEntity> NoTrackigGetByIdAsync(Guid id);
 
         Task<TEntity> GetByIdWithRelatedAsync<TProperty0>(Guid id, Expression<Func<TEntity, TProperty0>> relatedSelector0);
         Task<TEntity> GetByIdWithRelatedAsync<TProperty0, TProperty1>(Guid id,
@@ -45,10 +53,8 @@
                                                                       Expression<Func<TEntity, TProperty0>> relatedSelector0,
                                                                       Expression<Func<TEntity, TProperty1>> relatedSelector1,
                                                                       params Expression<Func<TEntity, object>>[] relatedSelectors);
-        Task<TEntity> NoTrackigGetByIdAsync(Guid id);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
-
         Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null);
 
         Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null,
