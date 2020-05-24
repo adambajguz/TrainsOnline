@@ -15,7 +15,7 @@
     using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Enums;
-    using TrainsOnline.Domain.Entities.Audit;
+    using TrainsOnline.Domain.Entities;
 
     public abstract class GenericAuditableUnitOfWork : GenericUnitOfWork, IGenericAuditableUnitOfWork
     {

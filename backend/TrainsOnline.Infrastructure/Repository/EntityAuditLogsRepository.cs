@@ -4,7 +4,7 @@
     using AutoMapper;
     using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Application.Interfaces.Repository;
-    using TrainsOnline.Domain.Entities.Audit;
+    using TrainsOnline.Domain.Entities;
 
     public class EntityAuditLogsRepository : GenericRepository<EntityAuditLog>, IEntityAuditLogsRepository
     {

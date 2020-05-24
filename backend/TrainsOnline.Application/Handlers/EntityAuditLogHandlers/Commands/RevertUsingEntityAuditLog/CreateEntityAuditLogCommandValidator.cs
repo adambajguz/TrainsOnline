@@ -6,7 +6,7 @@
 
     public class CreateEntityAuditLogCommandValidator : AbstractValidator<CreateEntityAuditLogRequest>
     {
-        public CreateEntityAuditLogCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
+        public CreateEntityAuditLogCommandValidator(ITrainsOnlineSQLUnitOfWork uow)
         {
             RuleFor(x => x.Distance).GreaterThan(0d)
                                     .WithMessage(ValidationMessages.General.GreaterThenZero);

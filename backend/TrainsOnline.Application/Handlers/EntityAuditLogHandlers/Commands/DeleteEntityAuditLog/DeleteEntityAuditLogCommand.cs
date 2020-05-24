@@ -20,9 +20,9 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.DeleteRouteL
 
         public class Handler : IRequestHandler<DeleteEntityAuditLogCommand, Unit>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow)
             {
                 _uow = uow;
             }

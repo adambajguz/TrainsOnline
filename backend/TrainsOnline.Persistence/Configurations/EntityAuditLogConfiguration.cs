@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using TrainsOnline.Domain.Entities.Audit;
+    using TrainsOnline.Domain.Entities;
 
     public class EntityAuditLogConfiguration : IEntityTypeConfiguration<EntityAuditLog>
     {

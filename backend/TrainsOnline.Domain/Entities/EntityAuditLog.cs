@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Domain.Entities.Audit
+﻿namespace TrainsOnline.Domain.Entities
 {
     using System;
     using TrainsOnline.Domain.Abstractions.Audit;

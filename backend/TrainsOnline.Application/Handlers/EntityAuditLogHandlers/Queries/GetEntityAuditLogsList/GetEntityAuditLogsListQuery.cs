@@ -14,9 +14,9 @@
 
         public class Handler : IRequestHandler<GetEntityAuditLogsListQuery, GetEntityAuditLogsListResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow)
             {
                 _uow = uow;
             }
@@ -25,7 +25,7 @@
             {
                 return new GetEntityAuditLogsListResponse
                 {
-                    EntityAuditLogs = await _uow.E.ProjectToAsync<GetEntityAuditLogsListResponse.RouteLogLookupModel>(cancellationToken: cancellationToken)
+                    EntityAuditLogs = await _uow.EntityAuditLogsRepository.ProjectToAsync<GetEntityAuditLogsListResponse.EntityAuditLogLookupModel>(cancellationToken: cancellationToken)
                 };
             }
         }

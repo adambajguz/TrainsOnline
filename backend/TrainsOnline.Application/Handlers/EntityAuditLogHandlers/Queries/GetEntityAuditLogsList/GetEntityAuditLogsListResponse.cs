@@ -5,22 +5,27 @@
     using AutoMapper;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.Mapping;
+    using TrainsOnline.Domain.Abstractions.Enums;
     using TrainsOnline.Domain.Entities;
 
     public class GetEntityAuditLogsListResponse : IDataTransferObject
     {
-        public IList<RouteLogLookupModel> EntityAuditLogs { get; set; } = default!;
+        public IList<EntityAuditLogLookupModel> EntityAuditLogs { get; set; } = default!;
 
-        public class RouteLogLookupModel : IDataTransferObject, ICustomMapping
+        public class EntityAuditLogLookupModel : IDataTransferObject, ICustomMapping
         {
             public Guid Id { get; set; }
+            public DateTime CreatedOn { get; set; }
+            public Guid? CreatedBy { get; set; }
 
-            public double Distance { get; set; }
-            public double TicketPrice { get; set; }
+            public string TableName { get; set; } = default!;
+            public Guid Key { get; set; } = default!;
+            public AuditActions Action { get; set; }
+            public string? Values { get; set; }
 
             void ICustomMapping.CreateMappings(Profile configuration)
             {
-                configuration.CreateMap<RouteLog, RouteLogLookupModel>();
+                configuration.CreateMap<EntityAuditLog, EntityAuditLogLookupModel>();
             }
         }
     }

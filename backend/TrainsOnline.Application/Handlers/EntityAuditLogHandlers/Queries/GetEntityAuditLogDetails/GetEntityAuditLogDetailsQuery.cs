@@ -21,10 +21,10 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Queries.GetRouteLogDe
 
         public class Handler : IRequestHandler<GetEntityAuditLogDetailsQuery, GetEntityAuditLogDetailsResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;
@@ -34,7 +34,7 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Queries.GetRouteLogDe
             {
                 IdRequest data = request.Data;
 
-                RouteLog entity = await _uow.RouteLogsRepository.GetByIdAsync(data.Id);
+                EntityAuditLog entity = await _uow.EntityAuditLogsRepository.GetByIdAsync(data.Id);
 
                 EntityRequestByIdValidator<RouteLog>.Model validationModel = new EntityRequestByIdValidator<RouteLog>.Model(data, entity);
                 await new EntityRequestByIdValidator<RouteLog>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

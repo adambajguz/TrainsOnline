@@ -9,34 +9,34 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.CreateRouteL
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.UoW;
 
-    public class CreateEntityAuditLogCommand : IRequest<IdResponse>
+    public class RevertUsingEntityAuditLogCommand : IRequest<IdResponse>
     {
         public CreateEntityAuditLogRequest Data { get; }
 
-        public CreateEntityAuditLogCommand(CreateEntityAuditLogRequest data)
+        public RevertUsingEntityAuditLogCommand(CreateEntityAuditLogRequest data)
         {
             Data = data;
         }
 
-        public class Handler : IRequestHandler<CreateEntityAuditLogCommand, IdResponse>
+        public class Handler : IRequestHandler<RevertUsingEntityAuditLogCommand, IdResponse>
         {
-            private readonly ITrainsOnlineMongoUnitOfWork _uow;
+            private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(ITrainsOnlineMongoUnitOfWork uow, IMapper mapper)
+            public Handler(ITrainsOnlineSQLUnitOfWork uow, IMapper mapper)
             {
                 _uow = uow;
                 _mapper = mapper;
             }
 
-            public async Task<IdResponse> Handle(CreateEntityAuditLogCommand request, CancellationToken cancellationToken)
+            public async Task<IdResponse> Handle(RevertUsingEntityAuditLogCommand request, CancellationToken cancellationToken)
             {
                 CreateEntityAuditLogRequest data = request.Data;
 
                 await new CreateEntityAuditLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
-                RouteLog entity = _mapper.Map<RouteLog>(data);
-                await _uow.RouteLogsRepository.AddAsync(entity);
+                EntityAuditLog entity = _mapper.Map<EntityAuditLog>(data);
+                _uow.EntityAuditLogsRepository.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
