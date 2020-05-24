@@ -46,7 +46,7 @@
         }
 
         public IGenericMongoRepository<TEntity> GetRepository<TEntity>()
-            where TEntity : class, IBaseEntity
+            where TEntity : class, IBaseMongoEntity
         {
             Type type = typeof(IGenericMongoRepository<TEntity>);
             if (Repositories.TryGetValue(type, out IGenericMongoReadOnlyRepository? value))
@@ -60,7 +60,7 @@
         }
 
         public IGenericMongoReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()
-            where TEntity : class, IBaseEntity
+            where TEntity : class, IBaseMongoEntity
         {
             Type type = typeof(IGenericMongoReadOnlyRepository<TEntity>);
             if (Repositories.TryGetValue(type, out IGenericMongoReadOnlyRepository? value))

@@ -1,7 +1,6 @@
 ﻿namespace TrainsOnline.Application.Interfaces.DbContext
 {
     using Domain.Entities;
-    using Domain.Entities.Audit;
     using Microsoft.EntityFrameworkCore;
 
     public interface IPKPAppDbContext : IGenericDatabaseContext

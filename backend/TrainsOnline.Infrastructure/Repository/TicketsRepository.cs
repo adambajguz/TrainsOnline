@@ -6,7 +6,7 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class TicketsRepository : GenericRepository<Ticket>, ITicketsRepository
+    public class TicketsRepository : GenericRelationalRepository<Ticket>, ITicketsRepository
     {
         public TicketsRepository(ICurrentUserService currentUserService,
                                  IPKPAppDbContext context,

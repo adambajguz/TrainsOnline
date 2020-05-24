@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Application.Interfaces.Repository;
 
-    public interface IGenericAuditableUnitOfWork : IGenericUnitOfWork
+    public interface IGenericAuditableRelationalUnitOfWork : IGenericRelationalUnitOfWork
     {
         IEntityAuditLogsRepository EntityAuditLogsRepository { get; }
 

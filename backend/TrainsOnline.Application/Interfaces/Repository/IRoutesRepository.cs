@@ -3,7 +3,7 @@
     using Application.Interfaces.Repository.Generic;
     using Domain.Entities;
 
-    public interface IRoutesRepository : IGenericRepository<Route>
+    public interface IRoutesRepository : IGenericRelationalRepository<Route>
     {
 
     }

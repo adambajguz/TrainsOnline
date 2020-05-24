@@ -9,7 +9,7 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class StationsRepository : GenericRepository<Station>, IStationsRepository
+    public class StationsRepository : GenericRelationalRepository<Station>, IStationsRepository
     {
         public StationsRepository(ICurrentUserService currentUserService,
                                   IPKPAppDbContext context,

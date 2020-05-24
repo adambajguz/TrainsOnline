@@ -11,9 +11,9 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.CreateRouteL
 
     public class RevertUsingEntityAuditLogCommand : IRequest<IdResponse>
     {
-        public CreateEntityAuditLogRequest Data { get; }
+        public RevertUsingEntityAuditLogRequest Data { get; }
 
-        public RevertUsingEntityAuditLogCommand(CreateEntityAuditLogRequest data)
+        public RevertUsingEntityAuditLogCommand(RevertUsingEntityAuditLogRequest data)
         {
             Data = data;
         }
@@ -31,9 +31,9 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.CreateRouteL
 
             public async Task<IdResponse> Handle(RevertUsingEntityAuditLogCommand request, CancellationToken cancellationToken)
             {
-                CreateEntityAuditLogRequest data = request.Data;
+                RevertUsingEntityAuditLogRequest data = request.Data;
 
-                await new CreateEntityAuditLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
+                await new RevertUsingEntityAuditLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 EntityAuditLog entity = _mapper.Map<EntityAuditLog>(data);
                 _uow.EntityAuditLogsRepository.Add(entity);

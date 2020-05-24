@@ -13,7 +13,7 @@
     }
 
     public interface IGenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
-        where TEntity : class, IBaseEntity
+        where TEntity : class, IBaseMongoEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
 

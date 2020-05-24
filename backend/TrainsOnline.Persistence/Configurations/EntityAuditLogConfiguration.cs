@@ -8,7 +8,10 @@
     {
         public void Configure(EntityTypeBuilder<EntityAuditLog> builder)
         {
-            builder.Property(x => x.Action).HasConversion<int>();
+            builder.Property(x => x.Action)
+                   .HasConversion<int>();
+
+            builder.HasIndex(x => x.Key);
         }
     }
 }

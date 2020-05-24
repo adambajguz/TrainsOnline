@@ -8,13 +8,13 @@
     using System.Threading.Tasks;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public interface IGenericReadOnlyRepository
+    public interface IGenericRelationalReadOnlyRepository
     {
 
     }
 
-    public interface IGenericReadOnlyRepository<TEntity> : IGenericReadOnlyRepository
-        where TEntity : class, IBaseEntity
+    public interface IGenericReadOnlyRepository<TEntity> : IGenericRelationalReadOnlyRepository
+        where TEntity : class, IBaseRelationalEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null);

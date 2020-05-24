@@ -9,7 +9,7 @@
     using TrainsOnline.Domain.Abstractions.Base;
 
     public class GenericMongoRepository<TEntity> : GenericMongoReadOnlyRepository<TEntity>, IGenericMongoRepository<TEntity>
-        where TEntity : class, IBaseEntity
+        where TEntity : class, IBaseMongoEntity
     {
         private ICurrentUserService CurrentUser { get; }
 

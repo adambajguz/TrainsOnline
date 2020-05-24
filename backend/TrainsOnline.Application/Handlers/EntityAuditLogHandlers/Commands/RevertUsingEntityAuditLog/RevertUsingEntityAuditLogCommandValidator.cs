@@ -4,9 +4,9 @@
     using TrainsOnline.Application.Constants;
     using TrainsOnline.Application.Interfaces.UoW;
 
-    public class CreateEntityAuditLogCommandValidator : AbstractValidator<CreateEntityAuditLogRequest>
+    public class RevertUsingEntityAuditLogCommandValidator : AbstractValidator<RevertUsingEntityAuditLogRequest>
     {
-        public CreateEntityAuditLogCommandValidator(ITrainsOnlineSQLUnitOfWork uow)
+        public RevertUsingEntityAuditLogCommandValidator(ITrainsOnlineSQLUnitOfWork uow)
         {
             RuleFor(x => x.Distance).GreaterThan(0d)
                                     .WithMessage(ValidationMessages.General.GreaterThenZero);

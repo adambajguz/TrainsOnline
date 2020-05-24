@@ -13,14 +13,14 @@
     using Microsoft.EntityFrameworkCore;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class GenericReadOnlyRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
-        where TEntity : class, IBaseEntity
+    public class GenericReadOnlyRelationalRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
+        where TEntity : class, IBaseRelationalEntity
     {
         protected readonly IGenericDatabaseContext _context;
         protected readonly DbSet<TEntity> _dbSet;
         protected readonly IMapper _mapper;
 
-        public GenericReadOnlyRepository(IGenericDatabaseContext context, IMapper mapper)
+        public GenericReadOnlyRelationalRepository(IGenericDatabaseContext context, IMapper mapper)
         {
             _context = context;
             _dbSet = context.Set<TEntity>();
@@ -146,7 +146,8 @@
                                                               Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
                                                               CancellationToken cancellationToken = default)
         {
-            return await GetQueryable(filter, orderBy).ProjectTo<T>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+            return await GetQueryable(filter, orderBy).ProjectTo<T>(_mapper.ConfigurationProvider)
+                                                      .ToListAsync(cancellationToken);
         }
 
         public virtual async Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
@@ -155,7 +156,8 @@
                                                                                     CancellationToken cancellationToken = default)
         {
             return await GetQueryable(filter, orderBy).Include(relatedSelector0)
-                                                      .ProjectTo<T>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+                                                      .ProjectTo<T>(_mapper.ConfigurationProvider)
+                                                      .ToListAsync(cancellationToken);
         }
 
         public virtual async Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0, TProperty1>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
@@ -166,7 +168,8 @@
         {
             return await GetQueryable(filter, orderBy).Include(relatedSelector0)
                                                       .Include(relatedSelector1)
-                                                      .ProjectTo<T>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+                                                      .ProjectTo<T>(_mapper.ConfigurationProvider)
+                                                      .ToListAsync(cancellationToken);
         }
 
         public virtual async Task<List<T>> ProjectToWithRelatedAsync<T, TProperty0, TProperty1>(Expression<Func<TEntity, TProperty0>> relatedSelector0,
@@ -184,7 +187,8 @@
                 expr = expr.Include(relatedExpr);
             }
 
-            return await expr.ProjectTo<T>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+            return await expr.ProjectTo<T>(_mapper.ConfigurationProvider)
+                             .ToListAsync(cancellationToken);
         }
     }
 }

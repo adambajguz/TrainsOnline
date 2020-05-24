@@ -17,14 +17,14 @@
     using TrainsOnline.Domain.Abstractions.Enums;
     using TrainsOnline.Domain.Entities;
 
-    public abstract class GenericAuditableUnitOfWork : GenericUnitOfWork, IGenericAuditableUnitOfWork
+    public abstract class GenericAuditableRelationalUnitOfWork : GenericRelationalUnitOfWork, IGenericAuditableRelationalUnitOfWork
     {
         private IEntityAuditLogsRepository? _entityAuditLogsRepository;
 
-        public IEntityAuditLogsRepository EntityAuditLogsRepository => _entityAuditLogsRepository ?? (_entityAuditLogsRepository = GetSpecificRepository<IEntityAuditLogsRepository, EntityAuditLogRepository>());
+        public IEntityAuditLogsRepository EntityAuditLogsRepository => _entityAuditLogsRepository ?? (_entityAuditLogsRepository = GetSpecificRepository<IEntityAuditLogsRepository, EntityAuditLogsRepository>());
 
 
-        public GenericAuditableUnitOfWork(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(currentUserService, context, mapper)
+        public GenericAuditableRelationalUnitOfWork(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
 
         }

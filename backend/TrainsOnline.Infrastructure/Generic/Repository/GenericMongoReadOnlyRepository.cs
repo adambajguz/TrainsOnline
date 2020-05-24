@@ -15,7 +15,7 @@
     using TrainsOnline.Domain.Abstractions.Base;
 
     public class GenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository<TEntity>
-        where TEntity : class, IBaseEntity
+        where TEntity : class, IBaseMongoEntity
     {
         protected readonly IGenericMongoDatabaseContext _context;
         protected readonly IMongoCollection<TEntity> _dbSet;

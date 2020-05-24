@@ -1,5 +1,6 @@
 ﻿namespace TrainsOnline.Application.Handlers.EntityAuditLog.Queries.GetRouteLogsList
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -25,7 +26,8 @@
             {
                 return new GetEntityAuditLogsListResponse
                 {
-                    EntityAuditLogs = await _uow.EntityAuditLogsRepository.ProjectToAsync<GetEntityAuditLogsListResponse.EntityAuditLogLookupModel>(cancellationToken: cancellationToken)
+                    EntityAuditLogs = await _uow.EntityAuditLogsRepository.ProjectToAsync<GetEntityAuditLogsListResponse.EntityAuditLogLookupModel>(orderBy: (x)=>x.OrderByDescending(x=>x.CreatedOn), 
+                                                                                                                                                    cancellationToken: cancellationToken)
                 };
             }
         }

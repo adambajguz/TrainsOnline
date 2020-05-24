@@ -6,7 +6,7 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Domain.Entities;
 
-    public class EntityAuditLogsRepository : GenericRepository<EntityAuditLog>, IEntityAuditLogsRepository
+    public class EntityAuditLogsRepository : GenericRelationalRepository<EntityAuditLog>, IEntityAuditLogsRepository
     {
         public EntityAuditLogsRepository(ICurrentUserService currentUserService,
                                          IPKPAppDbContext context,

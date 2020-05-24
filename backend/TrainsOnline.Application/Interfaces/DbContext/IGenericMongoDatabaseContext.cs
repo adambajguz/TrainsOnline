@@ -1,6 +1,7 @@
 ﻿namespace TrainsOnline.Application.Interfaces
 {
     using MongoDB.Driver;
+    using TrainsOnline.Domain.Abstractions.Base;
 
     public interface IGenericMongoDatabaseContext
     {
@@ -8,6 +9,6 @@
         IMongoDatabase Db { get; }
 
         public IMongoCollection<T> GetCollection<T>()
-            where T : class;
+            where T : class, IBaseMongoEntity;
     }
 }

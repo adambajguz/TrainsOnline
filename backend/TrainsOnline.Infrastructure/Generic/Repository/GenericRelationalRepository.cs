@@ -9,12 +9,12 @@
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class GenericRepository<TEntity> : GenericReadOnlyRepository<TEntity>, IGenericRepository<TEntity>
-        where TEntity : class, IBaseEntity
+    public class GenericRelationalRepository<TEntity> : GenericReadOnlyRelationalRepository<TEntity>, IGenericRelationalRepository<TEntity>
+        where TEntity : class, IBaseRelationalEntity
     {
         private ICurrentUserService CurrentUser { get; }
 
-        public GenericRepository(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(context, mapper)
+        public GenericRelationalRepository(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
             CurrentUser = currentUserService;
         }

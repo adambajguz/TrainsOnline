@@ -3,7 +3,7 @@
     using TrainsOnline.Application.Interfaces.Repository;
     using TrainsOnline.Application.Interfaces.UoW.Generic;
 
-    public interface ITrainsOnlineSQLUnitOfWork : IGenericAuditableUnitOfWork
+    public interface ITrainsOnlineSQLUnitOfWork : IGenericAuditableRelationalUnitOfWork
     {
         IRoutesRepository RoutesRepository { get; }
         IStationsRepository StationsRepository { get; }

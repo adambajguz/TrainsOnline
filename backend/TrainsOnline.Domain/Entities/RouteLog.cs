@@ -3,7 +3,7 @@
     using System;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class RouteLog : IBaseEntity, IEntityInfo
+    public class RouteLog : IBaseMongoEntity, IEntityInfo
     {
         public Guid Id { get; set; }
 

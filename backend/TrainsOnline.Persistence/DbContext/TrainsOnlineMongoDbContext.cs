@@ -4,6 +4,7 @@
     using Microsoft.Extensions.Options;
     using MongoDB.Driver;
     using TrainsOnline.Application.Interfaces;
+    using TrainsOnline.Domain.Abstractions.Base;
     using TrainsOnline.Domain.Entities;
     using TrainsOnline.Persistence.Extensions;
 
@@ -31,7 +32,7 @@
         public IMongoCollection<RouteLog> RouteLogs => Db.GetCollection<RouteLog>();
 
         public IMongoCollection<T> GetCollection<T>()
-            where T : class
+            where T : class, IBaseMongoEntity
         {
             return Db.GetCollection<T>();
         }

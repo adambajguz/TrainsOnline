@@ -4,7 +4,7 @@
     using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class Ticket : IBaseEntity, IEntityInfo, IAuditableEntitiy
+    public class Ticket : IBaseRelationalEntity, IEntityInfo, IAuditableEntitiy
     {
         public Guid Id { get; set; }
 

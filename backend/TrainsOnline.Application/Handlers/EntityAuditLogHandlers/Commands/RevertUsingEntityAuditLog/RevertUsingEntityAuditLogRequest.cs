@@ -6,7 +6,7 @@
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Domain.Entities;
 
-    public class CreateEntityAuditLogRequest : IDataTransferObject, ICustomMapping
+    public class RevertUsingEntityAuditLogRequest : IDataTransferObject, ICustomMapping
     {
         public Guid FromId { get; set; }
         public Guid ToId { get; set; }
@@ -18,7 +18,7 @@
 
         void ICustomMapping.CreateMappings(Profile configuration)
         {
-            configuration.CreateMap<CreateEntityAuditLogRequest, RouteLog>();
+            configuration.CreateMap<RevertUsingEntityAuditLogRequest, RouteLog>();
         }
     }
 }

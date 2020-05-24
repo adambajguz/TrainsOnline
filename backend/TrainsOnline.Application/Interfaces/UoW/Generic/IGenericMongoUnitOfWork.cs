@@ -8,10 +8,10 @@
     public interface IGenericMongoUnitOfWork
     {
         IGenericMongoRepository<TEntity> GetRepository<TEntity>()
-            where TEntity : class, IBaseEntity;
+            where TEntity : class, IBaseMongoEntity;
 
         IGenericMongoReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()
-           where TEntity : class, IBaseEntity;
+           where TEntity : class, IBaseMongoEntity;
 
         int SaveChanges();
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

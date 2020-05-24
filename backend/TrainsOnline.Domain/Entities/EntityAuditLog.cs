@@ -5,7 +5,7 @@
     using TrainsOnline.Domain.Abstractions.Base;
     using TrainsOnline.Domain.Abstractions.Enums;
 
-    public class EntityAuditLog : IBaseEntity, IEntityCreation, IAuditLog
+    public class EntityAuditLog : IBaseRelationalEntity, IEntityCreation, IAuditLog
     {
         public Guid Id { get; set; }
         public DateTime CreatedOn { get; set; }
