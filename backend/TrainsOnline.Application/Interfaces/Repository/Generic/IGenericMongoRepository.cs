@@ -4,7 +4,12 @@
     using System.Threading.Tasks;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public interface IGenericMongoRepository<TEntity> : IGenericMongoReadOnlyRepository<TEntity>
+    public interface IGenericMongoRepository
+    {
+
+    }
+
+    public interface IGenericMongoRepository<TEntity> : IGenericMongoRepository, IGenericMongoReadOnlyRepository<TEntity>
         where TEntity : class, IBaseMongoEntity
     {
         Task<TEntity> AddAsync(TEntity entity);

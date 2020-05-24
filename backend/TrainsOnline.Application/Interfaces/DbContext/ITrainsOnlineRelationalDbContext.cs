@@ -3,7 +3,7 @@
     using Domain.Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public interface IPKPAppDbContext : IGenericDatabaseContext
+    public interface ITrainsOnlineRelationalDbContext : IGenericDatabaseContext
     {
         DbSet<EntityAuditLog> EntityAuditLogs { get; set; }
 

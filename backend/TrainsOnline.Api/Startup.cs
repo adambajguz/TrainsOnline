@@ -58,7 +58,7 @@ namespace TrainsOnline.Api
                     .AddRestApi();
 
             services.AddHealthChecks()
-                    .AddDbContextCheck<PKPAppDbContext>();
+                    .AddDbContextCheck<TrainsOnlineRelationalDbContext>();
             //.AddMongoDb();
 
             _services = services;

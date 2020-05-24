@@ -21,7 +21,7 @@
         private IUsersRepository? _usersRepository;
         public IUsersRepository UsersRepository => _usersRepository ?? (_usersRepository = GetSpecificRepository<IUsersRepository, UsersRepository>());
 
-        public TrainsOnlineSQLUnitOfWork(ICurrentUserService currentUserService, IPKPAppDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
+        public TrainsOnlineSQLUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineRelationalDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
 
         }

@@ -9,7 +9,7 @@ using TrainsOnline.Persistence.DbContext;
 
 namespace TrainsOnline.Persistence.Migrations
 {
-    [DbContext(typeof(PKPAppDbContext))]
+    [DbContext(typeof(TrainsOnlineRelationalDbContext))]
     [Migration("20200413122840_RemovedUsername")]
     partial class RemovedUsername
     {

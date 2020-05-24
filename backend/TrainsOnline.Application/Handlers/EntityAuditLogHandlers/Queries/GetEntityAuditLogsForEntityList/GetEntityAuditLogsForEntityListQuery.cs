@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using MediatR;
     using TrainsOnline.Application.DTO;
+    using TrainsOnline.Application.Interfaces.Repository.Generic;
     using TrainsOnline.Application.Interfaces.UoW;
     using TrainsOnline.Domain.Entities;
     using ResponseListItem = GetEntityAuditLogsForEntityListResponse.EntityAuditLogForEntityLookupModel;
@@ -39,9 +40,7 @@
                 {
                     string tableName = list[0].TableName;
 
-                    _uow.GetRepositoryByName<User>(tableName);
-
-                    //_uow.
+                    IGenericRelationalRepository repository = _uow.GetRepositoryByName(tableName);
 
                     exists = false;
                 }

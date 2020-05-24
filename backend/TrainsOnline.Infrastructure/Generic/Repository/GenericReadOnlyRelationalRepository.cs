@@ -13,7 +13,7 @@
     using Microsoft.EntityFrameworkCore;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public class GenericReadOnlyRelationalRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
+    public class GenericReadOnlyRelationalRepository<TEntity> : IGenericRelationalReadOnlyRepository<TEntity>
         where TEntity : class, IBaseRelationalEntity
     {
         protected readonly IGenericDatabaseContext _context;

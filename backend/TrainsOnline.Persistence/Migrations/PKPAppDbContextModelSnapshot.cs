@@ -8,7 +8,7 @@ using TrainsOnline.Persistence.DbContext;
 
 namespace TrainsOnline.Persistence.Migrations
 {
-    [DbContext(typeof(PKPAppDbContext))]
+    [DbContext(typeof(TrainsOnlineRelationalDbContext))]
     partial class PKPAppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

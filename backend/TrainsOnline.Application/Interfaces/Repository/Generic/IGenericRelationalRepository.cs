@@ -4,7 +4,12 @@
     using System.Threading.Tasks;
     using TrainsOnline.Domain.Abstractions.Base;
 
-    public interface IGenericRelationalRepository<TEntity> : IGenericReadOnlyRepository<TEntity>
+    public interface IGenericRelationalRepository : IGenericRelationalReadOnlyRepository
+    { 
+    
+    }
+
+    public interface IGenericRelationalRepository<TEntity> : IGenericRelationalRepository, IGenericRelationalReadOnlyRepository<TEntity>
         where TEntity : class, IBaseRelationalEntity
     {
         TEntity Add(TEntity entity);

@@ -9,7 +9,7 @@ using TrainsOnline.Persistence.DbContext;
 
 namespace TrainsOnline.Persistence.Migrations
 {
-    [DbContext(typeof(PKPAppDbContext))]
+    [DbContext(typeof(TrainsOnlineRelationalDbContext))]
     [Migration("20200412153836_Initial")]
     partial class Initial
     {

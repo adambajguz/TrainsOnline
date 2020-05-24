@@ -4,9 +4,9 @@
     using TrainsOnline.Application.Interfaces.DbContext;
     using TrainsOnline.Domain.Entities;
 
-    public class PKPAppDbContext : DbContext, IPKPAppDbContext
+    public class TrainsOnlineRelationalDbContext : DbContext, ITrainsOnlineRelationalDbContext
     {
-        public PKPAppDbContext(DbContextOptions<PKPAppDbContext> options) : base(options)
+        public TrainsOnlineRelationalDbContext(DbContextOptions<TrainsOnlineRelationalDbContext> options) : base(options)
         {
 
         }
@@ -20,7 +20,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PKPAppDbContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrainsOnlineRelationalDbContext).Assembly);
         }
     }
 }

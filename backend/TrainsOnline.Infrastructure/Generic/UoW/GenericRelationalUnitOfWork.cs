@@ -12,6 +12,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata;
     using TrainsOnline.Application.Interfaces.UoW.Generic;
+    using TrainsOnline.Common.Extensions;
     using TrainsOnline.Domain.Abstractions.Base;
     using TrainsOnline.Infrastructure.Extensions;
 
@@ -37,15 +38,16 @@
 
         private static Dictionary<string, Type> BuildTableNameToEntityLookup(IGenericDatabaseContext context, params string[] assemblyFilters)
         {
-            var exportedTypes = ReflectionExtensions.GetExportedTypes(assemblyFilters);
+            Type[] exportedTypes = AssemblyExtensions.GetAllExportedTypes(assemblyFilters);
 
-            IEnumerable<Type> typesWithAttributes = exportedTypes.Where(type => !type.IsAbstract &&
-                                                                                !type.IsGenericTypeDefinition &&
-                                                                                type.IsAssignableFrom(typeof(IBaseRelationalEntity)) &&
-                                                                                !type.IsAssignableFrom(typeof(IBaseMongoEntity)));
+            IEnumerable<Type> types = exportedTypes.Where(type => !type.IsAbstract &&
+                                                                  type.Namespace != null &&
+                                                                  !type.IsGenericTypeDefinition &&
+                                                                  typeof(IBaseRelationalEntity).IsAssignableFrom(type) &&
+                                                                  !typeof(IBaseMongoEntity).IsAssignableFrom(type));
 
             Dictionary<string, Type> tableNameToEntityLookup = new Dictionary<string, Type>();
-            foreach (Type type in typesWithAttributes)
+            foreach (Type type in types)
             {
                 IEntityType entityType = context.Model.FindEntityType(type);
                 string schema = entityType.GetSchema();
@@ -61,7 +63,7 @@
         {
             bool found = TableNameToEntityLookup.TryGetValue(tableName, out Type? type);
             if (!found)
-                throw new ArgumentException("Invalid table name", nameof(tableName));
+                throw new ArgumentException($"Invalid table name '{tableName}'", nameof(tableName));
 
             if (type is null)
                 throw new ArgumentNullException(nameof(type));
@@ -86,17 +88,18 @@
             IsDisposed = true;
         }
 
-        public IGenericRelationalRepository<TEntity> GetRepositoryByName<TEntity>(string name)
-            where TEntity : class, IBaseRelationalEntity
+        public IGenericRelationalRepository GetRepositoryByName(string name)
         {
-            Type type = typeof(IGenericRelationalRepository<TEntity>);
+            Type type = GetEntityTypeFromTableName(name);
             if (Repositories.TryGetValue(type, out IGenericRelationalReadOnlyRepository? value))
             {
-                return (value as IGenericRelationalRepository<TEntity>)!;
+                return (value as IGenericRelationalRepository)!;
             }
 
-            IGenericRelationalRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericRelationalRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericRelationalRepository<TEntity>)!;
+            Type constructingType = typeof(GenericRelationalRepository<>).MakeGenericType(type);
+            IGenericRelationalRepository repository = (Activator.CreateInstance(constructingType, CurrentUser, Context, Mapper) as IGenericRelationalRepository)!;
             Repositories.Add(type, repository);
+
             return repository;
         }
 
@@ -111,35 +114,37 @@
 
             IGenericRelationalRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericRelationalRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericRelationalRepository<TEntity>)!;
             Repositories.Add(type, repository);
+
             return repository;
         }
 
-        public IGenericReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()
+        public IGenericRelationalReadOnlyRepository<TEntity> GetReadOnlyRepository<TEntity>()
             where TEntity : class, IBaseRelationalEntity
         {
-            Type type = typeof(IGenericReadOnlyRepository<TEntity>);
+            Type type = typeof(IGenericRelationalReadOnlyRepository<TEntity>);
             if (Repositories.TryGetValue(type, out IGenericRelationalReadOnlyRepository? value))
             {
-                return (value as IGenericReadOnlyRepository<TEntity>)!;
+                return (value as IGenericRelationalReadOnlyRepository<TEntity>)!;
             }
 
-            IGenericReadOnlyRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericReadOnlyRelationalRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericReadOnlyRepository<TEntity>)!;
+            IGenericRelationalReadOnlyRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericReadOnlyRelationalRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericRelationalReadOnlyRepository<TEntity>)!;
             Repositories.Add(type, repository);
+
             return repository;
         }
 
-        public IGenericReadOnlyRepository<TEntity> GetReadOnlyRepositoryByName<TEntity>(string name)
-            where TEntity : class, IBaseRelationalEntity
+        public IGenericRelationalReadOnlyRepository GetReadOnlyRepositoryByName(string name)
         {
-            //TODO
-            Type type = typeof(IGenericReadOnlyRepository<TEntity>);
+            Type type = GetEntityTypeFromTableName(name);
             if (Repositories.TryGetValue(type, out IGenericRelationalReadOnlyRepository? value))
             {
-                return (value as IGenericReadOnlyRepository<TEntity>)!;
+                return (value as IGenericRelationalReadOnlyRepository)!;
             }
 
-            IGenericReadOnlyRepository<TEntity> repository = (Activator.CreateInstance(typeof(GenericReadOnlyRelationalRepository<TEntity>), CurrentUser, Context, Mapper) as IGenericReadOnlyRepository<TEntity>)!;
+            Type constructingType = typeof(GenericReadOnlyRelationalRepository<>).MakeGenericType(type);
+            IGenericRelationalReadOnlyRepository repository = (Activator.CreateInstance(constructingType, CurrentUser, Context, Mapper) as IGenericRelationalReadOnlyRepository)!;
             Repositories.Add(type, repository);
+
             return repository;
         }
 
@@ -155,6 +160,7 @@
 
             TSpecificRepositoryInterface repository = (TSpecificRepositoryInterface)Activator.CreateInstance(typeof(TSpecificRepository), CurrentUser, Context, Mapper)!;
             Repositories.Add(type, repository);
+
             return repository;
         }
 

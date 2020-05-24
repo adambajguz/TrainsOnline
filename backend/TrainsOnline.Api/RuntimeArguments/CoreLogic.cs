@@ -27,7 +27,7 @@
 
                 if (options.EfMigrateCheck)
                 {
-                    webHost.ValidateMigrations<IPKPAppDbContext>();
+                    webHost.ValidateMigrations<ITrainsOnlineRelationalDbContext>();
 
                     if (!options.Run)
                         Environment.Exit(0);
@@ -35,7 +35,7 @@
 
                 if (options.EfMigrate)
                 {
-                    webHost.MigrateDatabase<IPKPAppDbContext>();
+                    webHost.MigrateDatabase<ITrainsOnlineRelationalDbContext>();
 
                     if (!options.Run)
                         Environment.Exit(0);

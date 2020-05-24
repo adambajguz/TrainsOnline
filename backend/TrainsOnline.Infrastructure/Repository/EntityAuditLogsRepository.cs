@@ -9,7 +9,7 @@
     public class EntityAuditLogsRepository : GenericRelationalRepository<EntityAuditLog>, IEntityAuditLogsRepository
     {
         public EntityAuditLogsRepository(ICurrentUserService currentUserService,
-                                         IPKPAppDbContext context,
+                                         ITrainsOnlineRelationalDbContext context,
                                          IMapper mapper) : base(currentUserService, context, mapper)
         {
 

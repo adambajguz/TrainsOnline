@@ -12,7 +12,7 @@
     public class UsersRepository : GenericRelationalRepository<User>, IUsersRepository
     {
         public UsersRepository(ICurrentUserService currentUserService,
-                               IPKPAppDbContext context,
+                               ITrainsOnlineRelationalDbContext context,
                                IMapper mapper) : base(currentUserService, context, mapper)
         {
 

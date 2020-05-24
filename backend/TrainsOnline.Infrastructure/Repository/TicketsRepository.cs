@@ -9,7 +9,7 @@
     public class TicketsRepository : GenericRelationalRepository<Ticket>, ITicketsRepository
     {
         public TicketsRepository(ICurrentUserService currentUserService,
-                                 IPKPAppDbContext context,
+                                 ITrainsOnlineRelationalDbContext context,
                                  IMapper mapper) : base(currentUserService, context, mapper)
         {
 

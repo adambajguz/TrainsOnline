@@ -15,8 +15,8 @@
             //database configruation
             services.AddConfiguration<DatabaseSettings>(configuration);
 
-            services.AddDbContext<PKPAppDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(ConnectionStringsNames.SQLDatabase)))
-                    .AddScoped<IPKPAppDbContext>(c => c.GetRequiredService<PKPAppDbContext>());
+            services.AddDbContext<TrainsOnlineRelationalDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(ConnectionStringsNames.SQLDatabase)))
+                    .AddScoped<ITrainsOnlineRelationalDbContext>(c => c.GetRequiredService<TrainsOnlineRelationalDbContext>());
 
             services.AddSingleton<ITrainsOnlineMongoDbContext, TrainsOnlineMongoDbContext>();
 

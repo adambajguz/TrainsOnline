@@ -13,7 +13,7 @@
 
     }
 
-    public interface IGenericReadOnlyRepository<TEntity> : IGenericRelationalReadOnlyRepository
+    public interface IGenericRelationalReadOnlyRepository<TEntity> : IGenericRelationalReadOnlyRepository
         where TEntity : class, IBaseRelationalEntity
     {
         Task<IEnumerable<TEntity>> GetAllAsync(
