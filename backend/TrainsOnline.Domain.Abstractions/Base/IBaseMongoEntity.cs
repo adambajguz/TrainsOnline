@@ -1,6 +1,6 @@
 ﻿namespace TrainsOnline.Domain.Abstractions.Base
 {
-    public interface IBaseMongoEntity
+    public interface IBaseMongoEntity : IBaseIdentifiableEntity
     {
 
     }

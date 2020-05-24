@@ -1,6 +1,6 @@
 ﻿namespace TrainsOnline.Domain.Abstractions.Base
 {
-    public interface IBaseRelationalEntity
+    public interface IBaseRelationalEntity : IBaseIdentifiableEntity
     {
 
     }
