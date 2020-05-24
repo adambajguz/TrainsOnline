@@ -14,6 +14,7 @@
     using TrainsOnline.Application.Interfaces.UoW.Generic;
     using TrainsOnline.Common.Extensions;
     using TrainsOnline.Domain.Abstractions.Base;
+    using TrainsOnline.Infrastructure.Extensions;
 
     public abstract class GenericRelationalUnitOfWork : IGenericRelationalUnitOfWork, IDisposable
     {
@@ -48,9 +49,7 @@
             Dictionary<string, Type> tableNameToEntityLookup = new Dictionary<string, Type>();
             foreach (Type type in types)
             {
-                IEntityType entityType = context.Model.FindEntityType(type);
-                string schema = entityType.GetSchema();
-                string tableName = entityType.GetTableName();
+                string tableName = context.Model.GetTableName(type);
 
                 tableNameToEntityLookup.Add(tableName, type);
             }

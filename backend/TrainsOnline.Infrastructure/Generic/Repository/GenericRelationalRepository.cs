@@ -65,5 +65,29 @@
 
             _dbSet.Remove(entity);
         }
+
+        public IBaseRelationalEntity Add(IBaseRelationalEntity entity)
+        {
+            if (entity is TEntity e)
+                return Add(e);
+
+            throw new ArgumentException($"Entity is not of type {typeof(TEntity).Name}", nameof(entity));
+        }
+
+        public void Update(IBaseRelationalEntity entity)
+        {
+            if (entity is TEntity e)
+                Update(e);
+            else
+                throw new ArgumentException($"Entity is not of type {typeof(TEntity).Name}", nameof(entity));
+        }
+
+        public void Remove(IBaseRelationalEntity entity)
+        {
+            if (entity is TEntity e)
+                Remove(e);
+            else
+                throw new ArgumentException($"Entity is not of type {typeof(TEntity).Name}", nameof(entity));
+        }
     }
 }

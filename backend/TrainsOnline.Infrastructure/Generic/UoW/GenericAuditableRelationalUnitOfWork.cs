@@ -16,6 +16,7 @@
     using TrainsOnline.Domain.Abstractions.Audit;
     using TrainsOnline.Domain.Abstractions.Enums;
     using TrainsOnline.Domain.Entities;
+    using TrainsOnline.Infrastructure.Extensions;
 
     public abstract class GenericAuditableRelationalUnitOfWork : GenericRelationalUnitOfWork, IGenericAuditableRelationalUnitOfWork
     {
@@ -59,14 +60,14 @@
             Context.ChangeTracker.DetectChanges();
             IEnumerable<EntityEntry> entries = Context.ChangeTracker.Entries();
 
-            List<EntityAuditLog> auditLogsToAdd = ProcessChanges(entries);
+            List<EntityAuditLog> auditLogsToAdd = ProcessChanges(Context, entries);
 
             foreach (EntityAuditLog log in auditLogsToAdd)
             {
                 EntityAuditLogsRepository.Add(log);
             }
 
-            static List<EntityAuditLog> ProcessChanges(IEnumerable<EntityEntry> entries)
+            static List<EntityAuditLog> ProcessChanges(IGenericDatabaseContext context, IEnumerable<EntityEntry> entries)
             {
                 List<EntityAuditLog> auditLogsToAdd = new List<EntityAuditLog>();
 
@@ -76,9 +77,10 @@
                     if (entity is IAuditableEntitiy == false || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged || entity is IAuditLog)
                         continue;
 
+                    string tableName = context.Model.GetTableName(entity.GetType());
                     AuditEntry auditEntry = new AuditEntry(entry)
                     {
-                        TableName = entry.Metadata.GetDefaultTableName()
+                        TableName = tableName
                     };
 
                     auditEntry.Action = entry.State switch

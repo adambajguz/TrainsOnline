@@ -6,7 +6,13 @@
 
     public interface IGenericRelationalRepository : IGenericRelationalReadOnlyRepository
     {
+        IBaseRelationalEntity Add(IBaseRelationalEntity entity);
 
+        void Update(IBaseRelationalEntity entity);
+
+        Task Remove(Guid id);
+
+        void Remove(IBaseRelationalEntity entity);
     }
 
     public interface IGenericRelationalRepository<TEntity> : IGenericRelationalRepository, IGenericRelationalReadOnlyRepository<TEntity>
@@ -15,8 +21,6 @@
         TEntity Add(TEntity entity);
 
         void Update(TEntity entity);
-
-        Task Remove(Guid id);
 
         void Remove(TEntity entity);
     }
