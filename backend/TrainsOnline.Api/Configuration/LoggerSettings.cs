@@ -10,8 +10,10 @@
         public int FileSizeLimitInBytes { get; set; }
         public int FlushIntervalInSeconds { get; set; }
 
+        public bool IsFileOutputEnabled { get; set; }
         public string? FileOutputTemplate { get; set; }
 
+        public bool IsConsoleOutputEnabled { get; set; }
         public string? ConsoleOutputTemplate { get; set; }
 
         public bool LogEverythingInDev { get; set; }

@@ -5,6 +5,7 @@
     using Microsoft.Extensions.Configuration;
     using Sentry;
     using Serilog;
+    using Serilog.Configuration;
     using Serilog.Events;
     using Serilog.Exceptions;
     using Serilog.Sinks.SystemConsole.Themes;
@@ -48,10 +49,13 @@
 
             ConfigureSentry(loggerSettigns, loggerConfiguration);
 
-            loggerConfiguration.WriteTo.Async(a => a.Logger(WriteToConsole(loggerSettigns)));
+            if (loggerSettigns.IsConsoleOutputEnabled)
+                loggerConfiguration.WriteTo.Async(WriteToConsole(loggerSettigns));
 
-            Log.Logger = loggerConfiguration.WriteTo.Async(WriteToFile(loggerSettigns))
-                                            .CreateLogger();
+            if (loggerSettigns.IsFileOutputEnabled)
+                loggerConfiguration.WriteTo.Async(WriteToFile(loggerSettigns));
+
+            Log.Logger = loggerConfiguration.CreateLogger();
 
             Log.Information($"Config file: {GlobalAppConfig.AppSettingsFileName}");
             Log.Information($"Logs are stored under: {loggerSettigns.FullPath}");
@@ -77,15 +81,15 @@
             });
         }
 
-        private static Action<LoggerConfiguration> WriteToConsole(LoggerSettings loggerSettigns)
+        private static Action<LoggerSinkConfiguration> WriteToConsole(LoggerSettings loggerSettigns)
         {
-            return b => b.WriteTo.Async(c => c.Console(outputTemplate: loggerSettigns.ConsoleOutputTemplate,
-                                                       theme: AnsiConsoleTheme.Literate));
+            return x => x.Console(outputTemplate: loggerSettigns.ConsoleOutputTemplate,
+                                  theme: AnsiConsoleTheme.Literate);
         }
 
-        private static Action<Serilog.Configuration.LoggerSinkConfiguration> WriteToFile(LoggerSettings loggerSettigns)
+        private static Action<LoggerSinkConfiguration> WriteToFile(LoggerSettings loggerSettigns)
         {
-            return a => a.File(loggerSettigns.FullPath,
+            return x => x.File(loggerSettigns.FullPath,
                                outputTemplate: loggerSettigns.FileOutputTemplate,
                                fileSizeLimitBytes: loggerSettigns.FileSizeLimitInBytes,
                                rollingInterval: RollingInterval.Day,
