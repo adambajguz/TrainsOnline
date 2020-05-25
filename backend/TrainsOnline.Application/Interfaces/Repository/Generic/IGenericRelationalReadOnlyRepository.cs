@@ -40,7 +40,7 @@
         new Task<TEntity?> NoTrackingGetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
         Task<TEntity?> GetByIdWithRelatedAsync<TProperty0>(Guid id,
-                                                           Expression<Func<TEntity, TProperty0>> relatedSelector0, 
+                                                           Expression<Func<TEntity, TProperty0>> relatedSelector0,
                                                            CancellationToken cancellationToken = default);
         Task<TEntity?> GetByIdWithRelatedAsync<TProperty0, TProperty1>(Guid id,
                                                                        Expression<Func<TEntity, TProperty0>> relatedSelector0,

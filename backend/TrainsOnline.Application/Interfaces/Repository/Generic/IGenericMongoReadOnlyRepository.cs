@@ -29,7 +29,7 @@
 
         Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? predicate, 
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter,
                                            CancellationToken cancellationToken = default);
 
         new Task<TEntity?> GetByIdAsync(Guid id);

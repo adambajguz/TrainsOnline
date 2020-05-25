@@ -59,13 +59,13 @@
             return await GetQueryable(filter).SingleOrDefaultAsync();
         }
 
-        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? predicate = null, 
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                                         CancellationToken cancellationToken = default)
         {
-            if(predicate is null)
+            if (filter is null)
                 return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(cancellationToken);
 
-            return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(predicate, cancellationToken);
+            return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(filter, cancellationToken);
         }
 
         public async Task<TEntity?> GetByIdAsync(Guid id)
