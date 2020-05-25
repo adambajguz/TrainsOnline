@@ -49,8 +49,9 @@
             return await GetQueryable(filter, orderBy).ToListAsync(cancellationToken);
         }
 
+        //TOOD add methods that return TEntitiy and thor NotFoundException instead of returning null
         public async Task<TEntity?> GetOneOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
-                                                CancellationToken cancellationToken = default)
+                                                         CancellationToken cancellationToken = default)
         {
             if (filter is null)
                 return await _dbSet.SingleOrDefaultAsync(filter, cancellationToken);
@@ -65,11 +66,6 @@
                 return await _dbSet.FirstOrDefaultAsync(cancellationToken);
 
             return await _dbSet.FirstOrDefaultAsync(filter, cancellationToken);
-        }
-
-        public async Task<TEntity?> NoTrackigFirstOrDefaultAsync(CancellationToken cancellationToken = default)
-        {
-            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<TEntity?> NoTrackigFirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,

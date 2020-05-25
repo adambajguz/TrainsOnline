@@ -32,7 +32,6 @@
 
         Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                            CancellationToken cancellationToken = default);
-        Task<TEntity?> NoTrackigFirstOrDefaultAsync(CancellationToken cancellationToken = default);
         Task<TEntity?> NoTrackigFirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                                     CancellationToken cancellationToken = default);
 
