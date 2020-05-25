@@ -10,6 +10,7 @@
     using FluentValidation;
     using MediatR;
     using Microsoft.AspNetCore.Http;
+    using SerilogTimings;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Extensions;
     using TrainsOnline.Application.Interfaces;
@@ -55,14 +56,19 @@
                 await new EntityRequestByIdValidator<Ticket>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
                 await _drs.ValidateUserId(entity, x => x.UserId);
 
-                byte[] ticketCalendarCode = BuildCalendarQRCode(entity);
-                byte[] ticketVerificationCode = BuildVerificationQRCode(entity);
-                byte[] document = BuildDocument(entity, ticketCalendarCode, ticketVerificationCode);
+                using (Operation.Time("Building ticket document for {TicketId}", data.Id))
+                {
+                    // Timed block of code goes here
 
-                GetTicketDocumentResponse response = _mapper.Map<GetTicketDocumentResponse>(entity);
-                response.Document = document;
+                    byte[] ticketCalendarCode = BuildCalendarQRCode(entity);
+                    byte[] ticketVerificationCode = BuildVerificationQRCode(entity);
+                    byte[] document = BuildDocument(entity, ticketCalendarCode, ticketVerificationCode);
 
-                return response;
+                    GetTicketDocumentResponse response = _mapper.Map<GetTicketDocumentResponse>(entity);
+                    response.Document = document;
+
+                    return response;
+                }
             }
 
             #region Handler Helpers
