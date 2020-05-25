@@ -28,67 +28,65 @@
             _mapper = mapper;
         }
 
-        #region IGenericMongoReadOnlyRepository<TEntity>
-        protected virtual IMongoQueryable<TEntity> GetQueryable(
-            Expression<Func<TEntity, bool>>? filter = null)
+        protected IMongoQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>>? filter = null,
+                                                        Func<IMongoQueryable<TEntity>, IOrderedMongoQueryable<TEntity>>? orderBy = null)
         {
             IMongoQueryable<TEntity> query = _dbSet.AsQueryable<TEntity>();
 
             if (filter != null)
                 query = query.Where(filter);
 
+            if (orderBy != null)
+                query = orderBy(query);
+
             return query;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+        #region IGenericMongoReadOnlyRepository<TEntity>
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null,
+                                                            Func<IMongoQueryable<TEntity>, IOrderedMongoQueryable<TEntity>>? orderBy = null)
         {
-            return await _dbSet.AsQueryable().ToListAsync();
+            return await GetQueryable(filter, orderBy).ToListAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).ToListAsync();
         }
 
-        public virtual async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).SingleOrDefaultAsync();
         }
 
-        public virtual async Task<TEntity?> GetFirstAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? predicate = null, 
+                                                        CancellationToken cancellationToken = default)
         {
-            return await GetQueryable(filter).FirstOrDefaultAsync();
-        }
+            if(predicate is null)
+                return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(cancellationToken);
 
-        public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
-        {
             return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
-        {
-            return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(cancellationToken);
-        }
-
-        public virtual async Task<TEntity?> GetByIdAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
-        public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).CountAsync();
         }
 
-        public virtual async Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).AnyAsync();
         }
 
-        public virtual async Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null,
-                                                       CancellationToken cancellationToken = default)
+        public async Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null)
         {
-            return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList());
+            return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider)
+                                                            .ToList());
         }
         #endregion
 

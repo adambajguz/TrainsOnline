@@ -5,6 +5,7 @@
     using System.Linq.Expressions;
     using System.Threading;
     using System.Threading.Tasks;
+    using MongoDB.Driver.Linq;
     using TrainsOnline.Domain.Abstractions.Base;
 
     public interface IGenericMongoReadOnlyRepository
@@ -21,24 +22,22 @@
     public interface IGenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
         where TEntity : class, IBaseMongoEntity
     {
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null,
+                                               Func<IMongoQueryable<TEntity>, IOrderedMongoQueryable<TEntity>>? orderBy = null);
 
         Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null);
 
         Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<TEntity?> GetFirstAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? predicate, 
+                                           CancellationToken cancellationToken = default);
 
-        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-        Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
-
-        Task<TEntity?> GetByIdAsync(Guid id);
+        new Task<TEntity?> GetByIdAsync(Guid id);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
 
         Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null,
-                                        CancellationToken cancellationToken = default);
+        Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null);
     }
 }
