@@ -9,7 +9,13 @@
 
     public interface IGenericMongoReadOnlyRepository
     {
+        Type GetEntityType();
 
+        Task<IEnumerable<IBaseMongoEntity>> GetAll();
+
+        Task<IBaseMongoEntity?> GetByIdAsync(Guid id);
+
+        Task<int> GetCountAsync();
     }
 
     public interface IGenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
@@ -19,14 +25,14 @@
 
         Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<TEntity?> GetFirstAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
-        Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
+        Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
+        Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken = default);
 
-        Task<TEntity> GetByIdAsync(Guid id);
+        Task<TEntity?> GetByIdAsync(Guid id);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
 

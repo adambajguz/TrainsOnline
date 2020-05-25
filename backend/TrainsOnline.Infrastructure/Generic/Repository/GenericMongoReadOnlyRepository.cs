@@ -28,6 +28,7 @@
             _mapper = mapper;
         }
 
+        #region IGenericMongoReadOnlyRepository<TEntity>
         protected virtual IMongoQueryable<TEntity> GetQueryable(
             Expression<Func<TEntity, bool>>? filter = null)
         {
@@ -41,7 +42,7 @@
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await GetQueryable(null).ToListAsync();
+            return await _dbSet.AsQueryable().ToListAsync();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null)
@@ -49,27 +50,27 @@
             return await GetQueryable(filter).ToListAsync();
         }
 
-        public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public virtual async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).SingleOrDefaultAsync();
         }
 
-        public virtual async Task<TEntity> GetFirstAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public virtual async Task<TEntity?> GetFirstAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).FirstOrDefaultAsync();
         }
 
-        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
             return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual async Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
+        public virtual async Task<TEntity?> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
         {
             return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(cancellationToken);
         }
 
-        public virtual async Task<TEntity> GetByIdAsync(Guid id)
+        public virtual async Task<TEntity?> GetByIdAsync(Guid id)
         {
             return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
@@ -89,5 +90,28 @@
         {
             return await Task.Run(() => GetQueryable(filter).ProjectTo<T>(_mapper.ConfigurationProvider).ToList());
         }
+        #endregion
+
+        #region IGenericMongoReadOnlyRepository
+        public Type GetEntityType()
+        {
+            return typeof(TEntity);
+        }
+
+        public async Task<IEnumerable<IBaseMongoEntity>> GetAll()
+        {
+            return await _dbSet.AsQueryable().ToListAsync();
+        }
+
+        async Task<IBaseMongoEntity?> IGenericMongoReadOnlyRepository.GetByIdAsync(Guid id)
+        {
+            return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await _dbSet.AsQueryable().CountAsync();
+        }
+        #endregion
     }
 }
