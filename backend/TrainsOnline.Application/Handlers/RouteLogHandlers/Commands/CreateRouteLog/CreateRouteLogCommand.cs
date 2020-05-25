@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.CreateRout
                 await new CreateRouteLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 RouteLog entity = _mapper.Map<RouteLog>(data);
-                await _uow.RouteLogsRepository.AddAsync(entity);
+                await _uow.RouteLogs.AddAsync(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

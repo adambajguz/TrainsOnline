@@ -34,7 +34,7 @@
             {
                 GetFilteredRoutesListRequest data = request.Data;
 
-                List<GetRoutesListResponse.RouteLookupModel> list = await _uow.RoutesRepository.ProjectToWithRelatedAsync<GetRoutesListResponse.RouteLookupModel, Station, Station>(relatedSelector0: x => x.From,
+                List<GetRoutesListResponse.RouteLookupModel> list = await _uow.Routes.ProjectToWithRelatedAsync<GetRoutesListResponse.RouteLookupModel, Station, Station>(relatedSelector0: x => x.From,
                                                                                                                                              relatedSelector1: x => x.To,
                                                                                                                                              //filter: (x) => data.MaximumTicketPrice == null || x.TicketPrice <= data.MaximumTicketPrice,
                                                                                                                                              cancellationToken: cancellationToken);

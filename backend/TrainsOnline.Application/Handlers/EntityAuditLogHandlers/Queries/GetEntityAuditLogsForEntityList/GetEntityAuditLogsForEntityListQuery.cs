@@ -30,7 +30,7 @@
 
             public async Task<GetEntityAuditLogsForEntityListResponse> Handle(GetEntityAuditLogsForEntityListQuery request, CancellationToken cancellationToken)
             {
-                List<ResponseListItem> list = await _uow.EntityAuditLogsRepository.ProjectToAsync<ResponseListItem>(filter: x => x.Key == request.Data.Id,
+                List<ResponseListItem> list = await _uow.EntityAuditLogs.ProjectToAsync<ResponseListItem>(filter: x => x.Key == request.Data.Id,
                                                                                                                     orderBy: (x) => x.OrderByDescending(x => x.CreatedOn),
                                                                                                                     cancellationToken: cancellationToken);
                 bool listHasValues = list.Count > 0;

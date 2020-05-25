@@ -20,14 +20,12 @@
 
     public abstract class GenericAuditableRelationalUnitOfWork : GenericRelationalUnitOfWork, IGenericAuditableRelationalUnitOfWork
     {
-        private IEntityAuditLogsRepository? _entityAuditLogsRepository;
-
-        public IEntityAuditLogsRepository EntityAuditLogsRepository => _entityAuditLogsRepository ?? (_entityAuditLogsRepository = GetSpecificRepository<IEntityAuditLogsRepository, EntityAuditLogsRepository>());
-
+        private readonly Lazy<IEntityAuditLogsRepository> _entityAuditLogs;
+        public IEntityAuditLogsRepository EntityAuditLogs => _entityAuditLogs.Value;
 
         public GenericAuditableRelationalUnitOfWork(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
-
+            _entityAuditLogs = new Lazy<IEntityAuditLogsRepository>(() => GetSpecificRepository<IEntityAuditLogsRepository, EntityAuditLogsRepository>());
         }
 
         public override int SaveChanges()
@@ -64,7 +62,7 @@
 
             foreach (EntityAuditLog log in auditLogsToAdd)
             {
-                EntityAuditLogsRepository.Add(log);
+                EntityAuditLogs.Add(log);
             }
 
             static List<EntityAuditLog> ProcessChanges(IGenericDatabaseContext context, IEnumerable<EntityEntry> entries)

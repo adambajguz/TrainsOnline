@@ -45,7 +45,7 @@
 
                 await new GetResetPasswordTokenQueryValidator().ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
-                User user = await _uow.UsersRepository.FirstOrDefaultAsync(x => x.Email.Equals(data.Email));
+                User user = await _uow.Users.FirstOrDefaultAsync(x => x.Email.Equals(data.Email));
 
                 if (user != null)
                 {

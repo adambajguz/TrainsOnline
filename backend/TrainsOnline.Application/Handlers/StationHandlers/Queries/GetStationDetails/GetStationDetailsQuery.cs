@@ -33,7 +33,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Queries.GetStationDe
             {
                 IdRequest data = request.Data;
 
-                Station entity = await _uow.StationsRepository.GetStationFullDetails(data.Id);
+                Station entity = await _uow.Stations.GetStationFullDetails(data.Id);
 
                 EntityRequestByIdValidator<Station>.Model validationModel = new EntityRequestByIdValidator<Station>.Model(data, entity);
                 await new EntityRequestByIdValidator<Station>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

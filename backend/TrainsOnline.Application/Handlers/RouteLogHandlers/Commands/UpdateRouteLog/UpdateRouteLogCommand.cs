@@ -32,13 +32,13 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.UpdateRout
             {
                 UpdateRouteLogRequest data = request.Data;
 
-                RouteLog routeLog = await _uow.RouteLogsRepository.GetByIdAsync(data.Id);
+                RouteLog routeLog = await _uow.RouteLogs.GetByIdAsync(data.Id);
 
                 UpdateRouteLogCommandValidator.Model validationModel = new UpdateRouteLogCommandValidator.Model(data, routeLog);
                 await new UpdateRouteLogCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, routeLog);
-                await _uow.RouteLogsRepository.UpdateAsync(routeLog);
+                await _uow.RouteLogs.UpdateAsync(routeLog);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

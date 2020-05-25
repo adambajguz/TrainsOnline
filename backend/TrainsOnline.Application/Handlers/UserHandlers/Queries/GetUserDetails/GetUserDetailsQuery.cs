@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Queries.GetUserDetails
             {
                 IdRequest data = request.Data;
 
-                User entity = await _uow.UsersRepository.GetByIdAsync(data.Id, cancellationToken);
+                User entity = await _uow.Users.GetByIdAsync(data.Id, cancellationToken);
 
                 EntityRequestByIdValidator<User>.Model validationModel = new EntityRequestByIdValidator<User>.Model(data, entity);
                 await new EntityRequestByIdValidator<User>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

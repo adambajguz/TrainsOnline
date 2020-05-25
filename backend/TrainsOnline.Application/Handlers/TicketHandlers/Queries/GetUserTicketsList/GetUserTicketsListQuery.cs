@@ -38,7 +38,7 @@
 
                 return new GetUserTicketsListResponse
                 {
-                    Tickets = await _uow.TicketsRepository.ProjectToWithRelatedAsync<GetUserTicketsListResponse.UserTicketLookupModel, Route>(x => x.Route, x => x.UserId == userId, cancellationToken: cancellationToken)
+                    Tickets = await _uow.Tickets.ProjectToWithRelatedAsync<GetUserTicketsListResponse.UserTicketLookupModel, Route>(x => x.Route, x => x.UserId == userId, cancellationToken: cancellationToken)
                 };
             }
         }

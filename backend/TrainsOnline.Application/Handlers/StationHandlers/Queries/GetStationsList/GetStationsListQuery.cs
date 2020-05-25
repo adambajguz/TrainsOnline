@@ -25,7 +25,7 @@
             {
                 return new GetStationsListResponse
                 {
-                    Stations = await _uow.StationsRepository.ProjectToAsync<GetStationsListResponse.StationLookupModel>(cancellationToken: cancellationToken)
+                    Stations = await _uow.Stations.ProjectToAsync<GetStationsListResponse.StationLookupModel>(cancellationToken: cancellationToken)
                 };
             }
         }

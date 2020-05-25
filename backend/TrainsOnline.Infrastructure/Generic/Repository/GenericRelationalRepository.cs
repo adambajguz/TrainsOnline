@@ -12,18 +12,18 @@
     public class GenericRelationalRepository<TEntity> : GenericReadOnlyRelationalRepository<TEntity>, IGenericRelationalRepository<TEntity>
         where TEntity : class, IBaseRelationalEntity
     {
-        private ICurrentUserService CurrentUser { get; }
+        private readonly ICurrentUserService _currentUser;
 
         public GenericRelationalRepository(ICurrentUserService currentUserService, IGenericDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
-            CurrentUser = currentUserService;
+            _currentUser = currentUserService;
         }
 
         #region IGenericRelationalRepository<TEntity>
         public virtual TEntity Add(TEntity entity)
         {
             DateTime time = DateTime.UtcNow;
-            Guid? userGuid = CurrentUser.UserId;
+            Guid? userGuid = _currentUser.UserId;
 
             if (entity is IEntityCreation entityCreation)
             {
@@ -47,7 +47,7 @@
             if (entity is IEntityLastSaved entityModification)
             {
                 entityModification.LastSavedOn = DateTime.UtcNow;
-                entityModification.LastSavedBy = CurrentUser.UserId;
+                entityModification.LastSavedBy = _currentUser.UserId;
             }
             _dbSet.Attach(entity);
             //_context.Entry(entity).State = EntityState.Modified;

@@ -35,14 +35,14 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.ChangePassword
                 ChangePasswordRequest data = request.Data;
                 await _drs.ValidateUserId(data, x => x.UserId);
 
-                User user = await _uow.UsersRepository.GetByIdAsync(data.UserId);
+                User user = await _uow.Users.GetByIdAsync(data.UserId);
 
                 ChangePasswordCommandValidator.Model validationModel = new ChangePasswordCommandValidator.Model(data, user);
                 await new ChangePasswordCommandValidator(_userManager).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 await _userManager.SetPassword(user, data.NewPassword, cancellationToken);
 
-                _uow.UsersRepository.Update(user);
+                _uow.Users.Update(user);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

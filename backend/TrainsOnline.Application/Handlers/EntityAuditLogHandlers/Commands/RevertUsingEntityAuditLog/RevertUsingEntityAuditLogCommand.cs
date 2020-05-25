@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.CreateRouteL
                 await new RevertUsingEntityAuditLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 EntityAuditLog entity = _mapper.Map<EntityAuditLog>(data);
-                _uow.EntityAuditLogsRepository.Add(entity);
+                _uow.EntityAuditLogs.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

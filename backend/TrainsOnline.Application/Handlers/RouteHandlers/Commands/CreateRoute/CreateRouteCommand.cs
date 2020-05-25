@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.CreateRoute
                 await new CreateRouteCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 Route entity = _mapper.Map<Route>(data);
-                _uow.RoutesRepository.Add(entity);
+                _uow.Routes.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

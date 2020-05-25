@@ -36,7 +36,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketDeta
             {
                 IdRequest data = request.Data;
 
-                Ticket entity = await _uow.TicketsRepository.GetByIdWithRelatedAsync(data.Id, x => x.Route, x => x.Route.From, cancellationToken, x => x.Route.To);
+                Ticket entity = await _uow.Tickets.GetByIdWithRelatedAsync(data.Id, x => x.Route, x => x.Route.From, cancellationToken, x => x.Route.To);
 
                 EntityRequestByIdValidator<Ticket>.Model validationModel = new EntityRequestByIdValidator<Ticket>.Model(data, entity);
                 await new EntityRequestByIdValidator<Ticket>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

@@ -1,5 +1,6 @@
 ﻿namespace TrainsOnline.Infrastructure.UoW
 {
+    using System;
     using Application.Interfaces;
     using AutoMapper;
     using TrainsOnline.Application.Interfaces.Repository;
@@ -8,12 +9,12 @@
 
     public class TrainsOnlineMongoUnitOfWork : GenericMongoUnitOfWork, ITrainsOnlineMongoUnitOfWork
     {
-        private IRouteLogsRepository? _routeLogsRepository;
-        public IRouteLogsRepository RouteLogsRepository => _routeLogsRepository ?? (_routeLogsRepository = GetSpecificRepository<IRouteLogsRepository, RouteLogsRepository>());
+        private readonly Lazy<IRouteLogsRepository> _routeLogs;
+        public IRouteLogsRepository RouteLogs => _routeLogs.Value;
 
         public TrainsOnlineMongoUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineMongoDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
-
+            _routeLogs = new Lazy<IRouteLogsRepository>(() => GetSpecificRepository<IRouteLogsRepository, RouteLogsRepository>());
         }
     }
 }

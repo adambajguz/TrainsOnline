@@ -26,7 +26,7 @@
             {
                 return new GetRoutesListResponse
                 {
-                    Routes = await _uow.RoutesRepository.ProjectToWithRelatedAsync<GetRoutesListResponse.RouteLookupModel, Station, Station>(relatedSelector0: x => x.From,
+                    Routes = await _uow.Routes.ProjectToWithRelatedAsync<GetRoutesListResponse.RouteLookupModel, Station, Station>(relatedSelector0: x => x.From,
                                                                                                                                              relatedSelector1: x => x.To,
                                                                                                                                              cancellationToken: cancellationToken)
                 };

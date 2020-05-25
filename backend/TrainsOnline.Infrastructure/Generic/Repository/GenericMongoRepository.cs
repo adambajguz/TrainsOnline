@@ -11,17 +11,17 @@
     public class GenericMongoRepository<TEntity> : GenericMongoReadOnlyRepository<TEntity>, IGenericMongoRepository<TEntity>
         where TEntity : class, IBaseMongoEntity
     {
-        private ICurrentUserService CurrentUser { get; }
+        private readonly ICurrentUserService _currentUser;
 
         public GenericMongoRepository(ICurrentUserService currentUserService, IGenericMongoDatabaseContext context, IMapper mapper) : base(context, mapper)
         {
-            CurrentUser = currentUserService;
+            _currentUser = currentUserService;
         }
 
         public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             DateTime time = DateTime.UtcNow;
-            Guid? userGuid = CurrentUser.UserId;
+            Guid? userGuid = _currentUser.UserId;
 
             if (entity is IEntityCreation entityCreation)
             {
@@ -45,7 +45,7 @@
             if (entity is IEntityLastSaved entityModification)
             {
                 entityModification.LastSavedOn = DateTime.UtcNow;
-                entityModification.LastSavedBy = CurrentUser.UserId;
+                entityModification.LastSavedBy = _currentUser.UserId;
             }
 
             FilterDefinition<TEntity> idFilter = Builders<TEntity>.Filter.Eq(x => x.Id, entity.Id);

@@ -41,13 +41,13 @@
                     throw new ForbiddenException();
 
                 Guid userId = _jwt.GetUserIdFromToken(data.Token!);
-                User user = await _uow.UsersRepository.FirstOrDefaultAsync(x => x.Id.Equals(userId));
+                User user = await _uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(userId));
 
                 ResetPasswordCommandValidator.Model validationData = new ResetPasswordCommandValidator.Model(data, user);
                 await new ResetPasswordCommandValidator().ValidateAndThrowAsync(validationData, cancellationToken: cancellationToken);
                 await _userManager.SetPassword(user, data.Password, cancellationToken);
 
-                _uow.UsersRepository.Update(user);
+                _uow.Users.Update(user);
                 await _uow.SaveChangesAsync();
 
                 return Unit.Value;

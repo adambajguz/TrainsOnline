@@ -46,7 +46,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.CreateUser
                 User entity = _mapper.Map<User>(data);
                 await _userManager.SetPassword(entity, data.Password, cancellationToken);
 
-                _uow.UsersRepository.Add(entity);
+                _uow.Users.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

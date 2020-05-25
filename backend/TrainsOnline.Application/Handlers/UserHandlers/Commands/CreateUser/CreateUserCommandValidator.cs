@@ -15,7 +15,7 @@
 
             RuleFor(x => x.Email).MustAsync(async (request, val, token) =>
             {
-                bool checkInUse = await uow.UsersRepository.IsEmailInUseAsync(val);
+                bool checkInUse = await uow.Users.IsEmailInUseAsync(val);
 
                 return !checkInUse;
 

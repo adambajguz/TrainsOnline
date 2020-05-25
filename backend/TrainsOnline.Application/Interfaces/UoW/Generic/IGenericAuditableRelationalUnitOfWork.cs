@@ -6,7 +6,7 @@
 
     public interface IGenericAuditableRelationalUnitOfWork : IGenericRelationalUnitOfWork
     {
-        IEntityAuditLogsRepository EntityAuditLogsRepository { get; }
+        IEntityAuditLogsRepository EntityAuditLogs { get; }
 
         int SaveChangesWithoutAudit();
         Task<int> SaveChangesWithoutAuditAsync(CancellationToken cancellationToken = default);

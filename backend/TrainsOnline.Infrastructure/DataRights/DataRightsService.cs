@@ -54,7 +54,7 @@
             if (!_currentUser.IsAdmin && userIdToValidate != userId)
                 throw new ForbiddenException();
 
-            User user = await _uow.UsersRepository.GetByIdAsync(userIdToValidate);
+            User user = await _uow.Users.GetByIdAsync(userIdToValidate);
             if (user is null)
                 throw new BadUserException();
         }

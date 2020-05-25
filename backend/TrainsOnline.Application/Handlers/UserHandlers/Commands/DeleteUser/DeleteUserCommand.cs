@@ -34,12 +34,12 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.DeleteUser
                 IdRequest data = request.Data;
                 await _drs.ValidateUserId(data, x => x.Id);
 
-                User user = await _uow.UsersRepository.GetByIdAsync(data.Id);
+                User user = await _uow.Users.GetByIdAsync(data.Id);
 
                 EntityRequestByIdValidator<User>.Model validationModel = new EntityRequestByIdValidator<User>.Model(data, user);
                 await new EntityRequestByIdValidator<User>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
-                _uow.UsersRepository.Remove(user);
+                _uow.Users.Remove(user);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

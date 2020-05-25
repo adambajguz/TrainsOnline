@@ -40,7 +40,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket
                 await new CreateTicketCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
                 Ticket entity = _mapper.Map<Ticket>(data);
-                _uow.TicketsRepository.Add(entity);
+                _uow.Tickets.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

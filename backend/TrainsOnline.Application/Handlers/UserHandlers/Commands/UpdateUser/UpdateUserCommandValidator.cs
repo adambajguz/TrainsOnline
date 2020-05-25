@@ -23,7 +23,7 @@
                     if (userResult.Email.Equals(val))
                         return true;
 
-                    bool checkInUse = await uow.UsersRepository.IsEmailInUseAsync(val!);
+                    bool checkInUse = await uow.Users.IsEmailInUseAsync(val!);
 
                     return !checkInUse;
 

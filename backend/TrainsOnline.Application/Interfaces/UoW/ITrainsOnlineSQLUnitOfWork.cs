@@ -5,9 +5,9 @@
 
     public interface ITrainsOnlineSQLUnitOfWork : IGenericAuditableRelationalUnitOfWork
     {
-        IRoutesRepository RoutesRepository { get; }
-        IStationsRepository StationsRepository { get; }
-        ITicketsRepository TicketsRepository { get; }
-        IUsersRepository UsersRepository { get; }
+        IRoutesRepository Routes { get; }
+        IStationsRepository Stations { get; }
+        ITicketsRepository Tickets { get; }
+        IUsersRepository Users { get; }
     }
 }

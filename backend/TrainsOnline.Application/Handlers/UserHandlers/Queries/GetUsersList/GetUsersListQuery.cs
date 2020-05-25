@@ -25,7 +25,7 @@
             {
                 return new GetUsersListResponse
                 {
-                    Users = await _uow.UsersRepository.ProjectToAsync<GetUsersListResponse.UserLookupModel>(cancellationToken: cancellationToken)
+                    Users = await _uow.Users.ProjectToAsync<GetUsersListResponse.UserLookupModel>(cancellationToken: cancellationToken)
                 };
             }
         }

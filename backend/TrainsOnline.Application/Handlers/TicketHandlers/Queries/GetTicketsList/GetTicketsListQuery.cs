@@ -25,7 +25,7 @@
             {
                 return new GetTicketsListResponse
                 {
-                    Tickets = await _uow.TicketsRepository.ProjectToAsync<GetTicketsListResponse.TicketLookupModel>(cancellationToken: cancellationToken)
+                    Tickets = await _uow.Tickets.ProjectToAsync<GetTicketsListResponse.TicketLookupModel>(cancellationToken: cancellationToken)
                 };
             }
         }
