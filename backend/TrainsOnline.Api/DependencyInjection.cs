@@ -103,6 +103,8 @@
 
             services.AddSwagger();
 
+            services.AddDistributedMemoryCache();
+
             return services;
         }
     }

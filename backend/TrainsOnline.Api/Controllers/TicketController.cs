@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Caching.Distributed;
     using Swashbuckle.AspNetCore.Annotations;
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
     using TrainsOnline.Application.DTO;
@@ -32,6 +33,13 @@
         public const string GetCurrentUser = nameof(GetCurrentUserTicketsList);
         public const string GetUser = nameof(GetUserTicketsList);
         public const string GetAll = nameof(GetTicketsList);
+
+        private IDistributedCache Cache { get; }
+
+        public TicketController(IDistributedCache cache)
+        {
+            Cache = cache;
+        }
 
         [Authorize(Roles = Roles.User)]
         [HttpPost("create")]
@@ -69,6 +77,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> GetTicketDocument([FromRoute]Guid id)
         {
+            //TODO: add cache
+
             return Ok(await Mediator.Send(new GetTicketDocumentQuery(new IdRequest(id))));
         }
 

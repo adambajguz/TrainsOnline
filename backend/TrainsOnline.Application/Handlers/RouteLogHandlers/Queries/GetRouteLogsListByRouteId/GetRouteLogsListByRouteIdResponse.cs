@@ -27,7 +27,7 @@
 
             void ICustomMapping.CreateMappings(Profile configuration)
             {
-                configuration.CreateMap<RouteLog, RouteLogLookupModel>();
+                configuration.CreateMap<RouteLog, RouteLogByRouteIdLookupModel>();
             }
         }
     }

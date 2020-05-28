@@ -25,16 +25,16 @@
         public const string GetAll = nameof(GetReportsList);
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpPost("create")]
+        [HttpPost("create/")]
         [SwaggerOperation(
             Summary = "Create new route report [" + Roles.Admin + "]",
             Description = "Creates a new route report")]
         [SwaggerResponse(StatusCodes.Status200OK, "Route log created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> CreateReport([FromBody]CreateRouteReportRequest route)
+        public async Task<IActionResult> CreateReport(IdRequest id)
         {
-            return Ok(await Mediator.Send(new CreateRouteReportCommand(route)));
+            return Ok(await Mediator.Send(new CreateRouteReportCommand(id)));
         }
 
         [HttpGet("get/{id:guid}")]

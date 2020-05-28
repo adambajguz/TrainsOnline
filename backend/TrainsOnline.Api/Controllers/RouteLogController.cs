@@ -13,6 +13,7 @@
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRouteLogByRouteId;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogDetails;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogsList;
+    using TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogsListByRouteId;
     using TrainsOnline.Domain.Jwt;
 
     [Route("api/route-log")]
@@ -61,6 +62,16 @@
             return Ok(await Mediator.Send(new DeleteRouteLogByRouteIdCommand(new IdRequest(id))));
         }
 
+        [HttpGet("get-all-by-route-id/{id:guid}")]
+        [SwaggerOperation(
+            Summary = "Get all route logs by route id",
+            Description = "Gets a list of all route logs by route id")]
+        [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteLogsListByRouteIdResponse))]
+        public async Task<IActionResult> GetRoutesList([FromRoute]Guid id)
+        {
+            return Ok(await Mediator.Send(new GetRouteLogsListByRouteIdQuery(new IdRequest(id))));
+        }    
+        
         [HttpGet("get-all")]
         [SwaggerOperation(
             Summary = "Get all route logs",
