@@ -24,8 +24,8 @@
 
         public double CurrentMean { get; set; }
         public double CurrentSd { get; set; }
-        public double CurrentMax { get; set; }      
-        
+        public double CurrentMax { get; set; }
+
         public double PowerMean { get; set; }
         public double PowerSd { get; set; }
         public double PowerMax { get; set; }
@@ -36,7 +36,7 @@
 
         public TimeSpan Duration { get; set; }
         public int NumberOfStops { get; set; }
-        
+
         public double StopDurationMean { get; set; }
         public double StopDurationSd { get; set; }
         public double StopDurationMax { get; set; }
