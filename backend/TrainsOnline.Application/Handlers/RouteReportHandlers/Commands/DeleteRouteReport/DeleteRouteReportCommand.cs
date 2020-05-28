@@ -31,12 +31,12 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.DeleteR
             {
                 IdRequest data = request.Data;
 
-                RouteReport routeReports = await _uow.RouteLogs.GetByIdAsync(data.Id);
+                RouteReport? routeReport = await _uow.RouteReports.GetByIdAsync(data.Id);
 
-                EntityRequestByIdValidator<RouteReport>.Model validationModel = new EntityRequestByIdValidator<RouteReport>.Model(data, routeReports);
+                EntityRequestByIdValidator<RouteReport>.Model validationModel = new EntityRequestByIdValidator<RouteReport>.Model(data, routeReport);
                 await new EntityRequestByIdValidator<RouteReport>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
-                await _uow.RouteLogs.RemoveAsync(routeReports);
+                await _uow.RouteReports.RemoveAsync(routeReport);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

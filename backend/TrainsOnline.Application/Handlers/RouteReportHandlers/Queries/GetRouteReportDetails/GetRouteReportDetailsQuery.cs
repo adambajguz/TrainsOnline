@@ -34,10 +34,10 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Queries.GetRoute
             {
                 IdRequest data = request.Data;
 
-                RouteLog entity = await _uow.RouteLogs.GetByIdAsync(data.Id);
+                RouteReport entity = await _uow.RouteReports.GetByIdAsync(data.Id);
 
-                EntityRequestByIdValidator<RouteLog>.Model validationModel = new EntityRequestByIdValidator<RouteLog>.Model(data, entity);
-                await new EntityRequestByIdValidator<RouteLog>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
+                EntityRequestByIdValidator<RouteReport>.Model validationModel = new EntityRequestByIdValidator<RouteReport>.Model(data, entity);
+                await new EntityRequestByIdValidator<RouteReport>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 return _mapper.Map<GetRouteReportDetailsResponse>(entity);
             }

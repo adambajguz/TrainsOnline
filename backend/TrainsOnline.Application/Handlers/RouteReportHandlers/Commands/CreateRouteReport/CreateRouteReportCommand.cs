@@ -4,16 +4,15 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.CreateR
     using System.Threading.Tasks;
     using AutoMapper;
     using Domain.Entities;
-    using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.UoW;
 
     public class CreateRouteReportCommand : IRequest<IdResponse>
     {
-        public CreateRouteReportRequest Data { get; }
+        public IdRequest Data { get; }
 
-        public CreateRouteReportCommand(CreateRouteReportRequest data)
+        public CreateRouteReportCommand(IdRequest data)
         {
             Data = data;
         }
@@ -31,12 +30,11 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.CreateR
 
             public async Task<IdResponse> Handle(CreateRouteReportCommand request, CancellationToken cancellationToken)
             {
-                CreateRouteReportRequest data = request.Data;
+                IdRequest data = request.Data;
 
-                await new CreateRouteReportCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
-                RouteLog entity = _mapper.Map<RouteLog>(data);
-                await _uow.RouteLogs.AddAsync(entity);
+                RouteReport entity = _mapper.Map<RouteReport>(data);
+                await _uow.RouteReports.AddAsync(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
