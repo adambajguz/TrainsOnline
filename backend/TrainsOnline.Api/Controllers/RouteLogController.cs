@@ -10,8 +10,7 @@
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetails;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.CreateRouteLog;
-    using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRouteLog;
-    using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.UpdateRouteLog;
+    using TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRouteLogByRouteId;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogDetails;
     using TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogsList;
     using TrainsOnline.Domain.Jwt;
@@ -22,7 +21,6 @@
     {
         public const string Create = nameof(CreateRoute);
         public const string GetDetails = nameof(GetRouteDetails);
-        public const string Update = nameof(UpdateRoute);
         public const string Delete = nameof(DeleteRoute);
         public const string GetAll = nameof(GetRoutesList);
 
@@ -51,29 +49,16 @@
         }
 
         [Authorize(Roles = Roles.Admin)]
-        [HttpPut("update")]
-        [SwaggerOperation(
-            Summary = "Updated route log details [" + Roles.Admin + "]",
-            Description = "Updates route log details")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Route details updated")]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> UpdateRoute([FromBody]UpdateRouteLogRequest route)
-        {
-            return Ok(await Mediator.Send(new UpdateRouteLogCommand(route)));
-        }
-
-        [Authorize(Roles = Roles.Admin)]
         [HttpDelete("delete/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Delete route log [" + Roles.Admin + "]",
-            Description = "Deletes route log")]
-        [SwaggerResponse(StatusCodes.Status200OK, "Route log deleted")]
+            Summary = "Delete route log by route id[" + Roles.Admin + "]",
+            Description = "Deletes route logs by route id")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Route logs deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> DeleteRoute([FromRoute]Guid id)
         {
-            return Ok(await Mediator.Send(new DeleteRouteLogCommand(new IdRequest(id))));
+            return Ok(await Mediator.Send(new DeleteRouteLogByRouteIdCommand(new IdRequest(id))));
         }
 
         [HttpGet("get-all")]

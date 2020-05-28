@@ -30,6 +30,7 @@
         }
 
         public IMongoCollection<RouteLog> RouteLogs => Db.GetCollection<RouteLog>();
+        public IMongoCollection<RouteReport> RouteReports => Db.GetCollection<RouteReport>();
 
         public IMongoCollection<T> GetCollection<T>()
             where T : class, IBaseMongoEntity

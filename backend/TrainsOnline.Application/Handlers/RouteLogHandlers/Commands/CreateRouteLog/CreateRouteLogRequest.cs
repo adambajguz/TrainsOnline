@@ -8,13 +8,15 @@
 
     public class CreateRouteLogRequest : IDataTransferObject, ICustomMapping
     {
-        public Guid FromId { get; set; }
-        public Guid ToId { get; set; }
+        public DateTime Timestamp { get; set; }
+        public Guid RouteId { get; set; }
 
-        public DateTime DepartureTime { get; set; } = default!;
-        public TimeSpan Duration { get; set; } = default!;
-        public double Distance { get; set; }
-        public double TicketPrice { get; set; }
+        public double Latitude { get; set; } = default!;
+        public double Longitude { get; set; } = default!;
+
+        public double Voltage { get; set; }
+        public double Current { get; set; }
+        public double Speed { get; set; }
 
         void ICustomMapping.CreateMappings(Profile configuration)
         {

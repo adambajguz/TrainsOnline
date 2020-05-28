@@ -1,4 +1,4 @@
-namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRouteLog
+namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRouteLogByRouteId
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -9,16 +9,16 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRout
     using TrainsOnline.Application.Handlers;
     using TrainsOnline.Application.Interfaces.UoW;
 
-    public class DeleteRouteLogCommand : IRequest
+    public class DeleteRouteLogByRouteIdCommand : IRequest
     {
         public IdRequest Data { get; }
 
-        public DeleteRouteLogCommand(IdRequest data)
+        public DeleteRouteLogByRouteIdCommand(IdRequest data)
         {
             Data = data;
         }
 
-        public class Handler : IRequestHandler<DeleteRouteLogCommand, Unit>
+        public class Handler : IRequestHandler<DeleteRouteLogByRouteIdCommand, Unit>
         {
             private readonly ITrainsOnlineMongoUnitOfWork _uow;
 
@@ -27,7 +27,7 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRout
                 _uow = uow;
             }
 
-            public async Task<Unit> Handle(DeleteRouteLogCommand request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(DeleteRouteLogByRouteIdCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 

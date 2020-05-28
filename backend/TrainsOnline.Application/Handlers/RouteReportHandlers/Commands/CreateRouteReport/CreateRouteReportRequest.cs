@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.UpdateRouteLog
+﻿namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.CreateRouteReport
 {
     using System;
     using Application.Interfaces.Mapping;
@@ -6,10 +6,8 @@
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Domain.Entities;
 
-    public class UpdateRouteLogRequest : IDataTransferObject, ICustomMapping
+    public class CreateRouteReportRequest : IDataTransferObject, ICustomMapping
     {
-        public Guid Id { get; set; }
-
         public Guid FromId { get; set; }
         public Guid ToId { get; set; }
 
@@ -20,7 +18,7 @@
 
         void ICustomMapping.CreateMappings(Profile configuration)
         {
-            configuration.CreateMap<UpdateRouteLogRequest, RouteLog>();
+            configuration.CreateMap<CreateRouteReportRequest, RouteReport>();
         }
     }
 }

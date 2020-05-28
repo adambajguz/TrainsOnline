@@ -6,5 +6,6 @@
     public interface ITrainsOnlineMongoUnitOfWork : IGenericMongoUnitOfWork
     {
         IRouteLogsRepository RouteLogs { get; }
+        IRouteReportsRepository RouteReports { get; }
     }
 }
