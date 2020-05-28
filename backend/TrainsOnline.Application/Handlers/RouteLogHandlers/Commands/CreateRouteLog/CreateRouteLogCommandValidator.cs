@@ -8,10 +8,7 @@
     {
         public CreateRouteLogCommandValidator(ITrainsOnlineMongoUnitOfWork uow)
         {
-            RuleFor(x => x.Distance).GreaterThan(0d)
-                                    .WithMessage(ValidationMessages.General.GreaterThenZero);
-            RuleFor(x => x.TicketPrice).GreaterThan(0d)
-                                       .WithMessage(ValidationMessages.General.GreaterThenZero);
+
         }
     }
 }

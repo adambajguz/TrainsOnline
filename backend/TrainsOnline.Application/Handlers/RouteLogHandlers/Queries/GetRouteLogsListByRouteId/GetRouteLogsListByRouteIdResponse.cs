@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogsList
+﻿namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Queries.GetRouteLogsListByRouteId
 {
     using System;
     using System.Collections.Generic;
@@ -7,11 +7,11 @@
     using TrainsOnline.Application.Interfaces.Mapping;
     using TrainsOnline.Domain.Entities;
 
-    public class GetRouteLogsListResponse : IDataTransferObject
+    public class GetRouteLogsListByRouteIdResponse : IDataTransferObject
     {
-        public IList<RouteLogLookupModel> RouteLogs { get; set; } = default!;
+        public IList<RouteLogByRouteIdLookupModel> RouteLogs { get; set; } = default!;
 
-        public class RouteLogLookupModel : IDataTransferObject, ICustomMapping
+        public class RouteLogByRouteIdLookupModel : IDataTransferObject, ICustomMapping
         {
             public Guid Id { get; set; }
 
