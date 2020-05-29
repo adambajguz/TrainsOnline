@@ -6,7 +6,7 @@
     using TrainsOnline.Domain.Abstractions.Base;
 
     public class EntityRequestByIdValidator<TEntity> : AbstractValidator<EntityRequestByIdValidator<TEntity>.Model>
-        where TEntity : IBaseIdentifiableEntity
+        where TEntity : class, IBaseIdentifiableEntity
     {
         public EntityRequestByIdValidator()
         {
@@ -19,9 +19,9 @@
         public class Model
         {
             public IdRequest Data { get; set; }
-            public TEntity Entity { get; set; }
+            public TEntity? Entity { get; set; }
 
-            public Model(IdRequest data, TEntity entity)
+            public Model(IdRequest data, TEntity? entity)
             {
                 Data = data;
                 Entity = entity;

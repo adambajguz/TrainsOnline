@@ -39,8 +39,11 @@
             return _currentUser.GetRoles();
         }
 
-        public async Task ValidateUserId<T>(T model, Expression<Func<T, Guid>> userIdFieldExpression) where T : class
+        public async Task ValidateUserId<T>(T? model, Expression<Func<T, Guid>> userIdFieldExpression) where T : class
         {
+            if (model is null)
+                throw new ArgumentNullException(nameof(model));
+
             Func<T, Guid> func = userIdFieldExpression.Compile();
             Guid userId = func(model);
 

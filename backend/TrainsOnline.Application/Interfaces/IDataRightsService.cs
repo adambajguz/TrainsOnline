@@ -14,7 +14,7 @@
         string[] GetRoles();
 
         Task ValidateUserId(Guid userIdToValidate);
-        Task ValidateUserId<T>(T model, Expression<Func<T, Guid>> userIdFieldExpression) where T : class;
+        Task ValidateUserId<T>(T? model, Expression<Func<T, Guid>> userIdFieldExpression) where T : class;
         void ValidateHasRole(string role);
         void ValidateIsAdmin();
     }
