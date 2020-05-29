@@ -70,6 +70,7 @@ namespace TrainsOnline.Api
         {
             app.UseRouting()
                .UseSerilogRequestLogging()
+               .UseAnalytics()
                .UseCors("AllowAll")
                .UseCustomExceptionHandler()
                .UseResponseCompression()
@@ -79,13 +80,13 @@ namespace TrainsOnline.Api
             app.UseAuthentication()
                .UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
                 //endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
 
-            app.UseAnalytics();
 
             if (GlobalAppConfig.DEV_MODE)
             {

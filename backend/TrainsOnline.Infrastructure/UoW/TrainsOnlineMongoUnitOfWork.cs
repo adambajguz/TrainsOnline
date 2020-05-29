@@ -10,8 +10,8 @@
     public class TrainsOnlineMongoUnitOfWork : GenericMongoUnitOfWork, ITrainsOnlineMongoUnitOfWork
     {
         private readonly Lazy<IAnalyticsRecordsRepository> _analyticsRecords;
-        public IAnalyticsRecordsRepository AnalyticsRecords => _analyticsRecords.Value;     
-        
+        public IAnalyticsRecordsRepository AnalyticsRecords => _analyticsRecords.Value;
+
         private readonly Lazy<IRouteLogsRepository> _routeLogs;
         public IRouteLogsRepository RouteLogs => _routeLogs.Value;
 

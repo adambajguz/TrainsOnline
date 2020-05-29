@@ -1,10 +1,11 @@
 ﻿namespace TrainsOnline.Api.CustomMiddlewares.Analytics
 {
     using System;
-    using System.Text;
+    using System.Net;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Primitives;
     using Microsoft.Net.Http.Headers;
     using Serilog;
 
@@ -21,19 +22,16 @@
         {
             try
             {
-                StringBuilder info = new StringBuilder($"Got a request{Environment.NewLine}---{Environment.NewLine}");
-                info.Append($"- remote IP: {context.Connection.RemoteIpAddress}{Environment.NewLine}");
-                info.Append($"- path: {context.Request.Path}{Environment.NewLine}");
-                info.Append($"- query string: {context.Request.QueryString}{Environment.NewLine}");
-                info.Append($"- [headers] ua: {context.Request.Headers[HeaderNames.UserAgent]}{Environment.NewLine}");
-                info.Append($"- [headers] referer: {context.Request.Headers[HeaderNames.Referer]}{Environment.NewLine}");
+                PathString path = context.Request.Path;
+                StringValues referer = context.Request.Headers[HeaderNames.Referer];
+                IPAddress ip = context.Connection.RemoteIpAddress;
+                StringValues userAgent = context.Request.Headers[HeaderNames.UserAgent];
 
-                Log.Debug(info.ToString());
+                Log.Debug("Request to {Path} {Referer} from {IP} and {UserAgent}", path, referer, ip, userAgent);
             }
             catch (Exception ex)
             {
-                // we don't care much about exceptions in analytics
-                Log.Error($"Error in analytics middleware.", ex);
+                Log.Error($"Error in analytics middleware", ex);
             }
 
             await _next(context);

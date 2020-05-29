@@ -5,11 +5,13 @@
 
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddConfiguration<TOptions>(this IServiceCollection services, IConfiguration configuration, string? overrideFefauktSectionName = null)
+        public static IServiceCollection AddConfiguration<TOptions>(this IServiceCollection services, IConfiguration configuration, string? overrideSectionName = null)
             where TOptions : class
         {
-            IConfigurationSection settingsSection = configuration.GetSection(typeof(TOptions).Name);
-            services.Configure<TOptions>(settingsSection);
+            string sectionName = overrideSectionName ?? typeof(TOptions).Name;
+
+            IConfigurationSection section = configuration.GetSection(sectionName);
+            services.Configure<TOptions>(section);
 
             return services;
         }

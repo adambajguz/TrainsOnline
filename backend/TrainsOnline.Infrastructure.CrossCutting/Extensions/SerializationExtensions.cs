@@ -31,8 +31,8 @@
 
                 return binaryFormatter.Deserialize(memoryStream) as T;
             }
-        }        
-        
+        }
+
         public static byte[] ToByteArrayCeras<T>(this T? obj)
             where T : class
         {
