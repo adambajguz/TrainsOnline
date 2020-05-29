@@ -64,8 +64,8 @@
         public virtual async Task RemoveAsync(TEntity entity, CancellationToken cancellationToken = default)
         {
             await _dbSet.DeleteOneAsync(x => x.Id == entity.Id, cancellationToken);
-        }   
-        
+        }
+
         public virtual async Task RemoveAsync(Expression<Func<TEntity, bool>> filter, CancellationToken cancellationToken = default)
         {
             await _dbSet.DeleteOneAsync(filter, cancellationToken);

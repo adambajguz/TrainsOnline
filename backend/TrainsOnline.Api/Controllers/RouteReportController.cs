@@ -43,7 +43,7 @@
             Description = "Gets route report details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetReportDetails([FromRoute]Guid id)
+        public async Task<IActionResult> GetReportDetails([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new GetRouteReportDetailsQuery(new IdRequest(id))));
         }
@@ -56,7 +56,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Route log deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> DeleteReport([FromRoute]Guid id)
+        public async Task<IActionResult> DeleteReport([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new DeleteRouteReportCommand(new IdRequest(id))));
         }

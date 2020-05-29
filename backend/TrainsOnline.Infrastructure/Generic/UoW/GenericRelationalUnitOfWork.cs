@@ -135,7 +135,7 @@
             Type type = GetEntityTypeFromTableName(name);
             if (Repositories.TryGetValue(type, out IGenericRelationalReadOnlyRepository? value))
             {
-                return (value as IGenericRelationalReadOnlyRepository)!;
+                return value!;
             }
 
             Type constructingType = typeof(GenericReadOnlyRelationalRepository<>).MakeGenericType(type);

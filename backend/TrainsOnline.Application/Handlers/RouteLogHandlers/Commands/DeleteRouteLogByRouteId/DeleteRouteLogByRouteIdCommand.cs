@@ -2,11 +2,8 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRout
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Domain.Entities;
-    using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
-    using TrainsOnline.Application.Handlers;
     using TrainsOnline.Application.Interfaces.UoW;
 
     public class DeleteRouteLogByRouteIdCommand : IRequest
@@ -31,7 +28,7 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRout
             {
                 IdRequest data = request.Data;
 
-                await _uow.RouteLogs.RemoveManyAsync(x=>x.RouteId == data.Id, cancellationToken);
+                await _uow.RouteLogs.RemoveManyAsync(x => x.RouteId == data.Id, cancellationToken);
 
                 return await Unit.Task;
             }
