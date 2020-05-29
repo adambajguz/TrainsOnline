@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Caching.Distributed;
     using Swashbuckle.AspNetCore.Annotations;
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
     using TrainsOnline.Application.DTO;
@@ -18,6 +17,8 @@
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketsList;
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetUserTicketsList;
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.ValidateDocument;
+    using TrainsOnline.Common.Cache;
+    using TrainsOnline.Common.Interfaces;
     using TrainsOnline.Domain.Jwt;
 
     [Route("api/ticket")]
@@ -34,9 +35,9 @@
         public const string GetUser = nameof(GetUserTicketsList);
         public const string GetAll = nameof(GetTicketsList);
 
-        private IDistributedCache Cache { get; }
+        private ICachingService Cache { get; }
 
-        public TicketController(IDistributedCache cache)
+        public TicketController(ICachingService cache)
         {
             Cache = cache;
         }
@@ -77,9 +78,21 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> GetTicketDocument([FromRoute]Guid id)
         {
-            //TODO: add cache
+            //TODO refactor with action instead of CreateConfig
+            //TODO crerate own distributed cache
+            //TODO remove serializable attribute from data poco/dto class
+            ICacheEntryConfig config = Cache.CreateConfig();
+            config.Key = "Ticket";
+            config.ExtendedKey = id;
+            config.ExtendedKeyMode = CacheExtendedKeyModes.UseToString;
+            config.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
-            return Ok(await Mediator.Send(new GetTicketDocumentQuery(new IdRequest(id))));
+            GetTicketDocumentResponse? response = await Cache.SynchronizedGetOrSetAsync<GetTicketDocumentResponse>(config, async () =>
+            {
+                return await Mediator.Send(new GetTicketDocumentQuery(new IdRequest(id)));
+            });
+
+            return Ok((GetTicketDocumentResponse)response!);
         }
 
         [HttpGet("/api/ticket/validate-document")] // ?tid={}&uid={}&rid={}

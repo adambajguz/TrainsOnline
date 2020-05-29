@@ -2,19 +2,19 @@
 {
     public static class CacheEntryExtensions
     {
-        public static T? GetValue<T>(this ICacheEntry entry) where T : class
+        public static T? GetValue<T>(this ICustomCacheEntry? entry) where T : class
         {
             return entry?.Value as T;
         }
 
-        public static bool TryGetValue<T>(this ICacheEntry entry, out T? value) where T : class
+        public static bool TryGetValue<T>(this ICustomCacheEntry? entry, out T? value) where T : class
         {
             value = entry?.Value as T;
 
             return value != null;
         }
 
-        public static string? GetStringValue(this ICacheEntry entry)
+        public static string? GetStringValue(this ICustomCacheEntry? entry)
         {
             string? value = entry?.Value as string;
             if (!string.IsNullOrWhiteSpace(value))
@@ -23,7 +23,7 @@
             return entry?.Value?.ToString();
         }
 
-        public static bool TryGetStringValue(this ICacheEntry entry, out string? value)
+        public static bool TryGetStringValue(this ICustomCacheEntry? entry, out string? value)
         {
             value = entry?.Value as string;
             if (!string.IsNullOrWhiteSpace(value))
@@ -33,12 +33,12 @@
             return value != null;
         }
 
-        public static bool HasValue(this ICacheEntry entry)
+        public static bool HasValue(this ICustomCacheEntry? entry)
         {
             return entry?.Value != null;
         }
 
-        public static bool HasValue<T>(this ICacheEntry entry) where T : class
+        public static bool HasValue<T>(this ICustomCacheEntry? entry) where T : class
         {
             return entry?.Value is T;
         }

@@ -70,8 +70,8 @@
         public async Task<IActionResult> GetRoutesList([FromRoute]Guid id)
         {
             return Ok(await Mediator.Send(new GetRouteLogsListByRouteIdQuery(new IdRequest(id))));
-        }    
-        
+        }
+
         [HttpGet("get-all")]
         [SwaggerOperation(
             Summary = "Get all route logs",

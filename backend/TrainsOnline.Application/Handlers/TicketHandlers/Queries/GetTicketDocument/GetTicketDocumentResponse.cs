@@ -6,6 +6,7 @@
     using Domain.Entities;
     using TrainsOnline.Application.DTO;
 
+    [Serializable]
     public class GetTicketDocumentResponse : IDataTransferObject, ICustomMapping
     {
         public Guid Id { get; set; }

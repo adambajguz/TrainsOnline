@@ -2,7 +2,7 @@
 {
     using System;
 
-    public interface ICacheEntry : ICacheEntryConfig
+    public interface ICustomCacheEntry : ICacheEntryConfig
     {
         DateTimeOffset? LastSetOn { get; }
         Guid SynchronizationId { get; }

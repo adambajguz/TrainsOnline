@@ -2,14 +2,15 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Microsoft.Extensions.Caching.Distributed;
+    using Microsoft.Extensions.Caching.Memory;
     using Serilog;
     using TrainsOnline.Common.Cache;
     using TrainsOnline.Common.Interfaces;
     using TrainsOnline.Infrastructure.CrossCutting.Caching;
-    using TrainsOnline.Infrastructure.CrossCutting.Caching.Providers;
+    using TrainsOnline.Infrastructure.CrossCutting.Extensions;
 
     public class CachingService : ICachingService
     {
@@ -17,94 +18,103 @@
 
         private readonly ConcurrentDictionary<string, SemaphoreSlim> _locks = new ConcurrentDictionary<string, SemaphoreSlim>();
 
-        public ISampleCacheProvider Provider { get; }
+        public IDistributedCache Provider { get; }
 
-        public CachingService()
+        public CachingService(IDistributedCache distributedCache)
         {
-            // Provider = new SampleCacheProvider();
+            Provider = distributedCache;
+        }
+
+        //TODO add action in methods
+        public ICacheEntryConfig CreateConfig()
+        {
+            return new CacheEntryConfig();
+        }
+
+        public ICustomCacheEntry CreateEntry()
+        {
+            return new CustomCacheEntry();
         }
 
         #region Unsynchronized / Thread unsafe
         #region Synchronous
-        public ICacheEntry Get(string key, object? extendedKey = null, CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode)
+        public async Task<ICustomCacheEntry?> GetAsync(string key, object? extendedKey = null, CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode)
         {
             if (key is null)
                 throw new ArgumentNullException(nameof(key));
 
             string fullKey = CacheEntryConfig.GetFullKey(key, extendedKey, extendedKeyMode);
 
-            return Provider.GetObject<CacheEntry>(fullKey);
+            return await Provider.GetAsync<CustomCacheEntry>(fullKey);
         }
 
-        public ICacheEntry GetWithFullKey(string fullKey)
+        public async Task<ICustomCacheEntry?> GetWithFullKeyAsync(string fullKey)
         {
             if (fullKey is null)
                 throw new ArgumentNullException(nameof(fullKey));
 
-            return Provider.GetObject<CacheEntry>(fullKey);
+            return await Provider.GetAsync<CustomCacheEntry>(fullKey);
         }
 
-        public void Set(ICacheEntryConfig entryConfig, object? value)
+        public async Task SetAsync(ICacheEntryConfig entryConfig, object? value)
         {
-            Set(new CacheEntry(entryConfig)
+            await SetAsync(new CustomCacheEntry(entryConfig)
             {
                 Value = value
             });
         }
 
-        public void Set(ICacheEntry entry)
+        public async Task SetAsync(ICustomCacheEntry entry)
         {
-            ValidateEntryConfig(entry);
-
             DateTimeOffset now = DateTimeOffset.Now;
-            (entry as CacheEntry)!.LastSetOn = now;
 
-            DateTime? absoluteExpiration = entry.AbsoluteExpiration?.DateTime ?? now.Add(entry.AbsoluteExpirationRelativeToNow ?? TimeSpan.Zero).DateTime;
+            CustomCacheEntry customCacheEntry = (entry as CustomCacheEntry)!;
+            customCacheEntry.LastSetOn = now;
 
             string fullKey = entry.GetFullKey();
-            Provider.SetObject(fullKey, entry, entry.SlidingExpiration ?? TimeSpan.Zero, absoluteExpiration ?? DateTime.MinValue);
+            await Provider.SetAsync<CustomCacheEntry>(fullKey,
+                                                      customCacheEntry,
+                                                      new DistributedCacheEntryOptions
+                                                      {
+                                                          AbsoluteExpiration = entry.AbsoluteExpiration,
+                                                          AbsoluteExpirationRelativeToNow = entry.AbsoluteExpirationRelativeToNow,
+                                                          SlidingExpiration = entry.SlidingExpiration
+                                                      });
 
             Log.Information($"{nameof(CachingService) }.Set with key: {fullKey} and SyncId {entry?.SynchronizationId} (null? {entry?.Value is null})", this);
         }
 
-        public T? GetOrSet<T>(ICacheEntryConfig entryConfig, Func<T> createValue)
+        public async Task<T?> GetOrSet<T>(ICacheEntryConfig entryConfig, Func<T> createValue)
             where T : class
         {
-            ValidateGetOrSet(entryConfig, createValue);
-
             string fullKey = entryConfig.GetFullKey();
 
-            CacheEntry cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
+            CustomCacheEntry? cacheEntry = await Provider.GetAsync<CustomCacheEntry>(fullKey);
             if (!cacheEntry.TryGetValue(out T? value))
             {
                 // Key not in cache, so get data.
                 value = createValue();
-                Set(entryConfig, value);
+                await SetAsync(entryConfig, value);
             }
 
             return value;
         }
-        #endregion
 
-        #region Asynchronous
         public async Task<T?> GetOrSetAsync<T>(ICacheEntryConfig entryConfig, Func<Task<T>> createValue)
             where T : class
         {
-            ValidateGetOrSet(entryConfig, createValue);
-
             string fullKey = entryConfig.GetFullKey();
 
-            CacheEntry cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
+            CustomCacheEntry? cacheEntry = await Provider.GetAsync<CustomCacheEntry>(fullKey);
             if (!cacheEntry.TryGetValue(out T? value))
             {
                 // Key not in cache, so get data.
                 value = await createValue();
-                Set(entryConfig, value);
+                await SetAsync(entryConfig, value);
             }
 
             return value;
         }
-        #endregion
         #endregion
 
         //
@@ -117,64 +127,6 @@
         //         There’s no danger of multiple threads accessing the same cache item.
         //         You don’t mind creating the item more than once. For example, if one extra trip to the database won’t change much.
         #region Synchronized / Thread safe
-        #region Synchronous
-        public T? SynchronizedGet<T>(string key,
-                                    object? extendedKey = null,
-                                    CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode,
-                                    TimeSpan? timeout = null)
-            where T : class
-        {
-            if (key is null)
-                throw new ArgumentNullException(nameof(key));
-
-            string fullKey = CacheEntryConfig.GetFullKey(key, extendedKey, extendedKeyMode);
-
-            CacheEntry cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
-            if (!cacheEntry.TryGetValue(out T? value))
-                if (_locks.TryGetValue(fullKey, out SemaphoreSlim? myLock))
-                {
-                    myLock.Wait(timeout ?? DEFUALT_TIMEOUT);
-
-                    cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
-                    value = cacheEntry.GetValue<T>();
-                }
-
-            return value;
-        }
-
-        public T? SynchronizedGetOrSet<T>(ICacheEntryConfig entryConfig, Func<T> createValue, TimeSpan? timeout = null)
-            where T : class
-        {
-            ValidateGetOrSet(entryConfig, createValue);
-
-            string fullKey = entryConfig.GetFullKey();
-
-            CacheEntry cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
-            if (!cacheEntry.TryGetValue(out T? value))
-            {
-                SemaphoreSlim myLock = _locks.GetOrAdd(fullKey, k => new SemaphoreSlim(1, 1));
-
-                myLock.Wait(timeout ?? DEFUALT_TIMEOUT);
-                try
-                {
-                    cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
-                    if (!cacheEntry.TryGetValue(out value))
-                    {
-                        value = createValue();
-                        Set(entryConfig, value);
-                    }
-                }
-                finally
-                {
-                    myLock.Release();
-                }
-            }
-
-            return value;
-        }
-        #endregion
-
-        #region Asynchronous
         public async Task<T?> SynchronizedGetAsync<T>(string key,
                                                      object? extendedKey = null,
                                                      CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode,
@@ -186,13 +138,13 @@
 
             string fullKey = CacheEntryConfig.GetFullKey(key, extendedKey, extendedKeyMode);
 
-            CacheEntry cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
+            CustomCacheEntry? cacheEntry = await Provider.GetAsync<CustomCacheEntry>(fullKey);
             if (!cacheEntry.TryGetValue(out T? value))
                 if (_locks.TryGetValue(fullKey, out SemaphoreSlim? myLock))
                 {
                     await myLock.WaitAsync(timeout ?? DEFUALT_TIMEOUT);
 
-                    cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
+                    cacheEntry = await Provider.GetAsync<CustomCacheEntry>(fullKey);
                     value = cacheEntry.GetValue<T>();
                 }
 
@@ -200,9 +152,9 @@
         }
 
         private async Task<T?> SynchronizedGetOrSetAsync<T>(ICacheEntryConfig entryConfig,
-                                                           Func<Task<T>>? createValueAsync,
-                                                           Func<T>? createValue,
-                                                           TimeSpan? timeout)
+                                                            Func<Task<T>>? createValueAsync,
+                                                            Func<T>? createValue,
+                                                            TimeSpan? timeout)
             where T : class
         {
             if (entryConfig is null)
@@ -213,7 +165,7 @@
 
             string fullKey = entryConfig.GetFullKey();
 
-            CacheEntry cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
+            CustomCacheEntry? cacheEntry = await Provider.GetAsync<CustomCacheEntry>(fullKey);
             if (!cacheEntry.TryGetValue(out T? value))
             {
                 SemaphoreSlim myLock = _locks.GetOrAdd(fullKey, k => new SemaphoreSlim(1, 1));
@@ -221,7 +173,7 @@
                 await myLock.WaitAsync(timeout ?? DEFUALT_TIMEOUT);
                 try
                 {
-                    cacheEntry = Provider.GetObject<CacheEntry>(fullKey);
+                    cacheEntry = await Provider.GetAsync<CustomCacheEntry>(fullKey);
                     if (!cacheEntry.TryGetValue(out value))
                     {
                         // Key not in cache, so get data.
@@ -230,7 +182,7 @@
                         else
                             value = await createValueAsync();
 
-                        Set(entryConfig, value);
+                        await SetAsync(entryConfig, value);
                     }
                 }
                 finally
@@ -256,42 +208,19 @@
         #endregion
         #endregion
 
-        private IQueryable<string> GetAllKeysQueryable()
-        {
-            return Provider.GetCacheKeys().AsQueryable();
-        }
+        //private IQueryable<string> GetAllKeysQueryable()
+        //{
+        //    return Provider.GetCacheKeys().AsQueryable();
+        //}
 
-        public string[] GetAllNotExtendedKeys()
-        {
-            return GetAllKeysQueryable().Where(x => !x.Contains(CacheEntryConfig.ExtendedKeySeperator)).ToArray();
-        }
+        //public string[] GetAllNotExtendedKeys()
+        //{
+        //    return GetAllKeysQueryable().Where(x => !x.Contains(CacheEntryConfig.ExtendedKeySeperator)).ToArray();
+        //}
 
-        public string[] GetAllExtendedKeys()
-        {
-            return GetAllKeysQueryable().Where(x => x.Contains(CacheEntryConfig.ExtendedKeySeperator)).ToArray();
-        }
-
-        #region Validation
-        private static void ValidateEntryConfig(ICacheEntryConfig entryConfig)
-        {
-            if (entryConfig is null)
-                throw new ArgumentNullException(nameof(entryConfig));
-
-            if (string.IsNullOrWhiteSpace(entryConfig.Key))
-                throw new ArgumentNullException(nameof(entryConfig));
-
-            if (entryConfig.AbsoluteExpiration is null && entryConfig.AbsoluteExpirationRelativeToNow is null && entryConfig.SlidingExpiration is null)
-                throw new ArgumentNullException("One of: AbsoluteExpiration, AbsoluteExpirationRelativeToNow or SlidingExpiration must be defined!");
-        }
-
-        private static void ValidateGetOrSet<T>(ICacheEntryConfig entryConfig, Func<T> createValue) where T : class
-        {
-            if (entryConfig is null)
-                throw new ArgumentNullException(nameof(entryConfig));
-
-            if (createValue is null)
-                throw new ArgumentNullException(nameof(createValue));
-        }
-        #endregion
+        //public string[] GetAllExtendedKeys()
+        //{
+        //    return GetAllKeysQueryable().Where(x => x.Contains(CacheEntryConfig.ExtendedKeySeperator)).ToArray();
+        //}
     }
 }

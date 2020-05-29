@@ -1,8 +1,9 @@
 ﻿namespace TrainsOnline.Infrastructure.CrossCutting.Caching
 {
-    using TrainsOnline.Common.Cache;
     using System;
+    using TrainsOnline.Common.Cache;
 
+    [Serializable]
     public class CacheEntryConfig : ICacheEntryConfig
     {
         //
@@ -49,9 +50,9 @@
 
         public static string ExtendedKeySeperator { get; } = "$$EXT$$";
 
-        public static string GetFullKey(string key, object? extendedKey, CacheExtendedKeyModes keyExtraMode)
+        public static string GetFullKey(string? key, object? extendedKey, CacheExtendedKeyModes keyExtraMode)
         {
-            string fullKey = key;
+            string fullKey = key ?? throw new ArgumentNullException(nameof(key));
             if (extendedKey != null)
             {
                 fullKey += ExtendedKeySeperator;

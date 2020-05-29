@@ -1,9 +1,10 @@
 ﻿namespace TrainsOnline.Infrastructure.CrossCutting.Caching
 {
-    using TrainsOnline.Common.Cache;
     using System;
+    using TrainsOnline.Common.Cache;
 
-    public sealed class CacheEntry : CacheEntryConfig, ICacheEntry
+    [Serializable]
+    public sealed class CustomCacheEntry : CacheEntryConfig, ICustomCacheEntry
     {
         private object? _value;
 
@@ -30,12 +31,12 @@
         //     Gets last set in cache date for the cache entry.
         public DateTimeOffset? LastSetOn { get; internal set; }
 
-        public CacheEntry()
+        public CustomCacheEntry()
         {
 
         }
 
-        public CacheEntry(ICacheEntryConfig cacheEntryConfig)
+        public CustomCacheEntry(ICacheEntryConfig cacheEntryConfig)
         {
             Key = cacheEntryConfig.Key;
             ExtendedKey = cacheEntryConfig.ExtendedKey;
