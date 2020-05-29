@@ -50,7 +50,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Ticket created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> CreateTicket([FromBody]CreateTicketRequest ticket)
+        public async Task<IActionResult> CreateTicket([FromBody] CreateTicketRequest ticket)
         {
             return Ok(await Mediator.Send(new CreateTicketCommand(ticket)));
         }
@@ -63,7 +63,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetTicketDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetTicketDetails([FromRoute]Guid id)
+        public async Task<IActionResult> GetTicketDetails([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new GetTicketDetailsQuery(new IdRequest(id))));
         }
@@ -76,7 +76,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetTicketDocumentResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetTicketDocument([FromRoute]Guid id)
+        public async Task<IActionResult> GetTicketDocument([FromRoute] Guid id)
         {
             //TODO refactor with action instead of CreateConfig
             //TODO crerate own distributed cache
@@ -101,7 +101,7 @@
             Description = "Gets ticket document validation result")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(bool))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetValidateDocument([FromQuery]string tid, [FromQuery]string uid, [FromQuery]string rid)
+        public async Task<IActionResult> GetValidateDocument([FromQuery] string tid, [FromQuery] string uid, [FromQuery] string rid)
         {
             ShortGuid tidSG = new ShortGuid(tid);
             ShortGuid uidSG = new ShortGuid(uid);
@@ -118,7 +118,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Ticket details updated")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> UpdateStation([FromBody]UpdateTicketRequest ticket)
+        public async Task<IActionResult> UpdateStation([FromBody] UpdateTicketRequest ticket)
         {
             return Ok(await Mediator.Send(new UpdateTicketCommand(ticket)));
         }
@@ -131,7 +131,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Ticket deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> DeleteTicket([FromRoute]Guid id)
+        public async Task<IActionResult> DeleteTicket([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new DeleteTicketCommand(new IdRequest(id))));
         }
@@ -157,7 +157,7 @@
             Description = "Gets a list of all user tickets")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetUserTicketsListResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetUserTicketsList([FromRoute]Guid id)
+        public async Task<IActionResult> GetUserTicketsList([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new GetUserTicketsListQuery(new IdRequest(id))));
         }

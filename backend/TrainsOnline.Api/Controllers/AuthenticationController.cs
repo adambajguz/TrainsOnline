@@ -23,7 +23,7 @@
             Description = "Authenticates a user")]
         [SwaggerResponse(StatusCodes.Status200OK, "User authenticated", typeof(JwtTokenModel))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> LoginUser([FromBody]LoginRequest model)
+        public async Task<IActionResult> LoginUser([FromBody] LoginRequest model)
         {
             return Ok(await Mediator.Send(new GetValidTokenQuery(model)));
         }
@@ -34,7 +34,7 @@
             Description = "Sends e-mail with password reset link")]
         [SwaggerResponse(StatusCodes.Status200OK, "Password reset e-mail sent")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> ResetUserPasswordStep1([FromBody]SendResetPasswordRequest request)
+        public async Task<IActionResult> ResetUserPasswordStep1([FromBody] SendResetPasswordRequest request)
         {
             return Ok(await Mediator.Send(new GetResetPasswordTokenQuery(request)));
         }
@@ -46,7 +46,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "User password was changed")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> ResetuserPasswordStep2([FromBody]ResetPasswordRequest request)
+        public async Task<IActionResult> ResetuserPasswordStep2([FromBody] ResetPasswordRequest request)
         {
             return Ok(await Mediator.Send(new ResetPasswordCommand(request)));
         }

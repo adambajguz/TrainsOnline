@@ -38,7 +38,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Station created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> CreateStation([FromBody]CreateStationRequest station)
+        public async Task<IActionResult> CreateStation([FromBody] CreateStationRequest station)
         {
             return Ok(await Mediator.Send(new CreateStationCommand(station)));
         }
@@ -49,7 +49,7 @@
             Description = "Gets station details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetStationDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetStationDetails([FromRoute]Guid id)
+        public async Task<IActionResult> GetStationDetails([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new GetStationDetailsQuery(new IdRequest(id))));
         }
@@ -62,7 +62,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Station details updated")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> UpdateStation([FromBody]UpdateStationRequest station)
+        public async Task<IActionResult> UpdateStation([FromBody] UpdateStationRequest station)
         {
             return Ok(await Mediator.Send(new UpdateStationCommand(station)));
         }
@@ -75,7 +75,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Station deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> DeleteStation([FromRoute]Guid id)
+        public async Task<IActionResult> DeleteStation([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new DeleteStationCommand(new IdRequest(id))));
         }

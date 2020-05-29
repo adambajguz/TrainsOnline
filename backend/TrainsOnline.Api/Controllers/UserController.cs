@@ -35,7 +35,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "User created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> CreateUser([FromBody]CreateUserRequest user)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest user)
         {
             return Ok(await Mediator.Send(new CreateUserCommand(user)));
         }
@@ -75,7 +75,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "User details updated")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> UpdateUser([FromBody]UpdateUserRequest user)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequest user)
         {
             return Ok(await Mediator.Send(new UpdateUserCommand(user)));
         }
@@ -101,7 +101,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Password changed")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> ChangeUserPassword([FromBody]ChangePasswordRequest user)
+        public async Task<IActionResult> ChangeUserPassword([FromBody] ChangePasswordRequest user)
         {
             return Ok(await Mediator.Send(new ChangePasswordCommand(user)));
         }
