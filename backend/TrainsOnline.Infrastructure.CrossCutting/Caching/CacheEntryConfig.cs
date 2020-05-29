@@ -3,7 +3,6 @@
     using System;
     using TrainsOnline.Common.Cache;
 
-    [Serializable]
     public class CacheEntryConfig : ICacheEntryConfig
     {
         //

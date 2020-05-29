@@ -12,7 +12,6 @@
     {
         public static IServiceCollection AddPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            //database configruation
             services.AddConfiguration<DatabaseSettings>(configuration);
 
             services.AddDbContext<TrainsOnlineRelationalDbContext>(options => options.UseSqlServer(configuration.GetConnectionString(ConnectionStringsNames.SQLDatabase)))

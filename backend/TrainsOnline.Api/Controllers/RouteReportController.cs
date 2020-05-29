@@ -37,9 +37,10 @@
             return Ok(await Mediator.Send(new CreateRouteReportCommand(id)));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet("get/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Get route report details",
+            Summary = "Get route report details [" + Roles.Admin + "]",
             Description = "Gets route report details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
@@ -61,9 +62,10 @@
             return Ok(await Mediator.Send(new DeleteRouteReportCommand(new IdRequest(id))));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet("get-all")]
         [SwaggerOperation(
-            Summary = "Get all route reports",
+            Summary = "Get all route reports [" + Roles.Admin + "]",
             Description = "Gets a list of all route reports")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteReportsListResponse))]
         public async Task<IActionResult> GetReportsList()

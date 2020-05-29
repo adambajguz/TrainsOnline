@@ -2,6 +2,7 @@
 {
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
+    using Ceras;
 
     public static class Serialization
     {
@@ -30,6 +31,27 @@
 
                 return binaryFormatter.Deserialize(memoryStream) as T;
             }
+        }        
+        
+        public static byte[] ToByteArrayCeras<T>(this T? obj)
+            where T : class
+        {
+            if (obj == null)
+                return new byte[0];
+
+            CerasSerializer ceras = new CerasSerializer();
+
+            return ceras.Serialize(obj);
+        }
+        public static T? FromByteArrayCeras<T>(this byte[] byteArray)
+            where T : class
+        {
+            if (byteArray == null)
+                return default;
+
+            CerasSerializer ceras = new CerasSerializer();
+
+            return ceras.Deserialize<T>(byteArray);
         }
 
     }

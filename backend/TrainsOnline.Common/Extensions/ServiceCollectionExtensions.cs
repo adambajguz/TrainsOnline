@@ -8,7 +8,7 @@
         public static IServiceCollection AddConfiguration<TOptions>(this IServiceCollection services, IConfiguration configuration, string? overrideFefauktSectionName = null)
             where TOptions : class
         {
-            IConfigurationSection settingsSection = configuration.GetSection(nameof(TOptions));
+            IConfigurationSection settingsSection = configuration.GetSection(typeof(TOptions).Name);
             services.Configure<TOptions>(settingsSection);
 
             return services;

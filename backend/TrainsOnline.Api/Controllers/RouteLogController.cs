@@ -38,9 +38,10 @@
             return Ok(await Mediator.Send(new CreateRouteLogCommand(route)));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet("get/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Get route log details",
+            Summary = "Get route log details [" + Roles.Admin + "]",
             Description = "Gets route log details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
@@ -52,7 +53,7 @@
         [Authorize(Roles = Roles.Admin)]
         [HttpDelete("delete/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Delete route log by route id[" + Roles.Admin + "]",
+            Summary = "Delete route log by route id [" + Roles.Admin + "]",
             Description = "Deletes route logs by route id")]
         [SwaggerResponse(StatusCodes.Status200OK, "Route logs deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
@@ -62,9 +63,10 @@
             return Ok(await Mediator.Send(new DeleteRouteLogByRouteIdCommand(new IdRequest(id))));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet("get-all-by-route-id/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Get all route logs by route id",
+            Summary = "Get all route logs by route id [" + Roles.Admin + "]",
             Description = "Gets a list of all route logs by route id")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteLogsListByRouteIdResponse))]
         public async Task<IActionResult> GetRoutesList([FromRoute] Guid id)
@@ -72,9 +74,10 @@
             return Ok(await Mediator.Send(new GetRouteLogsListByRouteIdQuery(new IdRequest(id))));
         }
 
+        [Authorize(Roles = Roles.Admin)]
         [HttpGet("get-all")]
         [SwaggerOperation(
-            Summary = "Get all route logs",
+            Summary = "Get all route logs [" + Roles.Admin + "]",
             Description = "Gets a list of all route logs")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteLogsListResponse))]
         public async Task<IActionResult> GetRoutesList()

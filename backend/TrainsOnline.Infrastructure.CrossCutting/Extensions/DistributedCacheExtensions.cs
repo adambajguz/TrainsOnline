@@ -13,7 +13,9 @@
                                              CancellationToken token = default)
             where T : class
         {
-            await distributedCache.SetAsync(key, value.ToByteArray(), options, token);
+            byte[] byteArray = value.ToByteArrayCeras();
+
+            await distributedCache.SetAsync(key, byteArray, options, token);
         }
 
         public static async Task<T?> GetAsync<T>(this IDistributedCache distributedCache,
@@ -23,7 +25,7 @@
         {
             byte[] result = await distributedCache.GetAsync(key, token);
 
-            return result.FromByteArray<T>();
+            return result.FromByteArrayCeras<T>();
         }
     }
 }

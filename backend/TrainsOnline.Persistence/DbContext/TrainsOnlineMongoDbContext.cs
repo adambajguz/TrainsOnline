@@ -29,6 +29,8 @@
             Db = DbClient.GetDatabase(databaseName);
         }
 
+        public IMongoCollection<AnalyticsRecord> AnalyticsRecords => Db.GetCollection<AnalyticsRecord>();
+
         public IMongoCollection<RouteLog> RouteLogs => Db.GetCollection<RouteLog>();
         public IMongoCollection<RouteReport> RouteReports => Db.GetCollection<RouteReport>();
 

@@ -3,7 +3,6 @@
     using System;
     using TrainsOnline.Common.Cache;
 
-    [Serializable]
     public sealed class CustomCacheEntry : CacheEntryConfig, ICustomCacheEntry
     {
         private object? _value;

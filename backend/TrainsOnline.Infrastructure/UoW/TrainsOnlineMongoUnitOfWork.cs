@@ -9,6 +9,9 @@
 
     public class TrainsOnlineMongoUnitOfWork : GenericMongoUnitOfWork, ITrainsOnlineMongoUnitOfWork
     {
+        private readonly Lazy<IAnalyticsRecordsRepository> _analyticsRecords;
+        public IAnalyticsRecordsRepository AnalyticsRecords => _analyticsRecords.Value;     
+        
         private readonly Lazy<IRouteLogsRepository> _routeLogs;
         public IRouteLogsRepository RouteLogs => _routeLogs.Value;
 
@@ -17,6 +20,8 @@
 
         public TrainsOnlineMongoUnitOfWork(ICurrentUserService currentUserService, ITrainsOnlineMongoDbContext context, IMapper mapper) : base(currentUserService, context, mapper)
         {
+            _analyticsRecords = new Lazy<IAnalyticsRecordsRepository>(() => GetSpecificRepository<IAnalyticsRecordsRepository, AnalyticsRecordsRepository>());
+
             _routeLogs = new Lazy<IRouteLogsRepository>(() => GetSpecificRepository<IRouteLogsRepository, RouteLogsRepository>());
             _routeReports = new Lazy<IRouteReportsRepository>(() => GetSpecificRepository<IRouteReportsRepository, RouteReportsRepository>());
         }

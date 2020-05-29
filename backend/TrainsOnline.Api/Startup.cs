@@ -15,6 +15,7 @@ namespace TrainsOnline.Api
     using Persistence;
     using Serilog;
     using TrainsOnline.Api.Configuration;
+    using TrainsOnline.Api.CustomMiddlewares.Analytics;
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
     using TrainsOnline.Api.SpecialPages.Core;
     using TrainsOnline.Common;
@@ -83,6 +84,8 @@ namespace TrainsOnline.Api
                 //endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
+
+            app.UseAnalytics();
 
             if (GlobalAppConfig.DEV_MODE)
             {
