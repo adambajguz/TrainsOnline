@@ -33,7 +33,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Route log created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> CreateRoute([FromBody] CreateRouteLogRequest route)
+        public async Task<IActionResult> CreateRoute([FromBody]CreateRouteLogRequest route)
         {
             return Ok(await Mediator.Send(new CreateRouteLogCommand(route)));
         }
@@ -44,7 +44,7 @@
             Description = "Gets route log details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetRouteDetails([FromRoute] Guid id)
+        public async Task<IActionResult> GetRouteDetails([FromRoute]Guid id)
         {
             return Ok(await Mediator.Send(new GetRouteLogDetailsQuery(new IdRequest(id))));
         }
@@ -57,7 +57,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Route logs deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> DeleteRoute([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteRoute([FromRoute]Guid id)
         {
             return Ok(await Mediator.Send(new DeleteRouteLogByRouteIdCommand(new IdRequest(id))));
         }
@@ -67,7 +67,7 @@
             Summary = "Get all route logs by route id",
             Description = "Gets a list of all route logs by route id")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteLogsListByRouteIdResponse))]
-        public async Task<IActionResult> GetRoutesList([FromRoute] Guid id)
+        public async Task<IActionResult> GetRoutesList([FromRoute]Guid id)
         {
             return Ok(await Mediator.Send(new GetRouteLogsListByRouteIdQuery(new IdRequest(id))));
         }

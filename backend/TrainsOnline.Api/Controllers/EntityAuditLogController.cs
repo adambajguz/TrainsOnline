@@ -33,7 +33,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Route log created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> RevertEntityUsingAuditLog([FromBody] RevertUsingEntityAuditLogRequest data)
+        public async Task<IActionResult> RevertEntityUsingAuditLog([FromBody]RevertUsingEntityAuditLogRequest data)
         {
             return Ok(await Mediator.Send(new RevertUsingEntityAuditLogCommand(data)));
         }
@@ -45,7 +45,7 @@
             Description = "Gets audit log details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetAuditLogDetails([FromRoute] Guid id)
+        public async Task<IActionResult> GetAuditLogDetails([FromRoute]Guid id)
         {
             return Ok(await Mediator.Send(new GetEntityAuditLogDetailsQuery(new IdRequest(id))));
         }
@@ -58,7 +58,7 @@
         [SwaggerResponse(StatusCodes.Status200OK, "Route log deleted")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> CleanupAuditLog([FromBody] CleanupEntityAuditLogRequest data)
+        public async Task<IActionResult> CleanupAuditLog([FromBody]CleanupEntityAuditLogRequest data)
         {
             return Ok(await Mediator.Send(new CleanupEntityAuditLogCommand(data)));
         }
@@ -69,7 +69,7 @@
             Summary = "Get all route logs for entity [" + Roles.Admin + "]",
             Description = "Gets a list of all entity audit logs for specified entity")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetEntityAuditLogsForEntityListResponse))]
-        public async Task<IActionResult> GetEntityAuditLogsForEntityList([FromRoute] Guid id)
+        public async Task<IActionResult> GetEntityAuditLogsForEntityList([FromRoute]Guid id)
         {
             return Ok(await Mediator.Send(new GetEntityAuditLogsForEntityListQuery(new IdRequest(id))));
         }

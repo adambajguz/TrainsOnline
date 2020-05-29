@@ -36,8 +36,6 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.CreateR
                 RouteReport entity = _mapper.Map<RouteReport>(data);
                 await _uow.RouteReports.AddAsync(entity);
 
-                await _uow.SaveChangesAsync(cancellationToken);
-
                 return new IdResponse(entity.Id);
             }
         }

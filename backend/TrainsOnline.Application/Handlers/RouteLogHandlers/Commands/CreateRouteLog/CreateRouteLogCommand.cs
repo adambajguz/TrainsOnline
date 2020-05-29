@@ -38,8 +38,6 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.CreateRout
                 RouteLog entity = _mapper.Map<RouteLog>(data);
                 await _uow.RouteLogs.AddAsync(entity);
 
-                await _uow.SaveChangesAsync(cancellationToken);
-
                 return new IdResponse(entity.Id);
             }
         }

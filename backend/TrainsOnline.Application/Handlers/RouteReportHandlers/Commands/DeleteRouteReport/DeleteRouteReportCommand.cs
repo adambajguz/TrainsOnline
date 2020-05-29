@@ -37,7 +37,6 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.DeleteR
                 await new EntityRequestByIdValidator<RouteReport>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 await _uow.RouteReports.RemoveAsync(routeReport);
-                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

@@ -87,15 +87,5 @@
             Repositories.Add(type, repository);
             return repository;
         }
-
-        public virtual int SaveChanges()
-        {
-            return 1; //Context.SaveChanges();
-        }
-
-        public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-        {
-            return await Task.Run(() => 1); // await Context.SaveChangesAsync(cancellationToken);
-        }
     }
 }
