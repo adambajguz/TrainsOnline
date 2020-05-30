@@ -29,7 +29,7 @@ namespace TrainsOnline.Application.Handlers.AnalyticsRecordHandlers.Commands.Del
                 DeleteOldAnalyticsRecordsRequest data = request.Data;
 
                 DateTime date = data.OlderThanOrEqualToDate?.Date ?? DateTime.UtcNow.Date;
-                await _uow.AnalyticsRecords.RemoveManyAsync(x => x.Timestamp <= date);
+                await _uow.AnalyticsRecords.RemoveManyAsync(x => x.Timestamp <= date, cancellationToken);
 
                 return await Unit.Task;
             }
