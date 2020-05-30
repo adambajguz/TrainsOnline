@@ -15,7 +15,7 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLogHandlers.Commands.Clea
             Data = data;
         }
 
-        public class Handler : IRequestHandler<CleanupEntityAuditLogCommand, Unit>
+        public class Handler : IRequestHandler<CleanupEntityAuditLogCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
 

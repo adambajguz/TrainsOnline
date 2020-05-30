@@ -17,7 +17,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.UpdateRoute
             Data = data;
         }
 
-        public class Handler : IRequestHandler<UpdateRouteCommand, Unit>
+        public class Handler : IRequestHandler<UpdateRouteCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;

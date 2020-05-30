@@ -17,7 +17,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
             Data = data;
         }
 
-        public class Handler : IRequestHandler<DeleteRouteCommand, Unit>
+        public class Handler : IRequestHandler<DeleteRouteCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
 

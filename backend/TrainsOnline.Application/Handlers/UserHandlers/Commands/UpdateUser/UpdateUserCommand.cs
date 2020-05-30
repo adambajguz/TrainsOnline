@@ -18,7 +18,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
             Data = data;
         }
 
-        public class Handler : IRequestHandler<UpdateUserCommand, Unit>
+        public class Handler : IRequestHandler<UpdateUserCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IMapper _mapper;

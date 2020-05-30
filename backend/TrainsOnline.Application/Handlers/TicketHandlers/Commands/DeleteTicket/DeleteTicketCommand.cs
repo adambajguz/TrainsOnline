@@ -18,7 +18,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket
             Data = data;
         }
 
-        public class Handler : IRequestHandler<DeleteTicketCommand, Unit>
+        public class Handler : IRequestHandler<DeleteTicketCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IDataRightsService _drs;

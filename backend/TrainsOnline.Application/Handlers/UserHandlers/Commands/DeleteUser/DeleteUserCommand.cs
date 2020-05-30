@@ -18,7 +18,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.DeleteUser
             Data = data;
         }
 
-        public class Handler : IRequestHandler<DeleteUserCommand, Unit>
+        public class Handler : IRequestHandler<DeleteUserCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IDataRightsService _drs;

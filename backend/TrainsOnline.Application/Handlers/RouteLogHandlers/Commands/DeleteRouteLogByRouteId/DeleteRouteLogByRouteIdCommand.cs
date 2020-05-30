@@ -15,7 +15,7 @@ namespace TrainsOnline.Application.Handlers.RouteLogHandlers.Commands.DeleteRout
             Data = data;
         }
 
-        public class Handler : IRequestHandler<DeleteRouteLogByRouteIdCommand, Unit>
+        public class Handler : IRequestHandler<DeleteRouteLogByRouteIdCommand>
         {
             private readonly ITrainsOnlineMongoUnitOfWork _uow;
 

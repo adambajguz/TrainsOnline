@@ -17,7 +17,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.ChangePassword
             Data = data;
         }
 
-        public class Handler : IRequestHandler<ChangePasswordCommand, Unit>
+        public class Handler : IRequestHandler<ChangePasswordCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
             private readonly IDataRightsService _drs;

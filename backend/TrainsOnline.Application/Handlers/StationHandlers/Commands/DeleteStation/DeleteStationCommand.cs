@@ -17,7 +17,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.DeleteStati
             Data = data;
         }
 
-        public class Handler : IRequestHandler<DeleteStationCommand, Unit>
+        public class Handler : IRequestHandler<DeleteStationCommand>
         {
             private readonly ITrainsOnlineSQLUnitOfWork _uow;
 
