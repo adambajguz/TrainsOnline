@@ -1,7 +1,12 @@
 ﻿namespace TrainsOnline.Persistence.DbContext
 {
+    using System;
+    using System.Linq.Expressions;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
+    using MongoDB.Bson;
     using MongoDB.Driver;
     using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Domain.Abstractions.Base;
@@ -27,6 +32,8 @@
 
             DbClient = new MongoClient(connectionString);
             Db = DbClient.GetDatabase(databaseName);
+
+            AddOrUpdateAsync<AnalyticsRecord>(x => x.Hash).Wait();
         }
 
         public IMongoCollection<AnalyticsRecord> AnalyticsRecords => Db.GetCollection<AnalyticsRecord>();
@@ -38,6 +45,19 @@
             where T : class, IBaseMongoEntity
         {
             return Db.GetCollection<T>();
+        }
+
+        public async Task AddOrUpdateAsync<TDocument>(Expression<Func<TDocument, object>> field)
+            where TDocument : class, IBaseMongoEntity
+        {
+            IMongoCollection<TDocument> mongoCollection = GetCollection<TDocument>();
+            IAsyncCursor<BsonDocument> indexes = await mongoCollection.Indexes.ListAsync();
+
+            string indexesJson = indexes.ToJson();
+            Serilog.Log.Information("Indexes in {Collection} {Indexes}", typeof(TDocument).Name, indexesJson);
+
+            CreateIndexModel<TDocument> indexModel = new CreateIndexModel<TDocument>(Builders<TDocument>.IndexKeys.Ascending(field));
+            string name = await mongoCollection.Indexes.CreateOneAsync(indexModel);
         }
     }
 }

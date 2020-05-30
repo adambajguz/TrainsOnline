@@ -43,14 +43,15 @@ namespace TrainsOnline.Application.Handlers.AnalyticsRecordHandlers.Commands.Cre
 
                 DateTime now = DateTime.UtcNow.Date;
 
-                IHashValue? hashValue1 = _hasher.ComputeHash(now.ToString() + data.Uri ?? string.Empty + data.UserAgent ?? string.Empty);
-                long value1 = BitConverter.ToInt64(hashValue1.Hash);
+                IHashValue? hashValue = _hasher.ComputeHash(now.ToString() + data.Uri ?? string.Empty + data.UserAgent ?? string.Empty);
+                long hash = BitConverter.ToInt64(hashValue.Hash);
 
-                AnalyticsRecord? prevEntity = await _uow.AnalyticsRecords.GetOneAsync(x => x.Timestamp == now && x.Uri == data.Uri);
+                AnalyticsRecord? prevEntity = await _uow.AnalyticsRecords.GetOneAsync(x => x.Hash == hash && x.Timestamp == now && x.Uri == data.Uri);
 
                 if (prevEntity is null)
                 {
                     AnalyticsRecord entity = _mapper.Map<AnalyticsRecord>(data);
+                    entity.Hash = hash;
                     entity.Timestamp = now;
                     entity.Visits = 1;
 

@@ -1,8 +1,11 @@
 ﻿namespace TrainsOnline.Api.CustomMiddlewares.Analytics
 {
     using System;
+    using System.Collections.Specialized;
     using System.Net;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using System.Web;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
@@ -15,6 +18,10 @@
 
     public class AnalyticsMiddleware
     {
+        private const int MAX_PATH_LENGTH = 256;
+
+        private static readonly Regex regex = new Regex(@"[({]?[a-fA-F0-9]{8}[-]?([a-fA-F0-9]{4}[-]?){3}[a-fA-F0-9]{12}[})]?", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
         private readonly RequestDelegate _next;
 
         public AnalyticsMiddleware(RequestDelegate next)
@@ -27,16 +34,17 @@
             try
             {
                 PathString path = context.Request.Path;
-                StringValues referer = context.Request.Headers[HeaderNames.Referer];
                 IPAddress ip = context.Connection.RemoteIpAddress;
                 StringValues userAgent = context.Request.Headers[HeaderNames.UserAgent];
+
+                string sanitizedPath = SanitizeUrl(path.Value);
 
                 IMediator? mediator = context.RequestServices.GetService<IMediator>();
                 if (!(mediator is null))
                 {
-                    var data = new CreateOrUpdateAnalyticsRecordRequest
+                    CreateOrUpdateAnalyticsRecordRequest data = new CreateOrUpdateAnalyticsRecordRequest
                     {
-                        Uri = path.ToString(),
+                        Uri = sanitizedPath,
                         UserAgent = userAgent.ToString(),
                         Ip = ip.ToString()
                     };
@@ -45,7 +53,7 @@
                     Log.Debug("Created or updated analytics record with id {Id}", id.Id);
                 }
 
-                Log.Debug("Request to {Path} {Referer} from {IP} and {UserAgent}", path, referer, ip, userAgent);
+                Log.Debug("Request to {Path} from {IP} and {UserAgent}", sanitizedPath, ip, userAgent);
             }
             catch (Exception ex)
             {
@@ -53,6 +61,23 @@
             }
 
             await _next(context);
+        }
+
+        private static string SanitizeUrl(string url)
+        {
+            string[] splitUrl = url.Split(new char[] { '?', '#' });
+            string cleanedUrl = splitUrl[0];
+
+            cleanedUrl = regex.Replace(cleanedUrl, "${__UUID}");
+
+            bool needsTrimming = cleanedUrl.Length > MAX_PATH_LENGTH;
+            if (needsTrimming)
+            {
+                cleanedUrl.Substring(0, MAX_PATH_LENGTH);
+                cleanedUrl += "${__TRM}";
+            }
+
+            return cleanedUrl + "${__Q}";
         }
     }
 
