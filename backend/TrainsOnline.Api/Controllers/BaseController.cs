@@ -1,6 +1,7 @@
 ﻿namespace TrainsOnline.Api.Controllers
 {
     using System;
+    using System.Data.HashFunction.MurmurHash;
     using Application.Interfaces;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@
 
         public BaseController()
         {
-            _mediator = new Lazy<IMediator>(() => HttpContext.RequestServices.GetService<IMediator>()); ;
+            _mediator = new Lazy<IMediator>(() => HttpContext.RequestServices.GetService<IMediator>());
             _currentUser = new Lazy<ICurrentUserService>(() => HttpContext.RequestServices.GetService<ICurrentUserService>());
         }
     }
