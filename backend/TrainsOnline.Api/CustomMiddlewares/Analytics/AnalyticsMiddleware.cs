@@ -66,6 +66,9 @@
             string[] splitUrl = url.Split(new char[] { '?', '#' });
             string cleanedUrl = splitUrl[0];
 
+            if (splitUrl.Length > 1)
+                cleanedUrl += "${__Q}";
+
             cleanedUrl = regex.Replace(cleanedUrl, "${__UUID}");
 
             bool needsTrimming = cleanedUrl.Length > MAX_PATH_LENGTH;
@@ -75,7 +78,7 @@
                 cleanedUrl += "${__TRM}";
             }
 
-            return cleanedUrl + "${__Q}";
+            return cleanedUrl;
         }
     }
 
