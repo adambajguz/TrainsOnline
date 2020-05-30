@@ -1,11 +1,9 @@
 ﻿namespace TrainsOnline.Api.CustomMiddlewares.Analytics
 {
     using System;
-    using System.Collections.Specialized;
     using System.Net;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using System.Web;
     using MediatR;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;

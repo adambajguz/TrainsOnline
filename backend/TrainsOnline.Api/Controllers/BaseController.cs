@@ -1,7 +1,6 @@
 ﻿namespace TrainsOnline.Api.Controllers
 {
     using System;
-    using System.Data.HashFunction.MurmurHash;
     using Application.Interfaces;
     using MediatR;
     using Microsoft.AspNetCore.Mvc;

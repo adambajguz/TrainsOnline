@@ -2,11 +2,9 @@
 {
     using System;
     using System.Linq.Expressions;
-    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
-    using MongoDB.Bson;
     using MongoDB.Driver;
     using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Domain.Abstractions.Base;
@@ -24,16 +22,17 @@
 
             string? connectionString = configuration.GetConnectionString(ConnectionStringsNames.MongoDatabase);
             if (string.IsNullOrWhiteSpace(connectionString))
-                throw new System.ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(options));
 
             string? databaseName = databaseSettings.MongoDatabaseName;
             if (string.IsNullOrWhiteSpace(databaseName))
-                throw new System.ArgumentNullException(nameof(options));
+                throw new ArgumentNullException(nameof(options));
 
             DbClient = new MongoClient(connectionString);
             Db = DbClient.GetDatabase(databaseName);
 
             AddOrUpdateAsync<AnalyticsRecord>(x => x.Hash).Wait();
+            AddOrUpdateAsync<AnalyticsRecord>(x => x.Visits).Wait();
         }
 
         public IMongoCollection<AnalyticsRecord> AnalyticsRecords => Db.GetCollection<AnalyticsRecord>();
@@ -51,13 +50,10 @@
             where TDocument : class, IBaseMongoEntity
         {
             IMongoCollection<TDocument> mongoCollection = GetCollection<TDocument>();
-            IAsyncCursor<BsonDocument> indexes = await mongoCollection.Indexes.ListAsync();
-
-            string indexesJson = indexes.ToJson();
-            Serilog.Log.Information("Indexes in {Collection} {Indexes}", typeof(TDocument).Name, indexesJson);
+            //IAsyncCursor<BsonDocument> indexes = await mongoCollection.Indexes.ListAsync();
 
             CreateIndexModel<TDocument> indexModel = new CreateIndexModel<TDocument>(Builders<TDocument>.IndexKeys.Ascending(field));
-            string name = await mongoCollection.Indexes.CreateOneAsync(indexModel);
+            await mongoCollection.Indexes.CreateOneAsync(indexModel);
         }
     }
 }
