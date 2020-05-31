@@ -36,9 +36,5 @@
 
         public TimeSpan Duration { get; set; }
         public int NumberOfStops { get; set; }
-
-        public double StopDurationMean { get; set; }
-        public double StopDurationSd { get; set; }
-        public double StopDurationMax { get; set; }
     }
 }

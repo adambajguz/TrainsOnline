@@ -12,6 +12,7 @@
         public DateTime Timestamp { get; set; }
         public string Uri { get; set; } = default!;
         public string UserAgent { get; set; } = default!;
+        public bool IsValid { get; set; }
         public ulong Visits { get; set; }
     }
 }

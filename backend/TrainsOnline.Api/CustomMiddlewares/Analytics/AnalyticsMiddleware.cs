@@ -31,9 +31,11 @@
         {
             try
             {
+                HttpRequest request = context.Request;
+
                 PathString path = context.Request.Path;
                 IPAddress ip = context.Connection.RemoteIpAddress;
-                StringValues userAgent = context.Request.Headers[HeaderNames.UserAgent];
+                StringValues userAgent = request.Headers[HeaderNames.UserAgent];
 
                 string sanitizedPath = SanitizeUrl(path.Value);
 
