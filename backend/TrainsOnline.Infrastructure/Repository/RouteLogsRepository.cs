@@ -2,7 +2,6 @@
 {
     using System;
     using System.Linq.Expressions;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
     using Application.Interfaces;
     using AutoMapper;
@@ -50,7 +49,7 @@
             DateTime end = await GetQueryable(x => x.RouteId == routeId, x => x.OrderByDescending(y => y.Timestamp)).Take(1)
                                                                                                                     .Select(x => x.Timestamp)
                                                                                                                     .FirstOrDefaultAsync();
-            
+
             return end - start;
         }
     }

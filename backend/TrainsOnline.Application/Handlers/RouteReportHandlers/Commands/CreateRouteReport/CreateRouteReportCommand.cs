@@ -2,10 +2,8 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.CreateR
 {
     using System;
     using System.Collections.Generic;
-    using System.Security.Cryptography.X509Certificates;
     using System.Threading;
     using System.Threading.Tasks;
-    using AutoMapper;
     using Domain.Entities;
     using MediatR;
     using TrainsOnline.Application.DTO;
