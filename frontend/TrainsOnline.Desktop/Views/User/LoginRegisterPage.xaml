@@ -16,7 +16,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Pivot Title="Authorization is required to access this page" SelectedIndex="{Binding Path=PivotIndex, Mode=TwoWay}">
+            <Pivot Title="Authorization is required or you have invalid role to access this page" SelectedIndex="{Binding Path=PivotIndex, Mode=TwoWay}">
 
                 <PivotItem Header="Login">
                     <StackPanel Orientation="Vertical">
