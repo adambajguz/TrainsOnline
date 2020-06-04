@@ -34,7 +34,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.DeleteUser
                 IdRequest data = request.Data;
                 await _drs.ValidateUserId(data, x => x.Id);
 
-                User user = await _uow.Users.GetByIdAsync(data.Id);
+                User? user = await _uow.Users.SingleByIdOrDefaultAsync(data.Id);
 
                 EntityRequestByIdValidator<User>.Model validationModel = new EntityRequestByIdValidator<User>.Model(data, user);
                 await new EntityRequestByIdValidator<User>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

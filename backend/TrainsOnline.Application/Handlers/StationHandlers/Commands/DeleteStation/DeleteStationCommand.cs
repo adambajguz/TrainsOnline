@@ -30,7 +30,7 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.DeleteStati
             {
                 IdRequest data = request.Data;
 
-                Station station = await _uow.Stations.GetByIdAsync(data.Id);
+                Station? station = await _uow.Stations.SingleByIdOrDefaultAsync(data.Id);
 
                 EntityRequestByIdValidator<Station>.Model validationModel = new EntityRequestByIdValidator<Station>.Model(data, station);
                 await new EntityRequestByIdValidator<Station>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

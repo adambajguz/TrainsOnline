@@ -32,10 +32,10 @@ namespace TrainsOnline.Application.Handlers.StationHandlers.Commands.UpdateStati
             {
                 UpdateStationRequest data = request.Data;
 
-                Station station = await _uow.Stations.GetByIdAsync(data.Id);
+                Station? station = await _uow.Stations.SingleByIdOrDefaultAsync(data.Id);
 
                 UpdateStationCommandValidator.Model validationModel = new UpdateStationCommandValidator.Model(data, station);
-                await new UpdateStationCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
+                await new UpdateStationCommandValidator().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);
 
                 _mapper.Map(data, station);
                 _uow.Stations.Update(station);

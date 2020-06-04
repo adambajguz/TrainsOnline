@@ -7,7 +7,7 @@
 
     public class UpdateStationCommandValidator : AbstractValidator<UpdateStationCommandValidator.Model>
     {
-        public UpdateStationCommandValidator(ITrainsOnlineSQLUnitOfWork uow)
+        public UpdateStationCommandValidator()
         {
             RuleFor(x => x.Data.Id).NotEmpty().Must((request, val, token) =>
             {
@@ -21,9 +21,9 @@
         public class Model
         {
             public UpdateStationRequest Data { get; set; }
-            public Station Station { get; set; }
+            public Station? Station { get; set; }
 
-            public Model(UpdateStationRequest data, Station station)
+            public Model(UpdateStationRequest data, Station? station)
             {
                 Data = data;
                 Station = station;

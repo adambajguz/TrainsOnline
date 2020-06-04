@@ -33,7 +33,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetail
             {
                 IdRequest data = request.Data;
 
-                Route entity = await _uow.Routes.GetByIdWithRelatedAsync(data.Id, x => x.From, x => x.To);
+                Route? entity = await _uow.Routes.SingleByIdWithRelatedAsync(data.Id, x => x.From, x => x.To);
 
                 EntityRequestByIdValidator<Route>.Model validationModel = new EntityRequestByIdValidator<Route>.Model(data, entity);
                 await new EntityRequestByIdValidator<Route>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

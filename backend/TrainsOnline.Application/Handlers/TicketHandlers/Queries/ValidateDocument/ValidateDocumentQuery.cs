@@ -32,7 +32,7 @@
             public async Task<bool> Handle(ValidateDocumentQuery request, CancellationToken cancellationToken)
             {
                 Guid ticketId = request.TId;
-                Ticket ticket = await _uow.Tickets.GetByIdWithRelatedAsync(ticketId, x => x.Route, x => x.Route.From, cancellationToken, x => x.Route.To);
+                Ticket? ticket = await _uow.Tickets.SingleByIdWithRelatedAsync(ticketId, x => x.Route, x => x.Route.From, cancellationToken, x => x.Route.To);
 
                 bool isTicketValid = ticket != null &&
                                      ticket.Id == ticketId &&

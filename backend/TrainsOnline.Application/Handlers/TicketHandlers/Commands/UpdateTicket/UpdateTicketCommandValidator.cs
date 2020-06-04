@@ -16,14 +16,14 @@
 
             RuleFor(x => x.Data.UserId).MustAsync(async (request, val, token) =>
             {
-                bool exists = await uow.Users.GetExistsAsync(x => x.Id == val);
+                bool exists = await uow.Users.ExistsAsync(x => x.Id == val);
 
                 return exists;
             }).WithMessage(ValidationMessages.General.IsIncorrectId);
 
             RuleFor(x => x.Data.RouteId).MustAsync(async (request, val, token) =>
             {
-                bool exists = await uow.Routes.GetExistsAsync(x => x.Id == val);
+                bool exists = await uow.Routes.ExistsAsync(x => x.Id == val);
 
                 return exists;
             }).WithMessage(ValidationMessages.General.IsIncorrectId);
@@ -32,9 +32,9 @@
         public class Model
         {
             public UpdateTicketRequest Data { get; set; }
-            public Ticket Ticket { get; set; }
+            public Ticket? Ticket { get; set; }
 
-            public Model(UpdateTicketRequest data, Ticket ticket)
+            public Model(UpdateTicketRequest data, Ticket? ticket)
             {
                 Data = data;
                 Ticket = ticket;

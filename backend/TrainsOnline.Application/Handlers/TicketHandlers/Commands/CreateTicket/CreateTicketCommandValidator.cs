@@ -10,14 +10,14 @@
         {
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {
-                bool exists = await uow.Users.GetExistsAsync(x => x.Id == val);
+                bool exists = await uow.Users.ExistsAsync(x => x.Id == val);
 
                 return exists;
             }).WithMessage(ValidationMessages.General.IsIncorrectId);
 
             RuleFor(x => x.RouteId).MustAsync(async (request, val, token) =>
             {
-                bool exists = await uow.Routes.GetExistsAsync(x => x.Id == val);
+                bool exists = await uow.Routes.ExistsAsync(x => x.Id == val);
 
                 return exists;
             }).WithMessage(ValidationMessages.General.IsIncorrectId);

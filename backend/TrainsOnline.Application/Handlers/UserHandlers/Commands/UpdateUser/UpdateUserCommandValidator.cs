@@ -18,7 +18,7 @@
             {
                 RuleFor(x => x.Data.Email).MustAsync(async (request, val, token) =>
                 {
-                    User userResult = request.User;
+                    User? userResult = request.User;
 
                     if (userResult.Email.Equals(val))
                         return true;
@@ -34,9 +34,9 @@
         public class Model
         {
             public UpdateUserRequest Data { get; set; }
-            public User User { get; set; }
+            public User? User { get; set; }
 
-            public Model(UpdateUserRequest data, User user)
+            public Model(UpdateUserRequest data, User? user)
             {
                 Data = data;
                 User = user;

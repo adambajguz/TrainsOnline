@@ -10,14 +10,14 @@
         {
             RuleFor(x => x.FromId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                bool exists = await uow.Stations.GetExistsAsync(x => x.Id == val);
+                bool exists = await uow.Stations.ExistsAsync(x => x.Id == val);
 
                 return exists;
             }).WithMessage(ValidationMessages.General.IsIncorrectId);
 
             RuleFor(x => x.ToId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                bool exists = await uow.Stations.GetExistsAsync(x => x.Id == val);
+                bool exists = await uow.Stations.ExistsAsync(x => x.Id == val);
 
                 return exists;
             }).WithMessage(ValidationMessages.General.IsIncorrectId);

@@ -10,11 +10,13 @@
 
     public interface IGenericMongoReadOnlyRepository
     {
-        Type GetEntityType();
+        public Type EntityType { get; }
+        public string EntityName { get; }
 
-        Task<IEnumerable<IBaseMongoEntity>> GetAll();
+        Task<IEnumerable<IBaseMongoEntity>> All();
 
-        Task<IBaseMongoEntity?> GetByIdAsync(Guid id);
+        Task<IBaseMongoEntity> SingleByIdAsync(Guid id);
+        Task<IBaseMongoEntity?> SingleByIdOrDefaultAsync(Guid id);
 
         Task<int> GetCountAsync();
     }
@@ -22,21 +24,24 @@
     public interface IGenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository
         where TEntity : class, IBaseMongoEntity
     {
-        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null,
-                                               Func<IMongoQueryable<TEntity>, IOrderedMongoQueryable<TEntity>>? orderBy = null);
+        Task<IEnumerable<TEntity>> AllAsync(Expression<Func<TEntity, bool>>? filter = null,
+                                            Func<IMongoQueryable<TEntity>, IOrderedMongoQueryable<TEntity>>? orderBy = null);
 
         Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null);
 
+        Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>>? filter,
+                                 CancellationToken cancellationToken = default);
         Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter,
                                            CancellationToken cancellationToken = default);
 
-        new Task<TEntity?> GetByIdAsync(Guid id);
+        new Task<TEntity?> SingleByIdAsync(Guid id);
 
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null);
 
-        Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null);
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>>? filter = null);
 
         Task<List<T>> ProjectToAsync<T>(Expression<Func<TEntity, bool>>? filter = null);
     }

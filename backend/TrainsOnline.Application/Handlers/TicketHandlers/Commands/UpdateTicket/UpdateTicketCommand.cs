@@ -35,7 +35,7 @@ namespace TrainsOnline.Application.Handlers.TicketHandlers.Commands.UpdateTicket
             {
                 UpdateTicketRequest data = request.Data;
 
-                Ticket ticket = await _uow.Tickets.GetByIdAsync(data.Id);
+                Ticket? ticket = await _uow.Tickets.SingleByIdOrDefaultAsync(data.Id);
 
                 UpdateTicketCommandValidator.Model validationModel = new UpdateTicketCommandValidator.Model(data, ticket);
                 await new UpdateTicketCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

@@ -39,7 +39,7 @@ namespace TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser
                 if (data.IsAdmin)
                     _drs.ValidateIsAdmin();
 
-                User user = await _uow.Users.GetByIdAsync(data.Id);
+                User? user = await _uow.Users.SingleByIdOrDefaultAsync(data.Id);
 
                 UpdateUserCommandValidator.Model validationModel = new UpdateUserCommandValidator.Model(data, user);
                 await new UpdateUserCommandValidator(_uow).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

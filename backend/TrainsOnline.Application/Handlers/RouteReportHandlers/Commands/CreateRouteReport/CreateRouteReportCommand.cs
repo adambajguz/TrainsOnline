@@ -34,8 +34,8 @@ namespace TrainsOnline.Application.Handlers.RouteReportHandlers.Commands.CreateR
                 IdRequest data = request.Data;
                 Guid routeId = data.Id;
 
-                Route? route = await _uowRel.Routes.GetByIdWithRelatedAsync(routeId, x => x.From, x => x.To) ?? throw new NullReferenceException(nameof(route));
-                IEnumerable<RouteLog>? logs = await _uow.RouteLogs.GetAllAsync(x => x.RouteId == routeId);
+                Route? route = await _uowRel.Routes.SingleByIdWithRelatedAsync(routeId, x => x.From, x => x.To) ?? throw new NullReferenceException(nameof(route));
+                IEnumerable<RouteLog>? logs = await _uow.RouteLogs.AllAsync(x => x.RouteId == routeId);
 
                 RouteReport entity = new RouteReport
                 {

@@ -12,6 +12,7 @@
     using AutoMapper.QueryableExtensions;
     using MongoDB.Driver;
     using MongoDB.Driver.Linq;
+    using TrainsOnline.Application.Exceptions;
     using TrainsOnline.Domain.Abstractions.Base;
 
     public class GenericMongoReadOnlyRepository<TEntity> : IGenericMongoReadOnlyRepository<TEntity>
@@ -21,11 +22,18 @@
         protected readonly IMongoCollection<TEntity> _dbSet;
         protected readonly IMapper _mapper;
 
+        public Type EntityType { get; }
+        public string EntityName { get; }
+
         public GenericMongoReadOnlyRepository(IGenericMongoDatabaseContext context, IMapper mapper)
         {
             _context = context;
             _dbSet = context.GetCollection<TEntity>();
             _mapper = mapper;
+
+            Type type = typeof(TEntity);
+            EntityType = type;
+            EntityName = type.Name;
         }
 
         protected IMongoQueryable<TEntity> GetQueryable(Expression<Func<TEntity, bool>>? filter = null,
@@ -43,7 +51,7 @@
         }
 
         #region IGenericMongoReadOnlyRepository<TEntity>
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? filter = null,
+        public async Task<IEnumerable<TEntity>> AllAsync(Expression<Func<TEntity, bool>>? filter = null,
                                                             Func<IMongoQueryable<TEntity>, IOrderedMongoQueryable<TEntity>>? orderBy = null)
         {
             return await GetQueryable(filter, orderBy).ToListAsync();
@@ -54,9 +62,28 @@
             return await GetQueryable(filter).ToListAsync();
         }
 
-        public async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>>? filter = null)
+        {
+            TEntity? entity = await GetQueryable(filter).SingleOrDefaultAsync();
+
+            return entity ?? throw new NotFoundException(EntityName);
+        }
+
+        public async Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).SingleOrDefaultAsync();
+        }
+
+        public async Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>>? filter = null,
+                                               CancellationToken cancellationToken = default)
+        {
+            TEntity? entity;
+            if (filter is null)
+                entity = await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(cancellationToken);
+            else
+                entity = await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(filter, cancellationToken);
+
+            return entity ?? throw new NotFoundException(EntityName);
         }
 
         public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
@@ -68,9 +95,9 @@
             return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(filter, cancellationToken);
         }
 
-        public async Task<TEntity?> GetByIdAsync(Guid id)
+        public async Task<TEntity?> SingleByIdAsync(Guid id)
         {
-            return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            return await _dbSet.AsQueryable<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>>? filter = null)
@@ -78,7 +105,7 @@
             return await GetQueryable(filter).CountAsync();
         }
 
-        public async Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>>? filter = null)
+        public async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>>? filter = null)
         {
             return await GetQueryable(filter).AnyAsync();
         }
@@ -96,14 +123,21 @@
             return typeof(TEntity);
         }
 
-        public async Task<IEnumerable<IBaseMongoEntity>> GetAll()
+        public async Task<IEnumerable<IBaseMongoEntity>> All()
         {
             return await _dbSet.AsQueryable().ToListAsync();
         }
 
-        async Task<IBaseMongoEntity?> IGenericMongoReadOnlyRepository.GetByIdAsync(Guid id)
+        async Task<IBaseMongoEntity> IGenericMongoReadOnlyRepository.SingleByIdAsync(Guid id)
         {
-            return await _dbSet.AsQueryable<TEntity>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            TEntity? entity = await _dbSet.AsQueryable<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+
+            return entity ?? throw new NotFoundException(EntityName, id);
+        }
+
+        async Task<IBaseMongoEntity?> IGenericMongoReadOnlyRepository.SingleByIdOrDefaultAsync(Guid id)
+        {
+            return await _dbSet.AsQueryable<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<int> GetCountAsync()
