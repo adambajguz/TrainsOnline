@@ -11,6 +11,8 @@
     using TrainsOnline.Desktop.Domain.DTO.Authentication;
     using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.Route;
+    using TrainsOnline.Desktop.Domain.DTO.RouteLog;
+    using TrainsOnline.Desktop.Domain.DTO.RouteReport;
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
     using TrainsOnline.Desktop.Domain.DTO.User;
@@ -278,6 +280,42 @@
             request.AddBearerAuthentication(Token);
 
             IRestResponse<GetEntityAuditLogsListResponse> response = await Client.ExecuteGetAsync<GetEntityAuditLogsListResponse>(request);
+            CheckResponseErrors(response);
+
+            return response.Data;
+        }
+        #endregion
+
+        #region RouteLog
+        public async Task<GetRouteLogsListResponse> GetEntityRouteLogs()
+        {
+            if (!IsAuthenticated)
+            {
+                return null;
+            }
+
+            RestRequest request = new RestRequest("route-log/get-all", DataFormat.Json);
+            request.AddBearerAuthentication(Token);
+
+            IRestResponse<GetRouteLogsListResponse> response = await Client.ExecuteGetAsync<GetRouteLogsListResponse>(request);
+            CheckResponseErrors(response);
+
+            return response.Data;
+        }
+        #endregion
+
+        #region RouteReport
+        public async Task<GetRouteReportsListResponse> GetEntityRouteReports()
+        {
+            if (!IsAuthenticated)
+            {
+                return null;
+            }
+
+            RestRequest request = new RestRequest("route-report/get-alll", DataFormat.Json);
+            request.AddBearerAuthentication(Token);
+
+            IRestResponse<GetRouteReportsListResponse> response = await Client.ExecuteGetAsync<GetRouteReportsListResponse>(request);
             CheckResponseErrors(response);
 
             return response.Data;

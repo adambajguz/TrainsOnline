@@ -9,6 +9,8 @@
     using TrainsOnline.Desktop.Domain.DTO.Authentication;
     using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.Route;
+    using TrainsOnline.Desktop.Domain.DTO.RouteLog;
+    using TrainsOnline.Desktop.Domain.DTO.RouteReport;
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
     using TrainsOnline.Desktop.Domain.DTO.User;
@@ -192,6 +194,20 @@
         public async Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs()
         {
             return await DataProvider.GetEntityAudtiLogs();
+        }
+        #endregion
+
+        #region RouteLog
+        public async Task<GetRouteLogsListResponse> GetEntityRouteLogs()
+        {
+            return await DataProvider.GetEntityRouteLogs();
+        }
+        #endregion
+
+        #region RouteReport
+        public async Task<GetRouteReportsListResponse> GetEntityRouteReports()
+        {
+            return await DataProvider.GetEntityRouteReports();
         }
         #endregion
     }

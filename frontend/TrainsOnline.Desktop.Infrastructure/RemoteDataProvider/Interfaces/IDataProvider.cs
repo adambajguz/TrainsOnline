@@ -7,6 +7,8 @@
     using TrainsOnline.Desktop.Domain.DTO.Authentication;
     using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.Route;
+    using TrainsOnline.Desktop.Domain.DTO.RouteLog;
+    using TrainsOnline.Desktop.Domain.DTO.RouteReport;
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
     using TrainsOnline.Desktop.Domain.DTO.User;
@@ -40,5 +42,7 @@
 
         Task<GetAnalyticsRecordsListResponse> GetAnalytics();
         Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs();
+        Task<GetRouteLogsListResponse> GetEntityRouteLogs();
+        Task<GetRouteReportsListResponse> GetEntityRouteReports();
     }
 }

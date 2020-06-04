@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
-    xmlns:model="using:TrainsOnline.Desktop.Domain.DTO.EntityAuditLog"
+    xmlns:model="using:TrainsOnline.Desktop.Domain.DTO.RouteLog"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
@@ -22,7 +22,44 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            
+            <Grid.Resources>
+                <DataTemplate x:Key="RowDetailsTemplate">
+                    <Grid Margin="0" Padding="12,8,12,8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
+                        <TextBlock
+                            Grid.Row="0"
+                            Text="Route report details:"
+                            TextDecorations="Underline" />
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Orientation="Vertical">
+                            <TextBlock Text="Id" />
+                            <TextBlock Text="{Binding Id}" />
+                            <TextBlock Text="Voltage" />
+                            <TextBlock Text="{Binding Voltage}" />
+                            <TextBlock Text="Current" />
+                            <TextBlock Text="{Binding Current}" />
+                            <TextBlock Text="Speed" />
+                            <TextBlock Text="{Binding Speed}" />
+
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </Grid.Resources>
+            
             <controls:DataGrid
                 Grid.Row="1"
                 micro:Message.Attach="[LoadingRowGroup] = [Action LoadingRowGroup($eventargs)];"
@@ -32,8 +69,9 @@
                 GridLinesVisibility="Horizontal"
                 IsReadOnly="True"
                 ItemsSource="{x:Bind ViewModel.GroupedSource.View, Mode=OneWay}"
-                RowDetailsVisibilityMode="Collapsed"
-                RowGroupHeaderPropertyNameAlternative="Url">
+                RowDetailsTemplate="{StaticResource RowDetailsTemplate}"
+                RowDetailsVisibilityMode="VisibleWhenSelected"
+                RowGroupHeaderPropertyNameAlternative="Route">
                 <controls:DataGrid.Columns>
                     <!--
                         TODO WTS:
@@ -43,7 +81,7 @@
                     <!--<controls:DataGridTextColumn Binding="{Binding Id}" Header="RID" />-->
                     <controls:DataGridTemplateColumn Header="">
                         <controls:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="model:EntityAuditLogLookupModel">
+                            <DataTemplate x:DataType="model:RouteLogLookupModel">
                                 <FontIcon
                                     Margin="{StaticResource SmallLeftRightMargin}"
                                     HorizontalAlignment="Left"
@@ -52,11 +90,10 @@
                             </DataTemplate>
                         </controls:DataGridTemplateColumn.CellTemplate>
                     </controls:DataGridTemplateColumn>
-                    <controls:DataGridTextColumn Binding="{Binding Id}" Header="Id" />
-                    <controls:DataGridTextColumn Binding="{Binding CreatedOn, Converter={StaticResource DateTimeFormatterConverter}}" Header="CreatedOn" />
-                    <controls:DataGridTextColumn Binding="{Binding CreatedBy}" Header="CreatedBy" />
-                    <controls:DataGridTextColumn Binding="{Binding TableName}" Header="TableName" />
-                    <controls:DataGridTextColumn Binding="{Binding Action}" Header="Action" />
+                    <controls:DataGridTextColumn Binding="{Binding Timestamp, Converter={StaticResource DateTimeFormatterConverter}}" Header="Timestamp" />
+                    <controls:DataGridTextColumn Binding="{Binding Latitude}" Header="Latitude" />
+                    <controls:DataGridTextColumn Binding="{Binding Longitude}" Header="Longitude" />
+                    <controls:DataGridTextColumn Binding="{Binding Speed}" Header="Speed" />
                 </controls:DataGrid.Columns>
             </controls:DataGrid>
         </Grid>
