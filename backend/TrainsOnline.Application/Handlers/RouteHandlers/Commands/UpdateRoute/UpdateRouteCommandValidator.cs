@@ -37,9 +37,9 @@
         public class Model
         {
             public UpdateRouteRequest Data { get; set; }
-            public Route Route { get; set; }
+            public Route? Route { get; set; }
 
-            public Model(UpdateRouteRequest data, Route route)
+            public Model(UpdateRouteRequest data, Route? route)
             {
                 Data = data;
                 Route = route;

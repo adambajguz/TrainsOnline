@@ -20,9 +20,9 @@ namespace TrainsOnline.Application.Handlers.AuthenticationHandlers.Commands.Rese
         public class Model
         {
             public ResetPasswordRequest Data { get; set; }
-            public User User { get; set; }
+            public User? User { get; set; }
 
-            public Model(ResetPasswordRequest data, User user)
+            public Model(ResetPasswordRequest data, User? user)
             {
                 Data = data;
                 User = user;

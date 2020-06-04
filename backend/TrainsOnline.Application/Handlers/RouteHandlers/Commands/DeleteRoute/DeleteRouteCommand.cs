@@ -30,7 +30,7 @@ namespace TrainsOnline.Application.Handlers.RouteHandlers.Commands.DeleteRoute
             {
                 IdRequest data = request.Data;
 
-                Route route = await _uow.Routes.GetByIdAsync(data.Id);
+                Route? route = await _uow.Routes.GetByIdAsync(data.Id);
 
                 EntityRequestByIdValidator<Route>.Model validationModel = new EntityRequestByIdValidator<Route>.Model(data, route);
                 await new EntityRequestByIdValidator<Route>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

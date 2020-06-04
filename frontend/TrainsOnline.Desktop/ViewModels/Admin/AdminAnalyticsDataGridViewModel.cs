@@ -30,7 +30,7 @@
 
         public async Task LoadDataAsync()
         {
-            if (!RemoteDataProvider.IsAuthenticated && !RemoteDataProvider.HasRole("Admin"))
+            if (!RemoteDataProvider.IsAuthenticated || !RemoteDataProvider.HasRole("Admin"))
             {
                 RemoteDataProvider.Logout();
                 NavService.NavigateToViewModel<LoginRegisterViewModel>();
@@ -61,8 +61,9 @@
         {
             base.OnViewLoaded(view);
 
-            if (!RemoteDataProvider.IsAuthenticated)
+            if (!RemoteDataProvider.IsAuthenticated || !RemoteDataProvider.HasRole("Admin"))
             {
+                RemoteDataProvider.Logout();
                 NavService.NavigateToViewModel<LoginRegisterViewModel>();
 
                 return;

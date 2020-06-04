@@ -26,7 +26,7 @@
 
         public bool IsRoleInToken(string token, string role)
         {
-            if (token is null)
+            if (string.IsNullOrWhiteSpace(token))
                 return false;
 
             JwtSecurityToken jwtToken = _handler.ReadJwtToken(token);
@@ -37,7 +37,7 @@
 
         public bool IsAnyOfRolesInToken(string token, string[] roles)
         {
-            if (token is null)
+            if (string.IsNullOrWhiteSpace(token))
                 return false;
 
             JwtSecurityToken jwtToken = _handler.ReadJwtToken(token);

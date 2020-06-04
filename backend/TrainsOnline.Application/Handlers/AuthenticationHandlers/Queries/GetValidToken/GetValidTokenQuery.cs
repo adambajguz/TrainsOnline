@@ -35,7 +35,7 @@
             {
                 LoginRequest data = request.Data;
 
-                User user = await _uow.Users.FirstOrDefaultAsync(x => x.Email.Equals(data.Email));
+                User? user = await _uow.Users.FirstOrDefaultAsync(x => x.Email.Equals(data.Email));
                 GetValidTokenQueryValidator.Model validationModel = new GetValidTokenQueryValidator.Model(data, user);
 
                 await new GetValidTokenQueryValidator(_userManager).ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

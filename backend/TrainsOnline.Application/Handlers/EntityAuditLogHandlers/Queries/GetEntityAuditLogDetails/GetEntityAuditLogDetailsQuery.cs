@@ -34,7 +34,7 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Queries.GetRouteLogDe
             {
                 IdRequest data = request.Data;
 
-                EntityAuditLog entity = await _uow.EntityAuditLogs.GetByIdAsync(data.Id);
+                EntityAuditLog? entity = await _uow.EntityAuditLogs.GetByIdAsync(data.Id);
 
                 EntityRequestByIdValidator<EntityAuditLog>.Model validationModel = new EntityRequestByIdValidator<EntityAuditLog>.Model(data, entity);
                 await new EntityRequestByIdValidator<EntityAuditLog>().ValidateAndThrowAsync(validationModel, cancellationToken: cancellationToken);

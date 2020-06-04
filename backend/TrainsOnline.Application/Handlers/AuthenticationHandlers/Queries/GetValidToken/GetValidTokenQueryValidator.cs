@@ -32,9 +32,9 @@
         public class Model
         {
             public LoginRequest Data { get; set; }
-            public User User { get; set; }
+            public User? User { get; set; }
 
-            public Model(LoginRequest data, User user)
+            public Model(LoginRequest data, User? user)
             {
                 Data = data;
                 User = user;
