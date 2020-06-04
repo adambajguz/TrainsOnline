@@ -96,6 +96,7 @@
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE77B;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
+            <winui:NavigationViewItemSeparator />
 
             <winui:NavigationViewItem x:Uid="Shell_AdminAnalytics" helpers:NavHelper.NavigateTo="viewsadmin:AdminAnalyticsDataGridPage">
                 <winui:NavigationViewItem.Icon>
