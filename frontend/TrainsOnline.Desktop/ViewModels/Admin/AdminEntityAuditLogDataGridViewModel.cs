@@ -30,8 +30,9 @@
 
         public async Task LoadDataAsync()
         {
-            if (!RemoteDataProvider.IsAuthenticated)
+            if (!RemoteDataProvider.IsAuthenticated && !RemoteDataProvider.HasRole("Admin"))
             {
+                RemoteDataProvider.Logout();
                 NavService.NavigateToViewModel<LoginRegisterViewModel>();
 
                 return;
@@ -78,7 +79,6 @@
             Source.Clear();
 
             var query = from item in data.EntityAuditLogs
-                        orderby item.CreatedOn descending
                         group item by item.Key into g
                         select new { GroupName = g.Key, Items = g };
 

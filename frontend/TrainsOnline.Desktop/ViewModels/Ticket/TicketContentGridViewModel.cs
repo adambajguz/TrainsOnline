@@ -1,5 +1,6 @@
 ﻿namespace TrainsOnline.Desktop.ViewModels.Ticket
 {
+    using System;
     using System.Collections.ObjectModel;
     using System.Threading.Tasks;
     using Caliburn.Micro;
@@ -35,17 +36,24 @@
 
                 return;
             }
-
-            Source.Clear();
-
-            GetUserTicketsListResponse data = await RemoteDataProvider.GetCurrentUserTickets();
-
-            if (data is null)
-                return;
-
-            foreach (UserTicketLookupModel ticket in data.Tickets)
+            try
             {
-                Source.Add(ticket);
+
+                Source.Clear();
+
+                GetUserTicketsListResponse data = await RemoteDataProvider.GetCurrentUserTickets();
+
+                if (data is null)
+                    return;
+
+                foreach (UserTicketLookupModel ticket in data.Tickets)
+                {
+                    Source.Add(ticket);
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
 

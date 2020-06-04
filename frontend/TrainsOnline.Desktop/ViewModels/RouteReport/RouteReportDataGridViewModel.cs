@@ -7,7 +7,6 @@
     using Microsoft.Toolkit.Uwp.UI.Controls;
     using TrainsOnline.Desktop.Application.Exceptions;
     using TrainsOnline.Desktop.Application.Interfaces.RemoteDataProvider;
-    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.RouteReport;
     using TrainsOnline.Desktop.Helpers;
     using TrainsOnline.Desktop.ViewModels.User;
@@ -31,8 +30,9 @@
 
         public async Task LoadDataAsync()
         {
-            if (!RemoteDataProvider.IsAuthenticated)
+            if (!RemoteDataProvider.IsAuthenticated && !RemoteDataProvider.HasRole("Admin"))
             {
+                RemoteDataProvider.Logout();
                 NavService.NavigateToViewModel<LoginRegisterViewModel>();
 
                 return;

@@ -312,7 +312,7 @@
                 return null;
             }
 
-            RestRequest request = new RestRequest("route-report/get-alll", DataFormat.Json);
+            RestRequest request = new RestRequest("route-report/get-all", DataFormat.Json);
             request.AddBearerAuthentication(Token);
 
             IRestResponse<GetRouteReportsListResponse> response = await Client.ExecuteGetAsync<GetRouteReportsListResponse>(request);
