@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Desktop.ViewModels.Route
+﻿namespace TrainsOnline.Desktop.Helpers
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

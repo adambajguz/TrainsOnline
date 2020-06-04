@@ -3,7 +3,9 @@
     using System;
     using System.Threading.Tasks;
     using TrainsOnline.Desktop.Domain.DTO;
+    using TrainsOnline.Desktop.Domain.DTO.Analytics;
     using TrainsOnline.Desktop.Domain.DTO.Authentication;
+    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.Route;
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
@@ -35,5 +37,8 @@
         Task<GetUserTicketsListResponse> GetCurrentUserTickets();
         Task UpdateUser(UpdateUserRequest data);
         Task ChangePassword(ChangePasswordRequest data);
+
+        Task<GetAnalyticsRecordsListResponse> GetAnalytics();
+        Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs();
     }
 }

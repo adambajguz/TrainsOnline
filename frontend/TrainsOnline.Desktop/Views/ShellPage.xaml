@@ -9,6 +9,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:TrainsOnline.Desktop.Views"
+    xmlns:viewsadmin="using:TrainsOnline.Desktop.Views.Admin"
     xmlns:viewsexample="using:TrainsOnline.Desktop.Views.Example"
     xmlns:viewsroute="using:TrainsOnline.Desktop.Views.Route"
     xmlns:viewsstation="using:TrainsOnline.Desktop.Views.Station"
@@ -91,6 +92,18 @@
             <winui:NavigationViewItem x:Uid="Shell_UserAccount" helpers:NavHelper.NavigateTo="viewsuser:UserDetailsPage">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE77B;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
+            <winui:NavigationViewItem x:Uid="Shell_AdminAnalytics" helpers:NavHelper.NavigateTo="viewsadmin:AdminAnalyticsDataGridPage">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xF19D;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
+            <winui:NavigationViewItem x:Uid="Shell_AdminEntityAuditLog" helpers:NavHelper.NavigateTo="viewsadmin:AdminEntityAuditLogDataGridPage">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xF78D;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 

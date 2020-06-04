@@ -35,6 +35,9 @@
             _container.PerRequest<VM.User.LoginRegisterViewModel>();
             _container.PerRequest<VM.User.UserDetailsViewModel>();
 
+            _container.PerRequest<VM.Admin.AdminAnalyticsDataGridViewModel>();
+            _container.PerRequest<VM.Admin.AdminEntityAuditLogDataGridViewModel>();
+
             _container.Singleton<IFileService, FileService>();
             _container.Singleton<ISettingsStorageService, SettingStorageService>();
         }

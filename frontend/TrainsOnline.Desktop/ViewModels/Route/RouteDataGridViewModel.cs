@@ -9,6 +9,7 @@
     using TrainsOnline.Desktop.Common.GeoHelpers;
     using TrainsOnline.Desktop.Domain.DTO.Route;
     using TrainsOnline.Desktop.Domain.Models.General;
+    using TrainsOnline.Desktop.Helpers;
     using TrainsOnline.Desktop.ViewModels.General;
     using TrainsOnline.Desktop.ViewModels.User;
     using TrainsOnline.Desktop.Views.Route;

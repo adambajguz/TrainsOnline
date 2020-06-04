@@ -5,7 +5,9 @@
     using AutoMapper;
     using TrainsOnline.Desktop.Application.Interfaces.RemoteDataProvider;
     using TrainsOnline.Desktop.Domain.DTO;
+    using TrainsOnline.Desktop.Domain.DTO.Analytics;
     using TrainsOnline.Desktop.Domain.DTO.Authentication;
+    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.Route;
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
@@ -176,6 +178,20 @@
                 OldPassword = currentPassword ?? "",
                 NewPassword = newPassword ?? ""
             });
+        }
+        #endregion
+
+        #region Analytics
+        public async Task<GetAnalyticsRecordsListResponse> GetAnalytics()
+        {
+            return await DataProvider.GetAnalytics();
+        }
+        #endregion
+
+        #region EntityAutitLogs
+        public async Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs()
+        {
+            return await DataProvider.GetEntityAudtiLogs();
         }
         #endregion
     }

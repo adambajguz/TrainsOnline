@@ -2,6 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
+    using TrainsOnline.Desktop.Domain.DTO.Analytics;
+    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
 
     public interface IRemoteDataProviderService : IUserData, IStationData, IRouteData, ITicketData
     {
@@ -14,5 +16,8 @@
 
         Task<Guid> CreateTicketForCurrentUser(Guid routeId);
         #endregion
+
+        Task<GetAnalyticsRecordsListResponse> GetAnalytics();
+        Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs();
     }
 }

@@ -7,7 +7,9 @@
     using RestSharp;
     using TrainsOnline.Desktop.Application.Exceptions;
     using TrainsOnline.Desktop.Domain.DTO;
+    using TrainsOnline.Desktop.Domain.DTO.Analytics;
     using TrainsOnline.Desktop.Domain.DTO.Authentication;
+    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Domain.DTO.Route;
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
@@ -245,5 +247,41 @@
 
             return;
         }
+
+        #region Analytics
+        public async Task<GetAnalyticsRecordsListResponse> GetAnalytics()
+        {
+            if (!IsAuthenticated)
+            {
+                return null;
+            }
+
+            RestRequest request = new RestRequest("analytics-record/get-all", DataFormat.Json);
+            request.AddBearerAuthentication(Token);
+
+            IRestResponse<GetAnalyticsRecordsListResponse> response = await Client.ExecuteGetAsync<GetAnalyticsRecordsListResponse>(request);
+            CheckResponseErrors(response);
+
+            return response.Data;
+        }
+        #endregion
+
+        #region EntityAudtiLogs
+        public async Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs()
+        {
+            if (!IsAuthenticated)
+            {
+                return null;
+            }
+
+            RestRequest request = new RestRequest("entity-audit-log/get-all", DataFormat.Json);
+            request.AddBearerAuthentication(Token);
+
+            IRestResponse<GetEntityAuditLogsListResponse> response = await Client.ExecuteGetAsync<GetEntityAuditLogsListResponse>(request);
+            CheckResponseErrors(response);
+
+            return response.Data;
+        }
+        #endregion
     }
 }

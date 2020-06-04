@@ -173,6 +173,7 @@
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Constants\SettingKeys.cs" />
     <Compile Include="Converters\AbstractEnumToBooleanConverter.cs" />
+    <Compile Include="Converters\DateFormatterConverter.cs" />
     <Compile Include="Converters\DateTimeFormatterConverter.cs" />
     <Compile Include="Converters\DistanceFormatterConverter.cs" />
     <Compile Include="Converters\CurrencyFormatterConverter.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\SettingsStorageService.cs" />
     <Compile Include="Services\ThemeSelectorService.cs" />
+    <Compile Include="ViewModels\Admin\AdminEntityAuditLogDataGridViewModel.cs" />
     <Compile Include="ViewModels\Example\ExampleBlankViewModel.cs" />
     <Compile Include="ViewModels\Example\ExampleContentGridDetailViewModel.cs" />
     <Compile Include="ViewModels\Example\ExampleContentGridViewModel.cs" />
@@ -203,6 +205,17 @@
     <Compile Include="ViewModels\General\GeneralMapViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Helpers\GroupInfoCollection.cs" />
+    <Compile Include="ViewModels\Admin\AdminAnalyticsDataGridViewModel.cs" />
+    <Compile Include="Views\Admin\IAdminAnalyticsDataGridView.cs" />
+    <Compile Include="Views\Admin\IAdminAnalyticsDataGridViewEvents.cs" />
+    <Compile Include="Views\Admin\AdminAnalyticsDataGridPage.xaml.cs">
+      <DependentUpon>AdminAnalyticsDataGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\AdminEntityAuditLogDataGridPage.xaml.cs">
+      <DependentUpon>AdminEntityAuditLogDataGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Admin\IAdminEntityAuditLogDataGridView.cs" />
+    <Compile Include="Views\Admin\IAdminEntityAuditLogDataGridViewEvents.cs" />
     <Compile Include="Views\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\Route\RouteDataGridViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -315,6 +328,14 @@
     <Page Include="Styles\TextBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Admin\AdminAnalyticsDataGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Admin\AdminEntityAuditLogDataGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Example\ExampleBlankPage.xaml">
       <Generator>MSBuild:Compile</Generator>
