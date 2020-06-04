@@ -206,6 +206,8 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="Helpers\GroupInfoCollection.cs" />
     <Compile Include="ViewModels\Admin\AdminAnalyticsDataGridViewModel.cs" />
+    <Compile Include="ViewModels\RouteLog\RouteLogDataGridViewModel.cs" />
+    <Compile Include="ViewModels\RouteReport\RouteReportDataGridViewModel.cs" />
     <Compile Include="Views\Admin\IAdminAnalyticsDataGridView.cs" />
     <Compile Include="Views\Admin\IAdminAnalyticsDataGridViewEvents.cs" />
     <Compile Include="Views\Admin\AdminAnalyticsDataGridPage.xaml.cs">
@@ -216,6 +218,11 @@
     </Compile>
     <Compile Include="Views\Admin\IAdminEntityAuditLogDataGridView.cs" />
     <Compile Include="Views\Admin\IAdminEntityAuditLogDataGridViewEvents.cs" />
+    <Compile Include="Views\RouteLog\RouteLogDataGridPage.xaml.cs">
+      <DependentUpon>RouteLogDataGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RouteLog\IRouteLogDataGridView.cs" />
+    <Compile Include="Views\RouteLog\IRouteLogDataGridViewEvents.cs" />
     <Compile Include="Views\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\Route\RouteDataGridViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -263,6 +270,11 @@
     </Compile>
     <Compile Include="Views\Example\IExampleMapView.cs" />
     <Compile Include="Views\IShellView.cs" />
+    <Compile Include="Views\RouteReport\IRouteReportDataGridView.cs" />
+    <Compile Include="Views\RouteReport\IRouteReportDataGridViewEvents.cs" />
+    <Compile Include="Views\RouteReport\RouteReportDataGridPage.xaml.cs">
+      <DependentUpon>RouteReportDataGridPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Route\IRouteDataGridView.cs" />
     <Compile Include="Views\Route\IRouteDataGridViewEvents.cs" />
     <Compile Include="Views\Route\RouteDataGridPage.xaml.cs">
@@ -337,6 +349,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\RouteLog\RouteLogDataGridPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Example\ExampleBlankPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -378,6 +394,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\RouteReport\RouteReportDataGridPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

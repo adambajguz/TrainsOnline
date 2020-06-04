@@ -38,6 +38,10 @@
             _container.PerRequest<VM.Admin.AdminAnalyticsDataGridViewModel>();
             _container.PerRequest<VM.Admin.AdminEntityAuditLogDataGridViewModel>();
 
+            _container.PerRequest<VM.RouteLog.RouteLogDataGridViewModel>();
+
+            _container.PerRequest<VM.RouteReport.RouteReportDataGridViewModel>();
+
             _container.Singleton<IFileService, FileService>();
             _container.Singleton<ISettingsStorageService, SettingStorageService>();
         }

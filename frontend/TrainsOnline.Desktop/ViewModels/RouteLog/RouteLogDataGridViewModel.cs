@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Desktop.ViewModels.Admin
+﻿namespace TrainsOnline.Desktop.ViewModels.RouteLog
 {
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -7,21 +7,21 @@
     using Microsoft.Toolkit.Uwp.UI.Controls;
     using TrainsOnline.Desktop.Application.Exceptions;
     using TrainsOnline.Desktop.Application.Interfaces.RemoteDataProvider;
-    using TrainsOnline.Desktop.Domain.DTO.Analytics;
+    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
     using TrainsOnline.Desktop.Helpers;
     using TrainsOnline.Desktop.ViewModels.User;
-    using TrainsOnline.Desktop.Views.Route;
+    using TrainsOnline.Desktop.Views.RouteLog;
     using Windows.UI.Xaml.Data;
 
-    public class AdminAnalyticsDataGridViewModel : Screen, IAdminAnalyticsDataGridViewEvents
+    public class RouteLogDataGridViewModel : Screen, IRouteLogDataGridViewEvents
     {
         private INavigationService NavService { get; }
         private IRemoteDataProviderService RemoteDataProvider { get; }
 
-        public ObservableCollection<GroupInfoCollection<AnalyticsRecordLookupModel>> Source { get; } = new ObservableCollection<GroupInfoCollection<AnalyticsRecordLookupModel>>();
+        public ObservableCollection<GroupInfoCollection<EntityAuditLogLookupModel>> Source { get; } = new ObservableCollection<GroupInfoCollection<EntityAuditLogLookupModel>>();
         public CollectionViewSource GroupedSource { get; } = new CollectionViewSource();
 
-        public AdminAnalyticsDataGridViewModel(INavigationService navigationService,
+        public RouteLogDataGridViewModel(INavigationService navigationService,
                                       IRemoteDataProviderService remoteDataProvider)
         {
             NavService = navigationService;
@@ -39,7 +39,7 @@
 
             try
             {
-                GetAnalyticsRecordsListResponse data = await RemoteDataProvider.GetAnalytics();
+                GetEntityAuditLogsListResponse data = await RemoteDataProvider.GetEntityAudtiLogs();
 
                 //foreach (RouteLookupModel route in data.Routes)
                 //{
@@ -68,31 +68,27 @@
             }
         }
 
-        private void LoadDataAsync(GetAnalyticsRecordsListResponse data)
+        private void LoadDataAsync(GetEntityAuditLogsListResponse data)
         {
             if (data is null)
-            {
                 return;
-            }
 
             Source.Clear();
 
-            var query = from item in data.AnalyticsRecords
-                        orderby item.Timestamp
-                        group item by item.Uri into g
+            var query = from item in data.EntityAuditLogs
+                        orderby item.CreatedOn descending
+                        group item by item.Key into g
                         select new { GroupName = g.Key, Items = g };
 
             foreach (var g in query)
             {
-                GroupInfoCollection<AnalyticsRecordLookupModel> info = new GroupInfoCollection<AnalyticsRecordLookupModel>
+                GroupInfoCollection<EntityAuditLogLookupModel> info = new GroupInfoCollection<EntityAuditLogLookupModel>
                 {
                     Key = g.GroupName
                 };
 
-                foreach (AnalyticsRecordLookupModel item in g.Items)
-                {
+                foreach (EntityAuditLogLookupModel item in g.Items)
                     info.Add(item);
-                }
 
                 Source.Add(info);
             }
@@ -104,8 +100,8 @@
         public void LoadingRowGroup(DataGridRowGroupHeaderEventArgs e)
         {
             ICollectionViewGroup group = e.RowGroupHeader.CollectionViewGroup;
-            AnalyticsRecordLookupModel item = group.GroupItems[0] as AnalyticsRecordLookupModel;
-            e.RowGroupHeader.PropertyValue = item?.Uri;
+            EntityAuditLogLookupModel item = group.GroupItems[0] as EntityAuditLogLookupModel;
+            e.RowGroupHeader.PropertyValue = item?.Key.ToString();
         }
 
         public async void ResetView()

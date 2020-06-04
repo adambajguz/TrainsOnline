@@ -7,9 +7,7 @@
     using Microsoft.Toolkit.Uwp.UI.Controls;
     using TrainsOnline.Desktop.Application.Exceptions;
     using TrainsOnline.Desktop.Application.Interfaces.RemoteDataProvider;
-    using TrainsOnline.Desktop.Domain.DTO.Analytics;
     using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
-    using TrainsOnline.Desktop.Domain.DTO.Route;
     using TrainsOnline.Desktop.Helpers;
     using TrainsOnline.Desktop.ViewModels.User;
     using TrainsOnline.Desktop.Views.Route;

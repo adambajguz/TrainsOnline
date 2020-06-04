@@ -12,6 +12,8 @@
     xmlns:viewsadmin="using:TrainsOnline.Desktop.Views.Admin"
     xmlns:viewsexample="using:TrainsOnline.Desktop.Views.Example"
     xmlns:viewsroute="using:TrainsOnline.Desktop.Views.Route"
+    xmlns:viewsroutelog="using:TrainsOnline.Desktop.Views.RouteLog"
+    xmlns:viewsroutereport="using:TrainsOnline.Desktop.Views.RouteReport"
     xmlns:viewsstation="using:TrainsOnline.Desktop.Views.Station"
     xmlns:viewsticket="using:TrainsOnline.Desktop.Views.Ticket"
     xmlns:viewsuser="using:TrainsOnline.Desktop.Views.User"
@@ -104,6 +106,18 @@
             <winui:NavigationViewItem x:Uid="Shell_AdminEntityAuditLog" helpers:NavHelper.NavigateTo="viewsadmin:AdminEntityAuditLogDataGridPage">
                 <winui:NavigationViewItem.Icon>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xF78D;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
+            <winui:NavigationViewItem x:Uid="Shell_RouteLogData" helpers:NavHelper.NavigateTo="viewsroutelog:RouteLogDataGridPage">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE704;" />
+                </winui:NavigationViewItem.Icon>
+            </winui:NavigationViewItem>
+
+            <winui:NavigationViewItem x:Uid="Shell_RouteReportData" helpers:NavHelper.NavigateTo="viewsroutereport:RouteReportDataGridPage">
+                <winui:NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE8A6;" />
                 </winui:NavigationViewItem.Icon>
             </winui:NavigationViewItem>
 
