@@ -19,6 +19,7 @@
         {
             public const string IsEmpty = "Password must not be empty";
             public const string IsTooShort = "Password must have at least {0} characters";
+            public const string IsTooLong = "Password must have less than {0} characters";
 
             //public const string NewIsEqualToOld = "New password must not equal to old password";
             public const string OldIsIncorrect = "Old password is incorrect";

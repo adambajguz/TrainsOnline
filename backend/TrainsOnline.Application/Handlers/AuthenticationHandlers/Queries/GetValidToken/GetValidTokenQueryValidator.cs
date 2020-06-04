@@ -19,6 +19,8 @@
                                          .WithMessage(ValidationMessages.Password.IsEmpty);
             RuleFor(x => x.Data.Password).MinimumLength(GlobalAppConfig.MIN_PASSWORD_LENGTH)
                                          .WithMessage(string.Format(ValidationMessages.Password.IsTooShort, GlobalAppConfig.MIN_PASSWORD_LENGTH));
+            RuleFor(x => x.Data.Password).MaximumLength(GlobalAppConfig.MAX_PASSWORD_LENGTH)
+                                         .WithMessage(string.Format(ValidationMessages.Password.IsTooLong, GlobalAppConfig.MAX_PASSWORD_LENGTH));
 
             RuleFor(x => x.User).MustAsync(async (request, val, token) =>
             {

@@ -2,6 +2,7 @@
 {
     using System.Runtime.CompilerServices;
     using System.Security.Cryptography;
+    using TrainsOnline.Common;
 
     //TODO Use System.Security.SecureString
     internal class PasswordHasher
@@ -27,6 +28,9 @@
 
         public bool ValidatePassword(string password, string saltedPassword)
         {
+            if (password.Length < GlobalAppConfig.MIN_PASSWORD_LENGTH || password.Length > GlobalAppConfig.MAX_PASSWORD_LENGTH)
+                return false;
+
             HashedPassword correctPassword = new HashedPassword(saltedPassword, SALT_BYTE_SIZE);
             byte[] testHash = PBKDF2(password, correctPassword.SaltToArray(), PBKDF2_ITERATIONS, HASH_BYTE_SIZE, HASH_ALGORITHM);
 

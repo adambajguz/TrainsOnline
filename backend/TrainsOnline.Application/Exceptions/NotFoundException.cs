@@ -8,13 +8,13 @@
         public Guid? Id { get; }
 
         public NotFoundException(string entityName)
-            : base($"Entity \"{entityName}\" was not found.")
+            : base($"Entity '{entityName}' was not found.")
         {
             EntityName = entityName;
         }
 
         public NotFoundException(string entityName, Guid id)
-            : base($"Entity \"{entityName}\" ({id}) was not found.")
+            : base($"Entity '{entityName}' ({id}) was not found.")
         {
             EntityName = entityName;
             Id = id;
