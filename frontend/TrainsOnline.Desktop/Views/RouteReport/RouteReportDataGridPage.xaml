@@ -86,10 +86,6 @@
                                 <TextBlock Text="{Binding PowerMean}" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="PowerMean: " />
-                                <TextBlock Text="{Binding PowerMean}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="PowerSd: " />
                                 <TextBlock Text="{Binding PowerSd}" />
                             </StackPanel>
