@@ -14,6 +14,7 @@
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Handlers.AnalyticsRecordHandlers.Commands.CreateOrUpdateAnalyticsRecord;
 
+    //TODO add min max average request to respone time
     public class AnalyticsMiddleware
     {
         private const int MAX_PATH_LENGTH = 256;

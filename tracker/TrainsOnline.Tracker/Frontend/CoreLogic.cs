@@ -60,7 +60,7 @@
         {
             Random random = new Random();
             DateTime start = routeDetails.DepartureTime;
-            int durationMinutes = routeDetails.Duration.Minutes;
+            int durationMinutes = (int)routeDetails.Duration.TotalMinutes;
 
             double latitudeStep = (routeDetails.From.Latitude - routeDetails.To.Latitude) / durationMinutes;
             double longitudeStep = (routeDetails.From.Longitude - routeDetails.To.Longitude) / durationMinutes;
