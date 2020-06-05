@@ -1,5 +1,6 @@
 ﻿namespace TrainsOnline.Tracker
 {
+    using System;
     using CommandLine;
     using SPA.xUnitGen.Frontend;
     using SPA.xUnitGen.Logger;
@@ -8,10 +9,12 @@
     {
         private static void Main(string[] args)
         {
+            Console.WriteLine("Starting...");
+
             SerilogConfiguration.ConfigureSerilog();
 
             Parser.Default.ParseArguments<Options>(args)
-                 .WithParsed(CoreLogic.Execute)
+                 .WithParsed((options) => CoreLogic.Execute(options).Wait())
                  .WithNotParsed(CoreLogic.HandleOptionsErrors);
         }
     }

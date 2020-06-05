@@ -6,9 +6,7 @@
     using System.Threading.Tasks;
     using RestSharp;
     using TrainsOnline.Tracker.Application.DTO;
-    using TrainsOnline.Tracker.Application.DTO.Analytics;
     using TrainsOnline.Tracker.Application.DTO.Authentication;
-    using TrainsOnline.Tracker.Application.DTO.EntityAuditLog;
     using TrainsOnline.Tracker.Application.DTO.Route;
     using TrainsOnline.Tracker.Application.DTO.RouteLog;
     using TrainsOnline.Tracker.Application.DTO.RouteReport;
@@ -147,76 +145,6 @@
             return response.Data;
         }
 
-        public async Task UpdateUser(UpdateUserRequest data)
-        {
-            if (!IsAuthenticated)
-            {
-                return;
-            }
-
-            RestRequest request = new RestRequest("user/update", DataFormat.Json);
-            request.AddJsonBody(data)
-                   .AddBearerAuthentication(Token);
-
-            IRestResponse response = await Client.ExecuteAsync(request, Method.PUT);
-            CheckResponseErrors(response);
-
-            return;
-        }
-
-        public async Task ChangePassword(ChangePasswordRequest data)
-        {
-            if (!IsAuthenticated)
-            {
-                return;
-            }
-
-            RestRequest request = new RestRequest("user/change-password", DataFormat.Json);
-            request.AddJsonBody(data)
-                   .AddBearerAuthentication(Token);
-
-            IRestResponse response = await Client.ExecuteAsync(request, Method.PUT);
-            CheckResponseErrors(response);
-
-            return;
-        }
-
-        #region Analytics
-        public async Task<GetAnalyticsRecordsListResponse> GetAnalytics()
-        {
-            if (!IsAuthenticated)
-            {
-                return null;
-            }
-
-            RestRequest request = new RestRequest("analytics-record/get-all", DataFormat.Json);
-            request.AddBearerAuthentication(Token);
-
-            IRestResponse<GetAnalyticsRecordsListResponse> response = await Client.ExecuteGetAsync<GetAnalyticsRecordsListResponse>(request);
-            CheckResponseErrors(response);
-
-            return response.Data;
-        }
-        #endregion
-
-        #region EntityAudtiLogs
-        public async Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs()
-        {
-            if (!IsAuthenticated)
-            {
-                return null;
-            }
-
-            RestRequest request = new RestRequest("entity-audit-log/get-all", DataFormat.Json);
-            request.AddBearerAuthentication(Token);
-
-            IRestResponse<GetEntityAuditLogsListResponse> response = await Client.ExecuteGetAsync<GetEntityAuditLogsListResponse>(request);
-            CheckResponseErrors(response);
-
-            return response.Data;
-        }
-        #endregion
-
         #region RouteLog
         public async Task<GetRouteLogsListResponse> GetEntityRouteLogs()
         {
@@ -232,11 +160,28 @@
             CheckResponseErrors(response);
 
             return response.Data;
+        }    
+        
+        public async Task<GetRouteLogsListResponse> RouteLogCreate(CreateRouteLogRequest data)
+        {
+            if (!IsAuthenticated)
+            {
+                return null;
+            }
+
+            RestRequest request = new RestRequest("route-log/create", DataFormat.Json);
+            request.AddBearerAuthentication(Token);
+            request.AddJsonBody(data);
+
+            IRestResponse<GetRouteLogsListResponse> response = await Client.ExecutePostAsync<GetRouteLogsListResponse>(request);
+            CheckResponseErrors(response);
+
+            return response.Data;
         }
         #endregion
 
         #region RouteReport
-        public async Task<GetRouteReportsListResponse> GetEntityRouteReports()
+        public async Task<IdResponse> GetEntityRouteReports()
         {
             if (!IsAuthenticated)
             {
@@ -246,7 +191,24 @@
             RestRequest request = new RestRequest("route-report/get-all", DataFormat.Json);
             request.AddBearerAuthentication(Token);
 
-            IRestResponse<GetRouteReportsListResponse> response = await Client.ExecuteGetAsync<GetRouteReportsListResponse>(request);
+            IRestResponse<IdResponse> response = await Client.ExecuteGetAsync<IdResponse>(request);
+            CheckResponseErrors(response);
+
+            return response.Data;
+        }
+
+        public async Task<IdResponse> RouteReportCreate(IdRequest data)
+        {
+            if (!IsAuthenticated)
+            {
+                return null;
+            }
+
+            RestRequest request = new RestRequest("route-report/create", DataFormat.Json);
+            request.AddBearerAuthentication(Token);
+            request.AddJsonBody(data);
+
+            IRestResponse<IdResponse> response = await Client.ExecutePostAsync<IdResponse>(request);
             CheckResponseErrors(response);
 
             return response.Data;

@@ -20,7 +20,7 @@
 
             loggerConfiguration.MinimumLevel.Override("Microsoft", LogEventLevel.Debug);
             loggerConfiguration.MinimumLevel.Verbose();
-            loggerConfiguration.WriteTo.Async(a => a.Logger(WriteToConsole(loggerSettigns)));
+            //loggerConfiguration.WriteTo.Async(a => a.Logger(WriteToConsole(loggerSettigns)));
 
             Log.Logger = loggerConfiguration.WriteTo.Async(WriteToFile(loggerSettigns))
                                             .CreateLogger();
