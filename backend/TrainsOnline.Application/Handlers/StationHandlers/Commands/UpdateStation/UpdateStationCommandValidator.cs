@@ -3,7 +3,6 @@
     using Domain.Entities;
     using FluentValidation;
     using TrainsOnline.Application.Constants;
-    using TrainsOnline.Application.Interfaces.UoW;
 
     public class UpdateStationCommandValidator : AbstractValidator<UpdateStationCommandValidator.Model>
     {

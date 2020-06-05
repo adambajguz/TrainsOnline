@@ -82,8 +82,8 @@
                 entity = await _dbSet.FirstOrDefaultAsync(filter, cancellationToken);
 
             return entity ?? throw new NotFoundException(EntityName);
-        }  
-        
+        }
+
         public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                                         CancellationToken cancellationToken = default)
         {
@@ -119,8 +119,8 @@
             TEntity? entity = await _dbSet.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             return entity ?? throw new NotFoundException(EntityName, id);
-        } 
-        
+        }
+
         public async Task<TEntity?> SingleByIdOrDefaultAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbSet.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
@@ -131,8 +131,8 @@
             TEntity? entity = await _dbSet.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
             return entity ?? throw new NotFoundException(EntityName, id);
-        }      
-        
+        }
+
         public async Task<TEntity?> NoTrackingSingleByIdOrDefaultAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbSet.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id, cancellationToken);

@@ -32,17 +32,17 @@
                                             CancellationToken cancellationToken = default);
 
         Task<TEntity> SingleAsync(Expression<Func<TEntity, bool>> filter,
-                                  CancellationToken cancellationToken = default);      
+                                  CancellationToken cancellationToken = default);
         Task<TEntity?> SingleOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                             CancellationToken cancellationToken = default);
 
         Task<TEntity> FirstAsync(Expression<Func<TEntity, bool>>? filter = null,
-                                 CancellationToken cancellationToken = default);        
+                                 CancellationToken cancellationToken = default);
         Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                            CancellationToken cancellationToken = default);
 
         Task<TEntity> NoTrackigFirstAsync(Expression<Func<TEntity, bool>>? filter = null,
-                                           CancellationToken cancellationToken = default);    
+                                           CancellationToken cancellationToken = default);
         Task<TEntity?> NoTrackigFirstOrDefaultAsync(Expression<Func<TEntity, bool>>? filter = null,
                                                     CancellationToken cancellationToken = default);
 
