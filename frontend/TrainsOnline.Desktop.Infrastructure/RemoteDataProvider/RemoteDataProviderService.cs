@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Desktop.Domain.RemoteDataProvider
+﻿namespace TrainsOnline.Desktop.Infrastructure.RemoteDataProvider
 {
     using System;
     using System.Threading.Tasks;
@@ -14,8 +14,8 @@
     using TrainsOnline.Desktop.Domain.DTO.Station;
     using TrainsOnline.Desktop.Domain.DTO.Ticket;
     using TrainsOnline.Desktop.Domain.DTO.User;
-    using TrainsOnline.Desktop.Domain.RemoteDataProvider.Interfaces;
     using TrainsOnline.Desktop.Infrastructure.Helpers;
+    using TrainsOnline.Desktop.Infrastructure.RemoteDataProvider.Interfaces;
 
     public class RemoteDataProviderService : IRemoteDataProviderService
     {

@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Desktop.Infrastructure.Json
+﻿namespace TrainsOnline.Tracker.Application.Json
 {
     using System;
     using Newtonsoft.Json;
@@ -64,8 +64,7 @@
                 return null;
             }
 
-            Type t = isNullable ? Nullable.GetUnderlyingType(objectType) : objectType;
-
+            //Type t = isNullable ? Nullable.GetUnderlyingType(objectType) : objectType;
 
             if (reader.TokenType == JsonToken.String)
             {

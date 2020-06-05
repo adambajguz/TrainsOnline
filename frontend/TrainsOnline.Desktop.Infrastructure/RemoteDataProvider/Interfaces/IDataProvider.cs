@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Desktop.Domain.RemoteDataProvider.Interfaces
+﻿namespace TrainsOnline.Desktop.Infrastructure.RemoteDataProvider.Interfaces
 {
     using System;
     using System.Threading.Tasks;

@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ceras" Version="4.1.7" />
-    <PackageReference Include="Humanizer.Core" Version="2.8.11" />
+    <PackageReference Include="Humanizer.Core" Version="2.8.26" />
     <PackageReference Include="Pluralize.NET.Core" Version="1.0.0" />
   </ItemGroup>
   <PropertyGroup>

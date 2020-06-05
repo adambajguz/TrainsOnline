@@ -27,6 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Connected Services\Microsoft WCF Web Service Reference Provider\" />
+    <Folder Include="Connected Services\" />
   </ItemGroup>
 </Project>

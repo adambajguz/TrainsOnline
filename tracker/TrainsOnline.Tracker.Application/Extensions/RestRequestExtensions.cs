@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Desktop.Infrastructure.Extensions
+﻿namespace TrainsOnline.Tracker.Application.Extensions
 {
     using RestSharp;
 

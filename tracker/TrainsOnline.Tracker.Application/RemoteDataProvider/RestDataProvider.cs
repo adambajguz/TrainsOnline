@@ -1,25 +1,23 @@
-﻿namespace TrainsOnline.Desktop.Infrastructure.RemoteDataProvider
+﻿namespace TrainsOnline.Desktop.Domain.RemoteDataProvider
 {
     using System;
     using System.Net;
     using System.Text;
     using System.Threading.Tasks;
     using RestSharp;
-    using TrainsOnline.Desktop.Application.Exceptions;
-    using TrainsOnline.Desktop.Domain.DTO;
-    using TrainsOnline.Desktop.Domain.DTO.Analytics;
-    using TrainsOnline.Desktop.Domain.DTO.Authentication;
-    using TrainsOnline.Desktop.Domain.DTO.EntityAuditLog;
-    using TrainsOnline.Desktop.Domain.DTO.Route;
-    using TrainsOnline.Desktop.Domain.DTO.RouteLog;
-    using TrainsOnline.Desktop.Domain.DTO.RouteReport;
-    using TrainsOnline.Desktop.Domain.DTO.Station;
-    using TrainsOnline.Desktop.Domain.DTO.Ticket;
-    using TrainsOnline.Desktop.Domain.DTO.User;
-    using TrainsOnline.Desktop.Infrastructure.Extensions;
-    using TrainsOnline.Desktop.Infrastructure.RemoteDataProvider.Interfaces;
+    using TrainsOnline.Tracker.Application.DTO;
+    using TrainsOnline.Tracker.Application.DTO.Analytics;
+    using TrainsOnline.Tracker.Application.DTO.Authentication;
+    using TrainsOnline.Tracker.Application.DTO.EntityAuditLog;
+    using TrainsOnline.Tracker.Application.DTO.Route;
+    using TrainsOnline.Tracker.Application.DTO.RouteLog;
+    using TrainsOnline.Tracker.Application.DTO.RouteReport;
+    using TrainsOnline.Tracker.Application.DTO.Station;
+    using TrainsOnline.Tracker.Application.DTO.User;
+    using TrainsOnline.Tracker.Application.Exceptions;
+    using TrainsOnline.Tracker.Application.Extensions;
 
-    public class RestDataProvider : IDataProvider
+    public class RestDataProvider
     {
         private const string ApiUrl = "https://genericapi.francecentral.cloudapp.azure.com/api/";
         private const string ApiUrlLocal = "http://localhost:2137/api";
@@ -149,69 +147,12 @@
             return response.Data;
         }
 
-        public async Task<IdResponse> CreateTicket(CreateTicketRequest data)
-        {
-            if (!IsAuthenticated)
-                return null;
-
-            RestRequest request = new RestRequest("ticket/create", DataFormat.Json);
-            request.AddJsonBody(data)
-                   .AddBearerAuthentication(Token);
-
-            IRestResponse<IdResponse> response = await Client.ExecutePostAsync<IdResponse>(request);
-            CheckResponseErrors(response);
-
-            return response.Data;
-        }
-
-        public async Task<GetTicketDetailsResponse> GetTicket(Guid id)
-        {
-            if (!IsAuthenticated)
-                return null;
-
-            RestRequest request = new RestRequest("ticket/get/{id}", DataFormat.Json);
-            request.AddParameter("id", id, ParameterType.UrlSegment)
-                   .AddBearerAuthentication(Token);
-
-            IRestResponse<GetTicketDetailsResponse> response = await Client.ExecuteGetAsync<GetTicketDetailsResponse>(request);
-            CheckResponseErrors(response);
-
-            return response.Data;
-        }
-
-        public async Task<GetTicketDocumentResponse> GetTicketDocument(Guid id)
-        {
-            if (!IsAuthenticated)
-                return null;
-
-            RestRequest request = new RestRequest("ticket/get-document/{id}", DataFormat.Json);
-            request.AddParameter("id", id, ParameterType.UrlSegment)
-                   .AddBearerAuthentication(Token);
-
-            IRestResponse<GetTicketDocumentResponse> response = await Client.ExecuteGetAsync<GetTicketDocumentResponse>(request);
-            CheckResponseErrors(response);
-
-            return response.Data;
-        }
-
-        public async Task<GetUserTicketsListResponse> GetCurrentUserTickets()
-        {
-            if (!IsAuthenticated)
-                return null;
-
-            RestRequest request = new RestRequest("ticket/get-all-current-user", DataFormat.Json);
-            request.AddBearerAuthentication(Token);
-
-            IRestResponse<GetUserTicketsListResponse> response = await Client.ExecuteGetAsync<GetUserTicketsListResponse>(request);
-            CheckResponseErrors(response);
-
-            return response.Data;
-        }
-
         public async Task UpdateUser(UpdateUserRequest data)
         {
             if (!IsAuthenticated)
+            {
                 return;
+            }
 
             RestRequest request = new RestRequest("user/update", DataFormat.Json);
             request.AddJsonBody(data)
@@ -226,7 +167,9 @@
         public async Task ChangePassword(ChangePasswordRequest data)
         {
             if (!IsAuthenticated)
+            {
                 return;
+            }
 
             RestRequest request = new RestRequest("user/change-password", DataFormat.Json);
             request.AddJsonBody(data)
@@ -242,7 +185,9 @@
         public async Task<GetAnalyticsRecordsListResponse> GetAnalytics()
         {
             if (!IsAuthenticated)
+            {
                 return null;
+            }
 
             RestRequest request = new RestRequest("analytics-record/get-all", DataFormat.Json);
             request.AddBearerAuthentication(Token);
@@ -258,7 +203,9 @@
         public async Task<GetEntityAuditLogsListResponse> GetEntityAudtiLogs()
         {
             if (!IsAuthenticated)
+            {
                 return null;
+            }
 
             RestRequest request = new RestRequest("entity-audit-log/get-all", DataFormat.Json);
             request.AddBearerAuthentication(Token);
@@ -274,7 +221,9 @@
         public async Task<GetRouteLogsListResponse> GetEntityRouteLogs()
         {
             if (!IsAuthenticated)
+            {
                 return null;
+            }
 
             RestRequest request = new RestRequest("route-log/get-all", DataFormat.Json);
             request.AddBearerAuthentication(Token);
@@ -290,7 +239,9 @@
         public async Task<GetRouteReportsListResponse> GetEntityRouteReports()
         {
             if (!IsAuthenticated)
+            {
                 return null;
+            }
 
             RestRequest request = new RestRequest("route-report/get-all", DataFormat.Json);
             request.AddBearerAuthentication(Token);
