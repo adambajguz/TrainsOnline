@@ -28,6 +28,7 @@
         public const string Create = nameof(CreateTicket);
         public const string GetDetails = nameof(GetTicketDetails);
         public const string GetDocument = nameof(GetTicketDocument);
+        private const string GetDocumentCacheKey = nameof(TicketController) + "_" + GetDocument;
         public const string ValidateDocument = nameof(GetValidateDocument);
         public const string Update = nameof(UpdateStation);
         public const string Delete = nameof(DeleteTicket);
@@ -82,12 +83,12 @@
             //TODO crerate own distributed cache
             //TODO remove serializable attribute from data poco/dto class
             ICacheEntryConfig config = Cache.CreateConfig();
-            config.Key = "Ticket";
+            config.Key = GetDocumentCacheKey;
             config.ExtendedKey = id;
             config.ExtendedKeyMode = CacheExtendedKeyModes.UseToString;
             config.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
-            GetTicketDocumentResponse? response = await Cache.SynchronizedGetOrSetAsync<GetTicketDocumentResponse>(config, async () =>
+            GetTicketDocumentResponse? response = await Cache.SynchronizedGetOrSetAsync(config, async () =>
             {
                 return await Mediator.Send(new GetTicketDocumentQuery(new IdRequest(id)));
             });

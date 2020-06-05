@@ -10,6 +10,7 @@
         public ICustomCacheEntry CreateEntry();
 
         #region Unsynchronized / Thread unsafe
+        Task DeleteAsync(string key, object? extendedKey = null, CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode);
         Task<ICustomCacheEntry?> GetAsync(string key, object? extendedKey = null, CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode);
         Task<ICustomCacheEntry?> GetWithFullKeyAsync(string fullKey);
         Task SetAsync(ICacheEntryConfig entryConfig, object value);

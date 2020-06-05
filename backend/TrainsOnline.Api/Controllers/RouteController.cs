@@ -14,6 +14,8 @@
     using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetFilteredRoutesList;
     using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetails;
     using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRoutesList;
+    using TrainsOnline.Common.Cache;
+    using TrainsOnline.Common.Interfaces;
     using TrainsOnline.Domain.Jwt;
 
     [Route("api/route")]
@@ -26,6 +28,14 @@
         public const string Delete = nameof(DeleteRoute);
         public const string GetFiltered = nameof(GetFilteredRoutesList);
         public const string GetAll = nameof(GetRoutesList);
+        private const string GetAllCacheKey = nameof(RouteController) + "_" + GetAll;
+
+        private ICachingService Cache { get; }
+
+        public RouteController(ICachingService cache)
+        {
+            Cache = cache;
+        }
 
         [Authorize(Roles = Roles.Admin)]
         [HttpPost("create")]
@@ -37,6 +47,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> CreateRoute([FromBody] CreateRouteRequest route)
         {
+            await Cache.DeleteAsync(GetAllCacheKey);
+
             return Ok(await Mediator.Send(new CreateRouteCommand(route)));
         }
 
@@ -61,6 +73,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> UpdateRoute([FromBody] UpdateRouteRequest route)
         {
+            await Cache.DeleteAsync(GetAllCacheKey);
+
             return Ok(await Mediator.Send(new UpdateRouteCommand(route)));
         }
 
@@ -74,6 +88,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> DeleteRoute([FromRoute] Guid id)
         {
+            await Cache.DeleteAsync(GetAllCacheKey);
+
             return Ok(await Mediator.Send(new DeleteRouteCommand(new IdRequest(id))));
         }
 
@@ -94,7 +110,19 @@
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRoutesListResponse))]
         public async Task<IActionResult> GetRoutesList()
         {
-            return Ok(await Mediator.Send(new GetRoutesListQuery()));
+            //TODO refactor with action instead of CreateConfig
+            //TODO crerate own distributed cache
+            //TODO remove serializable attribute from data poco/dto class
+            ICacheEntryConfig config = Cache.CreateConfig();
+            config.Key = GetAllCacheKey;
+            config.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1);
+
+            GetRoutesListResponse? response = await Cache.SynchronizedGetOrSetAsync(config, async () =>
+            {
+                return await Mediator.Send(new GetRoutesListQuery());
+            });
+
+            return Ok(response!);
         }
     }
 }

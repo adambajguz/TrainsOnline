@@ -37,7 +37,16 @@
         }
 
         #region Unsynchronized / Thread unsafe
-        #region Synchronous
+        public async Task DeleteAsync(string key, object? extendedKey = null, CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode)
+        {
+            if (key is null)
+                throw new ArgumentNullException(nameof(key));
+
+            string fullKey = CacheEntryConfig.GetFullKey(key, extendedKey, extendedKeyMode);
+
+            await Provider.RemoveAsync(fullKey);
+        }
+
         public async Task<ICustomCacheEntry?> GetAsync(string key, object? extendedKey = null, CacheExtendedKeyModes extendedKeyMode = CacheExtendedKeyModes.UseGetHashCode)
         {
             if (key is null)
@@ -205,7 +214,6 @@
         {
             return await SynchronizedGetOrSetAsync(entryConfig, null, createValue, timeout);
         }
-        #endregion
         #endregion
 
         //private IQueryable<string> GetAllKeysQueryable()

@@ -13,6 +13,8 @@
     using TrainsOnline.Application.Handlers.StationHandlers.Commands.UpdateStation;
     using TrainsOnline.Application.Handlers.StationHandlers.Queries.GetStationDetails;
     using TrainsOnline.Application.Handlers.StationHandlers.Queries.GetStationsList;
+    using TrainsOnline.Common.Cache;
+    using TrainsOnline.Common.Interfaces;
     using TrainsOnline.Domain.Jwt;
 
     [Route("api/station")]
@@ -24,10 +26,13 @@
         public const string Update = nameof(UpdateStation);
         public const string Delete = nameof(DeleteStation);
         public const string GetAll = nameof(GetStationsList);
+        private const string GetAllCacheKey = nameof(StationController) + "_" + GetAll;
 
-        public StationController()
+        private ICachingService Cache { get; }
+
+        public StationController(ICachingService cache)
         {
-
+            Cache = cache;
         }
 
         [Authorize(Roles = Roles.Admin)]
@@ -40,6 +45,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> CreateStation([FromBody] CreateStationRequest station)
         {
+            await Cache.DeleteAsync(GetAllCacheKey);
+
             return Ok(await Mediator.Send(new CreateStationCommand(station)));
         }
 
@@ -64,6 +71,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> UpdateStation([FromBody] UpdateStationRequest station)
         {
+            await Cache.DeleteAsync(GetAllCacheKey);
+
             return Ok(await Mediator.Send(new UpdateStationCommand(station)));
         }
 
@@ -77,6 +86,8 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> DeleteStation([FromRoute] Guid id)
         {
+            await Cache.DeleteAsync(GetAllCacheKey);
+
             return Ok(await Mediator.Send(new DeleteStationCommand(new IdRequest(id))));
         }
 
@@ -87,7 +98,19 @@
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetStationsListResponse))]
         public async Task<IActionResult> GetStationsList()
         {
-            return Ok(await Mediator.Send(new GetStationsListQuery()));
+            //TODO refactor with action instead of CreateConfig
+            //TODO crerate own distributed cache
+            //TODO remove serializable attribute from data poco/dto class
+            ICacheEntryConfig config = Cache.CreateConfig();
+            config.Key = GetAllCacheKey;
+            config.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(1);
+
+            GetStationsListResponse? response = await Cache.SynchronizedGetOrSetAsync(config, async () =>
+            {
+                return await Mediator.Send(new GetStationsListQuery());
+            });
+
+            return Ok(response!);
         }
     }
 }
