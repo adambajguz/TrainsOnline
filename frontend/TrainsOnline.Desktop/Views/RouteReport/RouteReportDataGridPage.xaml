@@ -46,51 +46,91 @@
                             Grid.Row="1"
                             Grid.Column="0"
                             Orientation="Vertical">
-                            <TextBlock Text="Id" />
-                            <TextBlock Text="{Binding Id}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Id: " />
+                                <TextBlock Text="{Binding Id}" />
+                            </StackPanel>
 
-                            <TextBlock Text="VoltageMin" />
-                            <TextBlock Text="{Binding VoltageMin}" />
-                            <TextBlock Text="VoltageMean" />
-                            <TextBlock Text="{Binding VoltageMean}" />
-                            <TextBlock Text="VoltageSd" />
-                            <TextBlock Text="{Binding VoltageSd}" />
-                            <TextBlock Text="VoltageMax" />
-                            <TextBlock Text="{Binding VoltageMax}" />
-                            
-                            <TextBlock Text="CurrentMean" />
-                            <TextBlock Text="{Binding CurrentMean}" />
-                            <TextBlock Text="CurrentSd" />
-                            <TextBlock Text="{Binding CurrentSd}" />
-                            <TextBlock Text="CurrentMax" />
-                            <TextBlock Text="{Binding CurrentMax}" />                            
-                            
-                            <TextBlock Text="PowerMean" />
-                            <TextBlock Text="{Binding PowerMean}" />
-                            <TextBlock Text="PowerSd" />
-                            <TextBlock Text="{Binding PowerSd}" />
-                            <TextBlock Text="PowerMax" />
-                            <TextBlock Text="{Binding PowerMax}" />
-                            
-                            <TextBlock Text="SpeedMean" />
-                            <TextBlock Text="{Binding SpeedMean}" />
-                            <TextBlock Text="SpeedSd" />
-                            <TextBlock Text="{Binding SpeedSd}" />
-                            <TextBlock Text="SpeedMax" />
-                            <TextBlock Text="{Binding SpeedMax}" />
-                            
-                            <TextBlock Text="Duration" />
-                            <TextBlock Text="{Binding Duration}" />
-                            <TextBlock Text="NumberOfStops" />
-                            <TextBlock Text="{Binding NumberOfStops}" />
-                            
-                            <TextBlock Text="StopDurationMean" />
-                            <TextBlock Text="{Binding StopDurationMean}" />
-                            <TextBlock Text="StopDurationSd" />
-                            <TextBlock Text="{Binding StopDurationSd}" />
-                            <TextBlock Text="StopDurationMax" />
-                            <TextBlock Text="{Binding StopDurationMax}" />
- 
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="VoltageMin: " />
+                                <TextBlock Text="{Binding VoltageMin}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="VoltageMean: " />
+                                <TextBlock Text="{Binding VoltageMean}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="VoltageSd: " />
+                                <TextBlock Text="{Binding VoltageSd}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="VoltageMax: " />
+                                <TextBlock Text="{Binding VoltageMax}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="CurrentMean: " />
+                                <TextBlock Text="{Binding CurrentMean}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="CurrentSd: " />
+                                <TextBlock Text="{Binding CurrentSd}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="CurrentMax: " />
+                                <TextBlock Text="{Binding CurrentMax}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="PowerMean: " />
+                                <TextBlock Text="{Binding PowerMean}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="PowerMean: " />
+                                <TextBlock Text="{Binding PowerMean}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="PowerSd: " />
+                                <TextBlock Text="{Binding PowerSd}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="PowerMax: " />
+                                <TextBlock Text="{Binding PowerMax}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="SpeedMean: " />
+                                <TextBlock Text="{Binding SpeedMean}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="SpeedSd: " />
+                                <TextBlock Text="{Binding SpeedSd}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="SpeedMax: " />
+                                <TextBlock Text="{Binding SpeedMax}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Duration: " />
+                                <TextBlock Text="{Binding Duration}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="NumberOfStops: " />
+                                <TextBlock Text="{Binding NumberOfStops}" />
+                            </StackPanel>
+                            <!--<StackPanel Orientation="Horizontal">
+                                <TextBlock Text="StopDurationMean: " />
+                                <TextBlock Text="{Binding StopDurationMean}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="StopDurationSd: " />
+                                <TextBlock Text="{Binding StopDurationSd}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="StopDurationMax: " />
+                                <TextBlock Text="{Binding StopDurationMax}" />
+                            </StackPanel>-->
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

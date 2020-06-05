@@ -75,6 +75,7 @@
 
             for (int i = 0; i < durationMinutes; ++i)
             {
+                Console.Write($"{i}/{durationMinutes - 1}: ".PadLeft(12));
                 double speed = random.Next(0, 100);
                 double voltage = random.Next(2800, 3200);
                 double current = random.Next(0, 600);
