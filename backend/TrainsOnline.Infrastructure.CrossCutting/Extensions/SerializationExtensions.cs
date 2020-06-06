@@ -9,7 +9,7 @@
         public static byte[] ToByteArray(this object? obj)
         {
             if (obj == null)
-                return new byte[0];
+                return System.Array.Empty<byte>();
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -37,7 +37,7 @@
             where T : class
         {
             if (obj == null)
-                return new byte[0];
+                return System.Array.Empty<byte>();
 
             CerasSerializer ceras = new CerasSerializer();
 
