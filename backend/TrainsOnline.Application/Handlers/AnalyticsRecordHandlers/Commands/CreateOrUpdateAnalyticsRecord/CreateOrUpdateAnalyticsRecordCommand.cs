@@ -46,7 +46,7 @@ namespace TrainsOnline.Application.Handlers.AnalyticsRecordHandlers.Commands.Cre
                 IHashValue? hashValue = _hasher.ComputeHash(now.ToString() + data.Uri ?? string.Empty + data.UserAgent ?? string.Empty);
                 long hash = BitConverter.ToInt64(hashValue.Hash);
 
-                AnalyticsRecord? prevEntity = await _uow.AnalyticsRecords.SingleOrDefaultAsync(x => x.Hash == hash && x.Timestamp == now && x.Uri == data.Uri);
+                AnalyticsRecord? prevEntity = await _uow.AnalyticsRecords.SingleOrDefaultAsync(x => x.Hash == hash && x.Timestamp == now && x.Uri == data.Uri && x.UserAgent == data.UserAgent);
 
                 if (prevEntity is null)
                 {
