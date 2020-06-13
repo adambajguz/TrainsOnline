@@ -90,7 +90,9 @@ namespace TrainsOnline.Api
             if (FeaturesSettings.AlwaysUseExceptionHandling)
                 app.UseExceptionHandler(error => error.UseCustomErrors(env));
 
-            app.UseAnalytics();
+            app.UseAnalytics()
+               .UseSerilogRequestLogging();
+
             app.UseHttpsRedirection();
 
             //app.UseStaticFiles()
@@ -113,8 +115,7 @@ namespace TrainsOnline.Api
             app.ConfigureSpecialPages(Environment, _services)
                .UseHealthChecks(GlobalAppConfig.AppInfo.HealthUrl);
 
-            app.ConfigureSwagger()
-               .UseSerilogRequestLogging();
+            app.ConfigureSwagger();
         }
 
         private static async Task StatusCodePageRespone(StatusCodeContext statusCodeContext)
