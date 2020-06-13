@@ -90,6 +90,7 @@ namespace TrainsOnline.Api
             if (FeaturesSettings.AlwaysUseExceptionHandling)
                 app.UseExceptionHandler(error => error.UseCustomErrors(env));
 
+            app.UseAnalytics();
             app.UseHttpsRedirection();
 
             //app.UseStaticFiles()
@@ -98,6 +99,7 @@ namespace TrainsOnline.Api
                .UseResponseCompression()
                .UseCors("AllowAll")
                .UseStatusCodePages(StatusCodePageRespone);
+
 
             app.UseAuthentication()
                .UseAuthorization();
@@ -112,7 +114,6 @@ namespace TrainsOnline.Api
                .UseHealthChecks(GlobalAppConfig.AppInfo.HealthUrl);
 
             app.ConfigureSwagger()
-               .UseAnalytics()
                .UseSerilogRequestLogging();
         }
 
