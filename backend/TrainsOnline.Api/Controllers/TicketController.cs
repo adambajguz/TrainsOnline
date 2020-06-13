@@ -9,6 +9,7 @@
     using Swashbuckle.AspNetCore.Annotations;
     using TrainsOnline.Api.CustomMiddlewares.Exceptions;
     using TrainsOnline.Application.DTO;
+    using TrainsOnline.Application.Exceptions;
     using TrainsOnline.Application.Handlers.TicketHandlers.Commands.CreateTicket;
     using TrainsOnline.Application.Handlers.TicketHandlers.Commands.DeleteTicket;
     using TrainsOnline.Application.Handlers.TicketHandlers.Commands.UpdateTicket;
@@ -146,7 +147,7 @@
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> GetCurrentUserTicketsList()
         {
-            IdRequest data = new IdRequest((Guid)CurrentUser.UserId!);
+            IdRequest data = new IdRequest(CurrentUser.UserId ?? throw new ForbiddenException());
 
             return Ok(await Mediator.Send(new GetUserTicketsListQuery(data)));
         }
