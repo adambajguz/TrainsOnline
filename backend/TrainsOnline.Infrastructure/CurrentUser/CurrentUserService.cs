@@ -1,4 +1,4 @@
-﻿namespace TrainsOnline.Infrastructure.CurrentUser
+namespace TrainsOnline.Infrastructure.CurrentUser
 {
     using System;
     using System.Linq;
@@ -38,7 +38,7 @@
         public string[] GetRoles()
         {
             ClaimsIdentity? identity = _context.HttpContext.User.Identity as ClaimsIdentity;
-            string[] roles = identity?.FindAll(ClaimTypes.Role).Select(x => x.Value).ToArray() ?? new string[] { };
+            string[] roles = identity?.FindAll(ClaimTypes.Role).Select(x => x.Value).ToArray() ?? Array.Empty<string>();
 
             return roles;
         }

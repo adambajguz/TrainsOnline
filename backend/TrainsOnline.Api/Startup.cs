@@ -52,11 +52,11 @@ namespace TrainsOnline.Api
             //    typeof(Application.Content.DependencyInjection).GetTypeInfo().Assembly
             //    });
 
-            services.AddInfrastructureCrossCuttingLayer()
+            services.AddRestApi()
+                    .AddInfrastructureCrossCuttingLayer()
                     .AddInfrastructureLayer(Configuration)
                     .AddPersistenceLayer(Configuration)
-                    .AddApplicationLayer()
-                    .AddRestApi();
+                    .AddApplicationLayer();
 
             services.AddHealthChecks()
                     .AddDbContextCheck<TrainsOnlineRelationalDbContext>();
@@ -66,49 +66,54 @@ namespace TrainsOnline.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseRouting()
-               .UseSerilogRequestLogging()
-               .UseAnalytics()
-               .UseCors("AllowAll")
-               .UseCustomExceptionHandler()
-               .UseResponseCompression()
-               .UseStatusCodePages(StatusCodePageRespone)
-               .UseHttpsRedirection();
-
-            app.UseAuthentication()
-               .UseAuthorization();
-
-
-            app.UseEndpoints(endpoints =>
-            {
-                //endpoints.MapHealthChecks("/health");
-                endpoints.MapControllers();
-            });
-
-
-            if (GlobalAppConfig.DEV_MODE)
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.ConfigureSpecialPages(Environment, _services);
-
-            app.UseHealthChecks(GlobalAppConfig.AppInfo.HealthUrl);
-
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.ConfigureSwagger();
+            if (GlobalAppConfig.DEV_MODE)
+            {
+                app.UseDeveloperExceptionPage();
+                //app.UseBrowserLink();
+            }
+            else
+            {
+                if (!FeaturesSettings.AlwaysUseExceptionHandling)
+                    app.UseExceptionHandler(error => error.UseCustomErrors(env));
+
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            if (FeaturesSettings.AlwaysUseExceptionHandling)
+                app.UseExceptionHandler(error => error.UseCustomErrors(env));
+
+            app.UseHttpsRedirection();
+
+            //app.UseStaticFiles()
+
+            app.UseRouting()
+               .UseResponseCompression()
+               .UseCors("AllowAll")
+               .UseStatusCodePages(StatusCodePageRespone);
+
+            app.UseAuthentication()
+               .UseAuthorization();
+            //.UseSession();
+
+            app.UseEndpoints(endpoints =>
+            {
+                //endpoints.MapHealthChecks("/healthy");
+                endpoints.MapControllers();
+            });
+            app.ConfigureSpecialPages(Environment, _services)
+               .UseHealthChecks(GlobalAppConfig.AppInfo.HealthUrl);
+
+            app.ConfigureSwagger()
+               .UseAnalytics()
+               .UseSerilogRequestLogging();
         }
 
         private static async Task StatusCodePageRespone(StatusCodeContext statusCodeContext)

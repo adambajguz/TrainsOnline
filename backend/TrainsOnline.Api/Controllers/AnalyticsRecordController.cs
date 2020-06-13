@@ -33,7 +33,7 @@
         [Authorize(Roles = Roles.Admin)]
         [HttpGet("get-all")]
         [SwaggerOperation(
-            Summary = "Get all route logs [" + Roles.Admin + "]",
+            Summary = "Get all analytics records [" + Roles.Admin + "]",
             Description = "Gets a list of all analytics records")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetAnalyticsRecordsListQuery))]
         public async Task<IActionResult> GetAnalyticsRecordsList()
