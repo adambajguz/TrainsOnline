@@ -1,10 +1,12 @@
 ﻿namespace TrainsOnline.Api.Configuration
 {
     using System.Collections.Generic;
+    using System.Reflection;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
+    using Serilog;
     using TrainsOnline.Common;
 
     public static class SwaggerConfiguration
@@ -32,9 +34,16 @@
                 c.SwaggerEndpoint(GlobalAppConfig.AppInfo.SwaggerStartupUrl, GlobalAppConfig.AppInfo.AppNameWithVersion);
 
                 //https://mac-blog.org.ua/dotnet-core-swashbuckle-3-bearer-auth/
-                System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-                string? ns = assembly.GetName().Name;
-                c.IndexStream = () => assembly.GetManifestResourceStream($"{ns}.index.html");
+                Assembly? assembly = MethodBase.GetCurrentMethod()?.DeclaringType?.Assembly;
+                if (assembly is null)
+                {
+                    Log.Error("Custom SwaggerUI index.html cannot be retrived. Using default.");
+                }
+                else
+                {
+                    string? ns = assembly.GetName().Name;
+                    c.IndexStream = () => assembly.GetManifestResourceStream($"{ns}.index.html");
+                }
             });
 
             return app;
