@@ -52,11 +52,11 @@ namespace TrainsOnline.Api
             //    typeof(Application.Content.DependencyInjection).GetTypeInfo().Assembly
             //    });
 
-            services.AddRestApi()
-                    .AddInfrastructureCrossCuttingLayer()
+            services.AddInfrastructureCrossCuttingLayer()
                     .AddInfrastructureLayer(Configuration)
                     .AddPersistenceLayer(Configuration)
-                    .AddApplicationLayer();
+                    .AddApplicationLayer()
+                    .AddRestApi();
 
             services.AddHealthChecks()
                     .AddDbContextCheck<TrainsOnlineRelationalDbContext>();

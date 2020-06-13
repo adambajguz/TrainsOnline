@@ -15,6 +15,7 @@
     using TrainsOnline.Application.Handlers.UserHandlers.Commands.UpdateUser;
     using TrainsOnline.Application.Handlers.UserHandlers.Queries.GetUserDetails;
     using TrainsOnline.Application.Handlers.UserHandlers.Queries.GetUsersList;
+    using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Domain.Jwt;
 
     [Route("api/user")]
@@ -32,7 +33,7 @@
         [HttpPost("create")]
         [SwaggerOperation(
             Summary = "Create (register) a new user",
-            Description = "Creates a new user (requires [Admin] role to create admin account)")]
+            Description = "Creates a new user (requires [" + Roles.Admin + "] role to create admin account)")]
         [SwaggerResponse(StatusCodes.Status200OK, "User created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
@@ -48,9 +49,9 @@
             Description = "Gets authenticated user details based on token")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetUserDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetCurrentUserDetails()
+        public async Task<IActionResult> GetCurrentUserDetails([FromServices] ICurrentUserService currentUser)
         {
-            IdRequest data = new IdRequest(CurrentUser.UserId ?? throw new ForbiddenException());
+            IdRequest data = new IdRequest(currentUser.UserId ?? throw new ForbiddenException());
 
             return Ok(await Mediator.Send(new GetUserDetailsQuery(data)));
         }
@@ -72,7 +73,7 @@
         [HttpPut("update")]
         [SwaggerOperation(
             Summary = "Updated user details [" + Roles.User + "]",
-            Description = "Updates user details (requires [Admin] role to create admin account)")]
+            Description = "Updates user details (requires [" + Roles.Admin + "] role to update to admin account)")]
         [SwaggerResponse(StatusCodes.Status200OK, "User details updated")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]

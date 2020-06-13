@@ -18,9 +18,11 @@
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetTicketsList;
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.GetUserTicketsList;
     using TrainsOnline.Application.Handlers.TicketHandlers.Queries.ValidateDocument;
+    using TrainsOnline.Application.Interfaces;
     using TrainsOnline.Common.Cache;
     using TrainsOnline.Common.Interfaces;
     using TrainsOnline.Domain.Jwt;
+    using TrainsOnline.Infrastructure.CurrentUser;
 
     [Route("api/ticket")]
     [SwaggerTag("Create, update, and get ticket")]
@@ -47,7 +49,7 @@
         [Authorize(Roles = Roles.User)]
         [HttpPost("create")]
         [SwaggerOperation(
-            Summary = "Create new ticket [User]",
+            Summary = "Create new ticket [" + Roles.User + "]",
             Description = "Creates a new ticket")]
         [SwaggerResponse(StatusCodes.Status200OK, "Ticket created", typeof(IdResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
@@ -60,7 +62,7 @@
         [Authorize(Roles = Roles.User)]
         [HttpGet("get/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Get ticket details [User]",
+            Summary = "Get ticket details [" + Roles.User + "]",
             Description = "Gets ticket details")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetTicketDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
@@ -73,7 +75,7 @@
         [Authorize(Roles = Roles.User)]
         [HttpGet("get-document/{id:guid}")]
         [SwaggerOperation(
-            Summary = "Get ticket document [User]",
+            Summary = "Get ticket document [" + Roles.User + "]",
             Description = "Gets ticket document")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetTicketDocumentResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
@@ -145,9 +147,9 @@
             Description = "Gets a list of all current user tickets")]
         [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetUserTicketsListResponse))]
         [SwaggerResponse(StatusCodes.Status401Unauthorized, null, typeof(ExceptionResponse))]
-        public async Task<IActionResult> GetCurrentUserTicketsList()
+        public async Task<IActionResult> GetCurrentUserTicketsList([FromServices] ICurrentUserService currentUser)
         {
-            IdRequest data = new IdRequest(CurrentUser.UserId ?? throw new ForbiddenException());
+            IdRequest data = new IdRequest(currentUser.UserId ?? throw new ForbiddenException());
 
             return Ok(await Mediator.Send(new GetUserTicketsListQuery(data)));
         }

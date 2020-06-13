@@ -9,19 +9,30 @@ namespace TrainsOnline.Infrastructure.CurrentUser
 
     public class CurrentUserService : ICurrentUserService
     {
-        public Guid? UserId { get; }
-        public bool IsAuthenticated { get; }
-        public bool IsAdmin { get; }
+        /*
+         * IHttpContextAccessor.HttpContext.User.Identity shows all null properties in CurrentUserService service
+         * https://stackoverflow.com/questions/59793111/ihttpcontextaccessor-httpcontext-user-identity-shows-all-null-properties-in-curr
+         *
+         *      public string UserId { get; }
+         *      public CurrentUserService(IHttpContextAccessor httpContextAccessor)
+         *      {
+         *           _context = httpContextAccessor.HttpContext;
+         *           UserId = GetUserIdFromContext(_context);
+         *      }
+         *
+         * Under the ASP.NET MVC framework, the HttpContext (and therefore HttpContext.Session) is not set when the controller class is contructed as you might expect, but it set ("injected") later by the ControllerBuilder class.
+         * The CurrentUserService class that comes with the template I'm using tried to read the user claims in the constructor, so it did not work.
+         */
 
-        private readonly IHttpContextAccessor _context;
+        public Guid? UserId => GetUserIdFromContext(_context);
+        public bool IsAuthenticated => _context.User.Identity.IsAuthenticated;
+        public bool IsAdmin => HasRole(Roles.Admin);
+
+        private readonly HttpContext _context;
 
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            _context = httpContextAccessor;
-
-            UserId = GetUserIdFromContext(_context);
-            IsAuthenticated = UserId != null;
-            IsAdmin = HasRole(Roles.Admin);
+            _context = httpContextAccessor.HttpContext;
         }
 
         public bool HasRole(string role)
@@ -29,23 +40,32 @@ namespace TrainsOnline.Infrastructure.CurrentUser
             if (!Roles.IsValidRole(role))
                 return false;
 
-            ClaimsIdentity? identity = _context.HttpContext.User.Identity as ClaimsIdentity;
-            Claim? result = identity?.FindAll(ClaimTypes.Role).Where(x => x.Value == role).FirstOrDefault();
+            ClaimsIdentity? identity = _context.User.Identity as ClaimsIdentity;
+            Claim? result = identity?.FindAll(ClaimTypes.Role)
+                                     .Where(x => x.Value == role)
+                                     .FirstOrDefault();
 
             return result != null;
         }
 
         public string[] GetRoles()
         {
-            ClaimsIdentity? identity = _context.HttpContext.User.Identity as ClaimsIdentity;
-            string[] roles = identity?.FindAll(ClaimTypes.Role).Select(x => x.Value).ToArray() ?? Array.Empty<string>();
+            ClaimsIdentity? identity = _context.User.Identity as ClaimsIdentity;
+            string[]? roles = identity?.FindAll(ClaimTypes.Role)
+                                       .Select(x => x.Value)
+                                       .ToArray();
 
-            return roles;
+            return roles ?? Array.Empty<string>();
         }
 
         public static Guid? GetUserIdFromContext(IHttpContextAccessor context)
         {
-            ClaimsIdentity? identity = context.HttpContext.User.Identity as ClaimsIdentity;
+            return GetUserIdFromContext(context.HttpContext);
+        }
+
+        public static Guid? GetUserIdFromContext(HttpContext context)
+        {
+            ClaimsIdentity? identity = context.User.Identity as ClaimsIdentity;
             Claim? claim = identity?.FindFirst(ClaimTypes.UserData);
 
             return claim == null ? null : (Guid?)Guid.Parse(claim.Value);
