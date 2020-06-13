@@ -1,10 +1,9 @@
 namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.CreateRouteLog
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using Domain.Entities;
-    using FluentValidation;
     using MediatR;
     using TrainsOnline.Application.DTO;
     using TrainsOnline.Application.Interfaces.UoW;
@@ -31,16 +30,18 @@ namespace TrainsOnline.Application.Handlers.EntityAuditLog.Commands.CreateRouteL
 
             public async Task<IdResponse> Handle(RevertUsingEntityAuditLogCommand request, CancellationToken cancellationToken)
             {
-                RevertUsingEntityAuditLogRequest data = request.Data;
+                throw new NotImplementedException();
 
-                await new RevertUsingEntityAuditLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
+                //RevertUsingEntityAuditLogRequest data = request.Data;
 
-                EntityAuditLog entity = _mapper.Map<EntityAuditLog>(data);
-                _uow.EntityAuditLogs.Add(entity);
+                //await new RevertUsingEntityAuditLogCommandValidator(_uow).ValidateAndThrowAsync(data, cancellationToken: cancellationToken);
 
-                await _uow.SaveChangesAsync(cancellationToken);
+                //EntityAuditLog entity = _mapper.Map<EntityAuditLog>(data);
+                //_uow.EntityAuditLogs.Add(entity);
 
-                return new IdResponse(entity.Id);
+                //await _uow.SaveChangesAsync(cancellationToken);
+
+                //return new IdResponse(entity.Id);
             }
         }
     }
