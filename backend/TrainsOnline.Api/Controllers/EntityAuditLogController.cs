@@ -12,7 +12,6 @@
     using TrainsOnline.Application.Handlers.EntityAuditLog.Queries.GetRouteLogDetails;
     using TrainsOnline.Application.Handlers.EntityAuditLog.Queries.GetRouteLogsList;
     using TrainsOnline.Application.Handlers.EntityAuditLogHandlers.Commands.CleanupEntityAuditLog;
-    using TrainsOnline.Application.Handlers.RouteHandlers.Queries.GetRouteDetails;
     using TrainsOnline.Domain.Jwt;
 
     [Route("api/entity-audit-log")]
@@ -43,7 +42,7 @@
         [SwaggerOperation(
             Summary = "Get audit log details [" + Roles.Admin + "]",
             Description = "Gets audit log details")]
-        [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetRouteDetailsResponse))]
+        [SwaggerResponse(StatusCodes.Status200OK, null, typeof(GetEntityAuditLogDetailsResponse))]
         [SwaggerResponse(StatusCodes.Status400BadRequest, null, typeof(ExceptionResponse))]
         public async Task<IActionResult> GetAuditLogDetails([FromRoute] Guid id)
         {
