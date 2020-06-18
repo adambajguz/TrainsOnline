@@ -10,7 +10,7 @@
   <Identity
     Name="TrainsOnline-7540FD34FX3dbFZ4876-9410G7B9FC085er67"
     Publisher="CN=Admin"
-    Version="1.0.8.0" />
+    Version="1.0.9.0" />
 
   <mp:PhoneIdentity PhoneProductId="040FD34F-3DBF-4876-9410-7B9FC085EE97" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
